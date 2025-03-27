@@ -10,5 +10,9 @@ class World {
 
   draw() {
     this.ctx.drawImage(this.character.img, this.character.x_position, this.character.y_position, this.character.width, this.character.height);
+    let self = this;
+    requestAnimationFrame(() => {
+      self.draw();
+    });
   }
 }
