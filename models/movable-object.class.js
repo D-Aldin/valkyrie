@@ -6,6 +6,7 @@ class MovableObject {
   width = 180;
   imageCache = {};
   currentImage = 0;
+  speed = Math.random() * 0.25;
 
   loadImage(path) {
     this.img = new Image();
@@ -24,7 +25,12 @@ class MovableObject {
     console.log("moving right");
   }
 
-  moveLefit() {
-    console.log("moving left");
+  moveLeft() {
+    setInterval(() => {
+      this.x_position -= this.speed;
+      if (this.x_position < 0) {
+        this.x_position = 500;
+      }
+    }, 2);
   }
 }

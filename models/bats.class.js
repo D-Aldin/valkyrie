@@ -6,15 +6,10 @@ class Bats extends MovableObject {
     this.height = 500;
     this.width = 700;
     this.x_position = Math.random() * 500;
-    this.end = this.moveBats();
+    this.animateMoving();
   }
 
-  moveBats() {
-    setInterval(() => {
-      this.x_position -= 0.25;
-      if (this.x_position < 0) {
-        this.x_position = 500;
-      }
-    }, 1);
+  animateMoving() {
+    this.moveLeft();
   }
 }
