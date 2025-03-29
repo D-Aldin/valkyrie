@@ -1,5 +1,5 @@
 class Valkyrie extends MovableObject {
-  images = [
+  valkyrieWalking = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_001.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_000.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_002.png",
@@ -25,11 +25,22 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_022.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_023.png",
   ];
+  // currentImage = 0;
 
   constructor() {
     super();
     this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_000.png", true);
-    this.loadImagesToCache(this.images);
+    this.loadImagesInCache(this.valkyrieWalking);
+    this.animate();
+  }
+
+  animate() {
+    setInterval(() => {
+      let index = this.currentImage % this.valkyrieWalking.length;
+      let path = this.valkyrieWalking[index];
+      this.img = this.imageCache[path];
+      this, this.currentImage++;
+    }, 60);
   }
 
   jump() {}
