@@ -7,6 +7,7 @@ class MovableObject {
   imageCache = {};
   currentImage = 0;
   speed = Math.random() * 0.25;
+  direction = false;
 
   loadImage(path) {
     this.img = new Image();

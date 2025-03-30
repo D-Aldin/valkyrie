@@ -4,11 +4,18 @@ class World {
   bats = [new Bats(), new Bats()];
   canvas;
   ctx;
+  key;
   backgroundObjects = [new Background("./assets/image/background/PNG/1/4.png", 0), new Background("./assets/image/background/PNG/1/5.png", 0), new Background("./assets/image/background/PNG/1/2.png", 700)];
 
-  constructor(canvas) {
+  constructor(canvas, key) {
     this.ctx = canvas.getContext("2d");
+    this.key = key;
     this.draw();
+    this.setworld();
+  }
+
+  setworld() {
+    this.character.world = this;
   }
 
   draw() {
@@ -35,6 +42,15 @@ class World {
   }
 
   addToMap(element) {
-    this.ctx.drawImage(element.img, element.x_position, element.y_position, element.width, element.height);
+    if (element.direction) {
+      this.ctx.save();
+      // Translate to the character's right edge before flipping
+      this.ctx.translate(element.x_position + element.width, 0);
+      this.ctx.scale(-1, 1);
+      this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
+      this.ctx.restore();
+    } else {
+      this.ctx.drawImage(element.img, element.x_position, element.y_position, element.width, element.height);
+    }
   }
 }
