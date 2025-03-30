@@ -6,6 +6,7 @@ class World {
   ctx;
   key;
   backgroundObjects = [new Background("./assets/image/background/PNG/1/4.png", 0), new Background("./assets/image/background/PNG/1/5.png", 0), new Background("./assets/image/background/PNG/1/2.png", 700)];
+  camera_position = -100;
 
   constructor(canvas, key) {
     this.ctx = canvas.getContext("2d");
@@ -20,11 +21,13 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.translate(this.camera_position, 0);
     this.canvas = canvas;
     this.addObjectsToMap(this.backgroundObjects);
     this.addToMap(this.character); // add valkyrie character
     this.addObjectsToMap(this.enemies); // add skeletons
     this.addObjectsToMap(this.bats);
+    this.ctx.translate(-this.camera_position, 0);
 
     let self = this;
     requestAnimationFrame(() => {

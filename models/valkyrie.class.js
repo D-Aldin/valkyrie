@@ -50,6 +50,7 @@ class Valkyrie extends MovableObject {
         this.x_position -= this.speed;
         this.direction = true;
       }
+      this.world.camera_position = this.x_position;
     }, 60);
   }
 
