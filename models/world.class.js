@@ -5,7 +5,7 @@ class World {
   canvas;
   ctx;
   key;
-  backgroundObjects = [new Background("./assets/image/background/PNG/1/5.png", 0), new Background("./assets/image/background/PNG/1/2.png", 0)];
+  backgroundObjects = [new Background("./assets/image/background/PNG/2/5.png", 0), new Background("./assets/image/background/PNG/2/2.png", 0)];
   camera_position = 0;
 
   constructor(canvas, key) {
@@ -58,19 +58,24 @@ class World {
   }
   
   drawLoopingBackground() {
-    const bgHeight = 480; // Fixed height
+    const bgHeight = 480; 
     this.backgroundObjects.forEach((bg, index) => {
-      const bgWidth = 701
-      const parallaxFactor = 1 - (index * 20);
-      
+      const bgWidth = 720; 
+      const parallaxFactor = 1 - (index * 0.2); 
       const relativeCam = this.camera_position * parallaxFactor;
       const startX = Math.floor(relativeCam / bgWidth) * bgWidth - bgWidth;
-  
-      const repetitions = Math.ceil(this.canvas.width / bgWidth) + 4; // +4 for safe overdraw
-  
+      const repetitions = Math.ceil(this.canvas.width / bgWidth) + 4;
       for (let i = 0; i < repetitions; i++) {
         const xPosition = startX + (i * bgWidth) - relativeCam;
-        this.ctx.drawImage(bg.img, xPosition, 0, bgWidth, bgHeight);
+        if (i % 2 === 1) {
+          this.ctx.save();
+          this.ctx.translate(xPosition + bgWidth, 0);
+          this.ctx.scale(-1, 1); 
+          this.ctx.drawImage(bg.img, 0, 0, bgWidth, bgHeight);
+          this.ctx.restore();
+        } else {
+          this.ctx.drawImage(bg.img, xPosition, 0, bgWidth, bgHeight);
+        }
       }
     });
   }
