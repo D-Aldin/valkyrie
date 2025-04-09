@@ -1,11 +1,11 @@
 class World {
   character = new Valkyrie();
-  enemies = [new Skeleton(), new Skeleton(), new Skeleton()];
-  bats = [new Bats(), new Bats()];
+  enemies = level_1.enemies
+  bats = level_1.bats
   canvas;
   ctx;
   key;
-  backgroundObjects = [new Background("./assets/image/background/PNG/2/5.png", 0), new Background("./assets/image/background/PNG/2/2.png", 0)];
+  backgroundObjects = level_1.backgroundObjects
   camera_position = 0;
 
   constructor(canvas, key) {
@@ -13,7 +13,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.key = key;
     this.draw();
-    this.setworld();
+    this.setworld();    
   }
 
   setworld() {
@@ -59,12 +59,13 @@ class World {
   
   drawLoopingBackground() {
     const bgHeight = 480; 
+    
     this.backgroundObjects.forEach((bg, index) => {
       const bgWidth = 720; 
       const parallaxFactor = 1 - (index * 0.2); 
       const relativeCam = this.camera_position * parallaxFactor;
       const startX = Math.floor(relativeCam / bgWidth) * bgWidth - bgWidth;
-      const repetitions = Math.ceil(this.canvas.width / bgWidth) + 4;
+      const repetitions = Math.ceil(this.canvas.width / bgWidth) + 10;
       for (let i = 0; i < repetitions; i++) {
         const xPosition = startX + (i * bgWidth) - relativeCam;
         if (i % 2 === 1) {

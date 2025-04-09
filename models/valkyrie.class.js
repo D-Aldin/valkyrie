@@ -46,8 +46,12 @@ class Valkyrie extends MovableObject {
         this.currentImage++;
         this.direction = false;
       }
-      if (this.world.key.left) {
+      if (this.world.key.left && this.x_position > 0) {
         this.x_position -= this.speed;
+        let index = this.currentImage % this.valkyrieWalking.length;
+        let path = this.valkyrieWalking[index];
+        this.img = this.imageCache[path];
+        this.currentImage++;
         this.direction = true;
       }
       this.world.cameraPosition = this.x_position;
