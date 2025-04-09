@@ -1,11 +1,9 @@
 class World {
   character = new Valkyrie();
-  enemies = level_1.enemies
-  bats = level_1.bats
+  level = level_1;
   canvas;
   ctx;
   key;
-  backgroundObjects = level_1.backgroundObjects
   camera_position = 0;
 
   constructor(canvas, key) {
@@ -27,8 +25,8 @@ class World {
   
     this.drawLoopingBackground(); 
     this.addToMap(this.character);
-    this.addObjectsToMap(this.enemies);
-    this.addObjectsToMap(this.bats);
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.bats);
   
     this.ctx.restore();
     requestAnimationFrame(() => this.draw());
@@ -60,7 +58,7 @@ class World {
   drawLoopingBackground() {
     const bgHeight = 480; 
     
-    this.backgroundObjects.forEach((bg, index) => {
+    this.level.backgroundObjects.forEach((bg, index) => {
       const bgWidth = 720; 
       const parallaxFactor = 1 - (index * 0.2); 
       const relativeCam = this.camera_position * parallaxFactor;
