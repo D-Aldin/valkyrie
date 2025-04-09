@@ -35,6 +35,7 @@ class Minotaur extends MovableObject {
       constructor () {
         super()
         this.loadImage(this.MinotaurWalkingImages[0], true)
+        this.loadImagesInCache(this.MinotaurWalkingImages)
         this.animate()
         this.x_position = 1500
       }

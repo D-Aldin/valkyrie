@@ -44,6 +44,7 @@ class World {
   addToMap(element) {
     if (element.direction) {
       this.ctx.save();
+      // Translate to the character's right edge before flipping
       this.ctx.translate(element.x_position + element.width, 0);
       this.ctx.scale(-1, 1);
       this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
