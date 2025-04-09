@@ -3,7 +3,7 @@ class Level {
     enemies;
     bats;
     backgroundObjects;
-    leve_end = 700
+    levelEnd = 1440
 
     constructor(enemies, bats, backgroundObjects) {
         this.enemies = enemies,

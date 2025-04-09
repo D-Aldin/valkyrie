@@ -14,6 +14,15 @@ class MovableObject {
     this.img.src = path;
   }
 
+  updateAnimationFrame(images) {
+    // console.log(images.length);
+    
+    let index = this.currentImage % images.length;
+    let path = images[index];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+  }
+
   loadImagesInCache(arr) {
     arr.forEach((path) => {
       let image = new Image();
@@ -34,4 +43,6 @@ class MovableObject {
       }
     }, 2);
   }
+
+  
 }

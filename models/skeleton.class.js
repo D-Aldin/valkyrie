@@ -37,10 +37,7 @@ class Skeleton extends MovableObject {
 
   animate() {
     setInterval(() => {
-      let index = this.currentImage % this.skeletonWalkingImages.length;
-      let path = this.skeletonWalkingImages[index];
-      this.img = this.imageCache[path];
-      this, this.currentImage++;
+      this.updateAnimationFrame(this.skeletonWalkingImages)
     }, 60);
   }
 }

@@ -4,7 +4,7 @@ class World {
   canvas;
   ctx;
   key;
-  camera_position = 0;
+  cameraPosition = 0;
 
   constructor(canvas, key) {
     this.canvas = canvas
@@ -22,8 +22,7 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
     this.ctx.translate(-this.cameraPosition, 0);
-  
-    this.drawLoopingBackground(); 
+    this.addObjectsToMap(this.level.backgroundObjects)
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.bats);
@@ -45,7 +44,6 @@ class World {
   addToMap(element) {
     if (element.direction) {
       this.ctx.save();
-      // Translate to the character's right edge before flipping
       this.ctx.translate(element.x_position + element.width, 0);
       this.ctx.scale(-1, 1);
       this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
@@ -55,29 +53,29 @@ class World {
     }
   }
   
-  drawLoopingBackground() {
-    const bgHeight = 480; 
+  // drawLoopingBackground() {
+  //   const bgHeight = 480; 
     
-    this.level.backgroundObjects.forEach((bg, index) => {
-      const bgWidth = 720; 
-      const parallaxFactor = 1 - (index * 0.2); 
-      const relativeCam = this.camera_position * parallaxFactor;
-      const startX = Math.floor(relativeCam / bgWidth) * bgWidth - bgWidth;
-      const repetitions = Math.ceil(this.canvas.width / bgWidth) + 10;
-      for (let i = 0; i < repetitions; i++) {
-        const xPosition = startX + (i * bgWidth) - relativeCam;
-        if (i % 2 === 1) {
-          this.ctx.save();
-          this.ctx.translate(xPosition + bgWidth, 0);
-          this.ctx.scale(-1, 1); 
-          this.ctx.drawImage(bg.img, 0, 0, bgWidth, bgHeight);
-          this.ctx.restore();
-        } else {
-          this.ctx.drawImage(bg.img, xPosition, 0, bgWidth, bgHeight);
-        }
-      }
-    });
-  }
+  //   this.level.backgroundObjects.forEach((bg, index) => {
+  //     const bgWidth = 720; 
+  //     const parallaxFactor = 1 - (index * 0.2); 
+  //     const relativeCam = this.camera_position * parallaxFactor;
+  //     const startX = Math.floor(relativeCam / bgWidth) * bgWidth - bgWidth;
+  //     const repetitions = Math.ceil(this.canvas.width / bgWidth) + 10;
+  //     for (let i = 0; i < repetitions; i++) {
+  //       const xPosition = startX + (i * bgWidth) - relativeCam;
+  //       if (i % 2 === 1) {
+  //         this.ctx.save();
+  //         this.ctx.translate(xPosition + bgWidth, 0);
+  //         this.ctx.scale(-1, 1); 
+  //         this.ctx.drawImage(bg.img, 0, 0, bgWidth, bgHeight);
+  //         this.ctx.restore();
+  //       } else {
+  //         this.ctx.drawImage(bg.img, xPosition, 0, bgWidth, bgHeight);
+  //       }
+  //     }
+  //   });
+  // }
   
   
 }

@@ -29,6 +29,7 @@ class Valkyrie extends MovableObject {
   world;
   speed = 12;
 
+
   constructor() {
     super();
     this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_000.png", true);
@@ -38,20 +39,14 @@ class Valkyrie extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.world.key.right) {
+      if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
         this.x_position += this.speed;
-        let index = this.currentImage % this.valkyrieWalking.length;
-        let path = this.valkyrieWalking[index];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+        this.updateAnimationFrame(this.valkyrieWalking)
         this.direction = false;
       }
       if (this.world.key.left && this.x_position > 0) {
         this.x_position -= this.speed;
-        let index = this.currentImage % this.valkyrieWalking.length;
-        let path = this.valkyrieWalking[index];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+        this.updateAnimationFrame(this.valkyrieWalking)
         this.direction = true;
       }
       this.world.cameraPosition = this.x_position;
