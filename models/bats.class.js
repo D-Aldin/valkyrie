@@ -1,7 +1,11 @@
 class Bats extends MovableObject {
+
+  batsImages = ["./assets/image/background/PNG/1/bats.png"];
+
   constructor() {
     super();
-    this.loadImage("./assets/image/background/PNG/1/bats.png", true);
+    this.loadImagesInCache(this.batsImages);
+    this.loadImage(this.batsImages[0], true);
     this.y_position = 30;
     this.height = 500;
     this.width = 700;
@@ -10,6 +14,6 @@ class Bats extends MovableObject {
   }
 
   animateMoving() {
-    this.moveLeft();
+    this.moveLeft(this.batsImages);
   }
 }

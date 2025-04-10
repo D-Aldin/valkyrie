@@ -32,12 +32,11 @@ class Skeleton extends MovableObject {
     this.x_position = 300 + Math.random() * 500;
     this.loadImagesInCache(this.skeletonWalkingImages);
     this.animate();
-    this.moveLeft();
   }
 
   animate() {
     setInterval(() => {
-      this.updateAnimationFrame(this.skeletonWalkingImages)
+      this.moveLeft(this.skeletonWalkingImages)
     }, 60);
   }
 }
