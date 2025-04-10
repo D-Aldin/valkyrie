@@ -49,8 +49,14 @@ class World {
       this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
       this.ctx.restore();
     } else {
-      this.ctx.drawImage(element.img, element.x_position, element.y_position, element.width, element.height);
+      element.draw(this.ctx);
+      this.ctx.beginPath();
+      this.ctx.lineWidth = "5";
+      this.ctx.strokeStyle = "green";
+      this.ctx.rect(element.x_position, element.y_position, element.width, element.height);
+      this.ctx.stroke();
     }
   }
+  
  
 }

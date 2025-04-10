@@ -26,6 +26,8 @@ class Skeleton extends MovableObject {
     "./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_023.png",
   ];
 
+  y_position = 310
+
   constructor() {
     super();
     this.loadImage("./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_000.png", true);
