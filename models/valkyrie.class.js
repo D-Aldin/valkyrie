@@ -63,24 +63,32 @@ class Valkyrie extends MovableObject {
 
   animate() {
     setInterval(() => {
+      if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
+        this.moveRight(this.valkyrieWalking);
+        this.direction = false;
+      }
+      if (this.world.key.left && this.x_position > 0) {
+        this.moveLeft(this.valkyrieWalking);
+        this.direction = true;
+      }
+      if (this.world.key.space) {
+        this.jump();
+      }
       if (this.isAboveGround()) {
-        this.updateAnimationFrame(this.valkyrieJumping)
+        this.updateAnimationFrame(this.valkyrieJumping);
       } else {
-        if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
-          this.moveRight(this.valkyrieWalking)
-        }
-        if (this.world.key.left && this.x_position > 0) {
-         this.moveLeft(this.valkyrieWalking)
-        }
-        if (this.world.key.up) {
-          this.jump()          
-        }
-      }     
+        this.updateAnimationFrame(this.valkyrieWalking);
+      }
       this.world.cameraPosition = this.x_position;
     }, 60);
   }
+  
 
   jump() {
-    this.speedY = 30
+    if (!this.isAboveGround()) {
+      this.speedY = 30;
+      
+    }
+    
   }
 }

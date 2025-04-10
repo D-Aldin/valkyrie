@@ -48,13 +48,13 @@ class MovableObject {
   moveRight(obj) {
     this.x_position += this.speed;
     this.updateAnimationFrame(obj)
-    this.direction = false;
+    
   }
 
   moveLeft(obj) {
     this.x_position -= this.speed;
     this.updateAnimationFrame(obj)
-    this.direction = true;
+ 
   }
 
   jump() {
