@@ -6,30 +6,18 @@ class Minotaur extends MovableObject {
     
 
     MinotaurWalkingImages = [
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_000.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_001.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_002.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_003.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_004.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_005.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_006.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_007.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_008.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_009.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_010.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_011.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_012.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_013.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_014.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_015.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_016.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_017.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_018.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_019.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_020.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_021.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_022.png",
-        "./assets/image/Minotaur_2/PNG/PNG Sequences/Walking/0_Minotaur_Walking_023.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_000.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_001.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_002.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_003.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_004.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_005.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_006.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_007.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_008.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_009.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_010.png",
+        "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_011.png"
       ];
 
       constructor () {

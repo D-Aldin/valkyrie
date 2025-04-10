@@ -34,6 +34,7 @@ class Valkyrie extends MovableObject {
     super();
     this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_000.png", true);
     this.loadImagesInCache(this.valkyrieWalking);
+    this.gravity()
     this.animate();
   }
 
