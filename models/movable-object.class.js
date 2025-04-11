@@ -63,7 +63,7 @@ class MovableObject {
   isColliding(obj) {
     return this.x_position + this.width > obj.x_position && this.y_position + this.height > obj.y_position && this.x_position < obj.x_position + obj.width && this.y_position < obj.y_position + obj.height;
   }
-
+ 
   moveRight(obj) {
     this.x_position += this.speed;
     this.updateAnimationFrame(obj)

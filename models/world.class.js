@@ -13,6 +13,7 @@ class World {
     this.setworld();   
     this.draw();
     this.checkCollisions();
+    this.checkIfDead()
      
   }
 
@@ -23,14 +24,34 @@ class World {
   checkCollisions() {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy)) {
+        if (this.character.isColliding(enemy) && !this.character.isHurt && !this.character.isDead) {
+          this.character.live -= 50;
+          this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
+  
+          // Reset hurt state after short delay (e.g., 500ms)
+          setTimeout(() => {
+            this.character.isHurt = false;
+          }, 500);
+  
+          if (this.character.live <= 0) {
+            this.character.isDead = true;
+            this.character.currentImage = 0; // reset for clean death anim
+          }
         }
-        });
-    
-
-    }, 1000 / 8);
+      });
+    }, 1000 / 5);
   }
+  
+
+  checkIfDead() {
+    setInterval(() => {
+      if (this.character.isDead) {
+        this.character.updateAnimationFrame(this.character.valkyrieDead);
+      }
+    }, 1000 / 5);
+  }
+  
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

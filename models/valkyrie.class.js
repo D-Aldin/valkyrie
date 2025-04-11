@@ -54,10 +54,32 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_002.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_003.png",
   ]
+
+  valkyrieDead = [
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_000.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_001.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_002.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_003.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_004.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_005.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_006.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_007.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_008.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_009.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_010.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_011.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_012.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_013.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_014.png",
+    
+  ]
+
   // currentImage = 0;
   world;
   speed = 12;
   isHurt = false
+  isDead = false
+  live = 100
 
 
   constructor() {
@@ -66,6 +88,7 @@ class Valkyrie extends MovableObject {
     this.loadImagesInCache(this.valkyrieWalking)
     this.loadImagesInCache(this.valkyrieJumping)
     this.loadImagesInCache(this.valkyrieHurt)
+    this.loadImagesInCache(this.valkyrieDead)
     this.gravity()
     this.animate();
   }
@@ -99,7 +122,6 @@ class Valkyrie extends MovableObject {
       this.world.cameraPosition = this.x_position;
     }, 60);
   }
-  
   
 
   jump() {
