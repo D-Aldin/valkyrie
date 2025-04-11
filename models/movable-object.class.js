@@ -38,7 +38,7 @@ class MovableObject {
     if (this instanceof Valkyrie || this instanceof Minotaur || this instanceof Skeleton) {
       ctx.beginPath();
       ctx.lineWidth = "5";
-      ctx.strokeStyle = "red";
+      ctx.strokeStyle = "blue";
       ctx.rect(this.x_position, this.y_position, this.width, this.height);
       ctx.stroke();
       
@@ -58,6 +58,10 @@ class MovableObject {
       image.src = path;
       this.imageCache[path] = image;
     });
+  }
+
+  isColliding(obj) {
+    return this.x_position + this.width > obj.x_position && this.y_position + this.height > obj.y_position && this.x_position < obj.x_position + obj.width && this.y_position < obj.y_position + obj.height;
   }
 
   moveRight(obj) {

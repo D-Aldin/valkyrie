@@ -12,11 +12,24 @@ class World {
     this.key = key;
     this.setworld();   
     this.draw();
+    this.checkCollisions();
      
   }
 
   setworld() {
     this.character.world = this;
+  }
+
+  checkCollisions() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy)) {
+          this.character.updateAnimationFrame(this.character.valkyrieHurt);
+        }
+        });
+    
+
+    }, 1000 / 8);
   }
 
   draw() {
@@ -31,7 +44,6 @@ class World {
     requestAnimationFrame(() => this.draw());
   }
   
-
   addObjectsToMap(objects) {
     objects.forEach((obj, index) => {
       if (obj instanceof Background) {

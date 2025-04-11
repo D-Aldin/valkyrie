@@ -47,41 +47,59 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Falling Down/0_Valkyrie_Falling Down_005.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Jump Start/0_Valkyrie_Jump Start_000.png",
   ]
+
+  valkyrieHurt = [
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_000.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_001.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_002.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_003.png",
+  ]
   // currentImage = 0;
   world;
   speed = 12;
+  isHurt = false
 
 
   constructor() {
     super();
     this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_000.png", true);
-    this.loadImagesInCache(this.valkyrieWalking);
+    this.loadImagesInCache(this.valkyrieWalking)
     this.loadImagesInCache(this.valkyrieJumping)
+    this.loadImagesInCache(this.valkyrieHurt)
     this.gravity()
     this.animate();
   }
 
   animate() {
     setInterval(() => {
+      let isMoving = false;
+  
       if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
         this.moveRight(this.valkyrieWalking);
         this.direction = false;
+        isMoving = true;
       }
+  
       if (this.world.key.left && this.x_position > 0) {
         this.moveLeft(this.valkyrieWalking);
         this.direction = true;
+        isMoving = true;
       }
+  
       if (this.world.key.space) {
         this.jump();
       }
+  
       if (this.isAboveGround()) {
         this.updateAnimationFrame(this.valkyrieJumping);
-      } else {
+      } else if (isMoving) {
         this.updateAnimationFrame(this.valkyrieWalking);
       }
+  
       this.world.cameraPosition = this.x_position;
     }, 60);
   }
+  
   
 
   jump() {
