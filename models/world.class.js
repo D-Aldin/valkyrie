@@ -5,6 +5,7 @@ class World {
   ctx;
   key;
   cameraPosition = 0;
+  status = new StatusBar()
 
   constructor(canvas, key) {
     this.canvas = canvas
@@ -25,9 +26,11 @@ class World {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && !this.character.isHurt && !this.character.isDead) {
-          this.character.live -= 50;
+          this.character.live -= 5;
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
+          console.log(this.character.live);
+          
   
           // Reset hurt state after short delay (e.g., 500ms)
           setTimeout(() => {
@@ -57,7 +60,8 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
     this.ctx.translate(-this.cameraPosition, 0);
-    this.addObjectsToMap(this.level.backgroundObjects)
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addToMap(this.status)
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.bats);

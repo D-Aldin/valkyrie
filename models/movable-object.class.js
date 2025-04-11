@@ -1,11 +1,6 @@
-class MovableObject {
+class MovableObject extends DrawableObject {
   x_position = 0;
   y_position = 200;
-  img;
-  height = 180;
-  width = 180;
-  imageCache = {};
-  currentImage = 0;
   speed = Math.random() * 0.25;
   direction = false;
   speedY = 0;
@@ -23,15 +18,6 @@ class MovableObject {
 
   isAboveGround() {
     return this.y_position < 310;
-  }
-
-  loadImage(path) {
-    this.img = new Image();
-    this.img.src = path;
-  }
-
-  draw(ctx) {
-    ctx.drawImage(this.img, this.x_position, this.y_position, this.width, this.height);
   }
 
   drawFrame(ctx) {
@@ -52,13 +38,7 @@ class MovableObject {
     this.currentImage++;
   }
 
-  loadImagesInCache(arr) {
-    arr.forEach((path) => {
-      let image = new Image();
-      image.src = path;
-      this.imageCache[path] = image;
-    });
-  }
+
 
   isColliding(obj) {
     return this.x_position + this.width > obj.x_position && this.y_position + this.height > obj.y_position && this.x_position < obj.x_position + obj.width && this.y_position < obj.y_position + obj.height;
