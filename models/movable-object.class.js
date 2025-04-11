@@ -35,11 +35,14 @@ class MovableObject {
   }
 
   drawFrame(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "green";
-    ctx.rect(this.x_position, this.y_position, this.width, this.height);
-    ctx.stroke();
+    if (this instanceof Valkyrie || this instanceof Minotaur || this instanceof Skeleton) {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "red";
+      ctx.rect(this.x_position, this.y_position, this.width, this.height);
+      ctx.stroke();
+      
+    }
   }
 
   updateAnimationFrame(images) {
