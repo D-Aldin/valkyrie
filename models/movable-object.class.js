@@ -34,6 +34,14 @@ class MovableObject {
     ctx.drawImage(this.img, this.x_position, this.y_position, this.width, this.height);
   }
 
+  drawFrame(ctx) {
+    ctx.beginPath();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "green";
+    ctx.rect(this.x_position, this.y_position, this.width, this.height);
+    ctx.stroke();
+  }
+
   updateAnimationFrame(images) {
     let index = this.currentImage % images.length;
     let path = images[index];

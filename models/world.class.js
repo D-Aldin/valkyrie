@@ -43,20 +43,25 @@ class World {
 
   addToMap(element) {
     if (element.direction) {
-      this.ctx.save();
-      this.ctx.translate(element.x_position + element.width, 0);
-      this.ctx.scale(-1, 1);
+      element.drawFrame(this.ctx);
+      this.flipImage(element)
       this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
       this.ctx.restore();
     } else {
       element.draw(this.ctx);
-      this.ctx.beginPath();
-      this.ctx.lineWidth = "5";
-      this.ctx.strokeStyle = "green";
-      this.ctx.rect(element.x_position, element.y_position, element.width, element.height);
-      this.ctx.stroke();
+      element.drawFrame(this.ctx);
     }
   }
+
+  flipImage(element) {
+    this.ctx.save();
+    this.ctx.translate(element.x_position + element.width, 0);
+    this.ctx.scale(-1, 1);
+  }
+
+
+
+
   
  
 }
