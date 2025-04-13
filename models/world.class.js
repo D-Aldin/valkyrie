@@ -27,11 +27,9 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && !this.character.isHurt && !this.character.isDead) {
           this.character.live -= 5;
+          this.status.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
-          console.log(this.character.live);
-          
-  
           // Reset hurt state after short delay (e.g., 500ms)
           setTimeout(() => {
             this.character.isHurt = false;
@@ -61,11 +59,13 @@ class World {
     this.ctx.save();
     this.ctx.translate(-this.cameraPosition, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
-    this.addToMap(this.status)
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.bats);
+    this.addObjectsToMap(this.level.gold)
+    this.addObjectsToMap(this.level.item)
     this.ctx.restore();
+    this.addToMap(this.status)
     requestAnimationFrame(() => this.draw());
   }
   

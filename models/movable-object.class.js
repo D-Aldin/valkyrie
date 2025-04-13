@@ -20,16 +20,7 @@ class MovableObject extends DrawableObject {
     return this.y_position < 310;
   }
 
-  drawFrame(ctx) {
-    if (this instanceof Valkyrie || this instanceof Minotaur || this instanceof Skeleton) {
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x_position, this.y_position, this.width, this.height);
-      ctx.stroke();
-      
-    }
-  }
+ 
 
   updateAnimationFrame(images) {
     let index = this.currentImage % images.length;

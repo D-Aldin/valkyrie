@@ -7,6 +7,9 @@ const level_1 = new Level(
      new Background("./assets/image/background/PNG/2/2.png", 720),
      new Background("./assets/image/background/PNG/2/5.png", 1440), 
      new Background("./assets/image/background/PNG/2/2.png", 1440),
-]
+],
+[new Gold(), new Gold(), new Gold(), new Gold(),],
+[new Item(), new Item()]
+
 
 )
