@@ -26,7 +26,7 @@ class Skeleton extends MovableObject {
     "./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_023.png",
   ];
 
-  y_position = 310
+  y_position = 360;
 
   constructor() {
     super();
@@ -38,7 +38,7 @@ class Skeleton extends MovableObject {
 
   animate() {
     setInterval(() => {
-      this.moveLeft(this.skeletonWalkingImages)
+      this.moveLeft(this.skeletonWalkingImages);
     }, 60);
   }
 }

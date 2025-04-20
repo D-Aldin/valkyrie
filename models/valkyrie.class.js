@@ -46,14 +46,9 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Falling Down/0_Valkyrie_Falling Down_004.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Falling Down/0_Valkyrie_Falling Down_005.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Jump Start/0_Valkyrie_Jump Start_000.png",
-  ]
+  ];
 
-  valkyrieHurt = [
-    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_000.png",
-    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_001.png",
-    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_002.png",
-    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_003.png",
-  ]
+  valkyrieHurt = ["./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_000.png", "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_001.png", "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_002.png", "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_003.png"];
 
   valkyrieDead = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_000.png",
@@ -71,64 +66,62 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_012.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_013.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_014.png",
-    
-  ]
+  ];
 
   // currentImage = 0;
   world;
+  y_position = 360;
   speed = 12;
-  isHurt = false
-  isDead = false
-  live = 100
-
+  isHurt = false;
+  isDead = false;
+  live = 100;
+  collectGold = 0;
+  collectItem = 0;
 
   constructor() {
     super();
-    this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_000.png", true);
-    this.loadImagesInCache(this.valkyrieWalking)
-    this.loadImagesInCache(this.valkyrieJumping)
-    this.loadImagesInCache(this.valkyrieHurt)
-    this.loadImagesInCache(this.valkyrieDead)
-    this.gravity()
+    this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_001.png", true);
+    this.loadImagesInCache(this.valkyrieWalking);
+    this.loadImagesInCache(this.valkyrieJumping);
+    this.loadImagesInCache(this.valkyrieHurt);
+    this.loadImagesInCache(this.valkyrieDead);
+    this.gravity();
     this.animate();
   }
 
   animate() {
     setInterval(() => {
       let isMoving = false;
-  
+
       if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
         this.moveRight(this.valkyrieWalking);
         this.direction = false;
         isMoving = true;
       }
-  
+
       if (this.world.key.left && this.x_position > 0) {
         this.moveLeft(this.valkyrieWalking);
         this.direction = true;
         isMoving = true;
       }
-  
+
       if (this.world.key.space) {
         this.jump();
       }
-  
+
       if (this.isAboveGround()) {
         this.updateAnimationFrame(this.valkyrieJumping);
       } else if (isMoving) {
         this.updateAnimationFrame(this.valkyrieWalking);
       }
-  
+
       this.world.cameraPosition = this.x_position;
     }, 60);
   }
-  
 
   jump() {
     if (!this.isAboveGround()) {
       this.speedY = 30;
-      
     }
-    
   }
 }

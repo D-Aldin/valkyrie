@@ -23,12 +23,34 @@ class World {
     this.character.world = this;
   }
 
+  checkItemAndGoldCollection() {
+    setInterval(() => {
+      this.level.gold.forEach((gold, index) => {
+        if (this.character.isColliding(gold)) {
+          this.level.gold.splice(index, 1);
+          this.character.collectGold += 1;
+          console.log(this.character.collectGold);
+          this.GoldStatusBar.setGoldCount(this.character.collectGold);
+        }
+      });
+
+      this.level.item.forEach((item, index) => {
+        if (this.character.isColliding(item)) {
+          this.level.item.splice(index, 1);
+          this.character.collectItem += 1;
+          console.log(this.character.collectItem);
+          this.itemStatusBar.setItemCount(this.character.collectItem);
+        }
+      });
+    }, 100);
+  }
+
   checkCollisions() {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && !this.character.isHurt && !this.character.isDead) {
           this.character.live -= 5;
-          this.status.setPercentage(this.character.live);
+          this.healthStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
           // Reset hurt state after short delay (e.g., 500ms)
@@ -67,6 +89,7 @@ class World {
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.itemStatusBar);
     this.addToMap(this.GoldStatusBar);
+    this.checkItemAndGoldCollection();
     requestAnimationFrame(() => this.draw());
   }
 
