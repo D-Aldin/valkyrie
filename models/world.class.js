@@ -5,9 +5,9 @@ class World {
   ctx;
   key;
   cameraPosition = 0;
-  status = new StatusBar();
+  healthStatusBar = new HealthstatusBar();
   itemStatusBar = new ItemStatusBar();
-  gold = new GoldStatusBar();
+  GoldStatusBar = new GoldStatusBar();
 
   constructor(canvas, key) {
     this.canvas = canvas;
@@ -64,9 +64,9 @@ class World {
     this.addObjectsToMap(this.level.gold);
     this.addObjectsToMap(this.level.item);
     this.ctx.restore();
-    this.addToMap(this.status);
+    this.addToMap(this.healthStatusBar);
     this.addToMap(this.itemStatusBar);
-    this.addToMap(this.gold);
+    this.addToMap(this.GoldStatusBar);
     requestAnimationFrame(() => this.draw());
   }
 
