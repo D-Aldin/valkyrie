@@ -24,6 +24,9 @@ const keydownHandler = (event) => {
   if (event.key == " ") {
     key.space = true;
   }
+  if (event.key == "d") {
+    key.d = true;
+  }
 };
 
 const keyUpHandler = (event) => {
@@ -41,6 +44,9 @@ const keyUpHandler = (event) => {
   }
   if (event.key == " ") {
     key.space = false;
+  }
+  if (event.key == "d") {
+    key.d = false;
   }
 };
 

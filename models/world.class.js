@@ -5,17 +5,18 @@ class World {
   ctx;
   key;
   cameraPosition = 0;
-  status = new StatusBar()
+  status = new StatusBar();
+  itemStatusBar = new ItemStatusBar();
+  gold = new GoldStatusBar();
 
   constructor(canvas, key) {
-    this.canvas = canvas
+    this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.key = key;
-    this.setworld();   
+    this.setworld();
     this.draw();
     this.checkCollisions();
-    this.checkIfDead()
-     
+    this.checkIfDead();
   }
 
   setworld() {
@@ -34,7 +35,7 @@ class World {
           setTimeout(() => {
             this.character.isHurt = false;
           }, 500);
-  
+
           if (this.character.live <= 0) {
             this.character.isDead = true;
             this.character.currentImage = 0; // reset for clean death anim
@@ -43,7 +44,6 @@ class World {
       });
     }, 1000 / 5);
   }
-  
 
   checkIfDead() {
     setInterval(() => {
@@ -52,7 +52,6 @@ class World {
       }
     }, 1000 / 5);
   }
-  
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -62,13 +61,15 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.bats);
-    this.addObjectsToMap(this.level.gold)
-    this.addObjectsToMap(this.level.item)
+    this.addObjectsToMap(this.level.gold);
+    this.addObjectsToMap(this.level.item);
     this.ctx.restore();
-    this.addToMap(this.status)
+    this.addToMap(this.status);
+    this.addToMap(this.itemStatusBar);
+    this.addToMap(this.gold);
     requestAnimationFrame(() => this.draw());
   }
-  
+
   addObjectsToMap(objects) {
     objects.forEach((obj, index) => {
       if (obj instanceof Background) {
@@ -81,7 +82,7 @@ class World {
   addToMap(element) {
     if (element.direction) {
       element.drawFrame(this.ctx);
-      this.flipImage(element)
+      this.flipImage(element);
       this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
       this.ctx.restore();
     } else {
@@ -95,10 +96,4 @@ class World {
     this.ctx.translate(element.x_position + element.width, 0);
     this.ctx.scale(-1, 1);
   }
-
-
-
-
-  
- 
 }
