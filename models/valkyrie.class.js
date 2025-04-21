@@ -71,6 +71,7 @@ class Valkyrie extends MovableObject {
   // currentImage = 0;
   world;
   y_position = 360;
+  // x_position = 200;
   speed = 12;
   isHurt = false;
   isDead = false;

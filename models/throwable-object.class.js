@@ -1,7 +1,20 @@
-class ThrowableObject {
+class ThrowableObject extends MovableObject {
+  constructor(x, y) {
+    super();
+    this.loadImage("./assets/image/items/item/item.png");
+    this.x_position = x;
+    this.y_position = y;
+    this.width = 50;
+    this.height = 20;
+    this.speedY = 30;
+    this.trow();
+  }
 
-    constructor() {
-        super()
-        this.loadImage(""./assets/image/items/item/item.png"")
-    }
+  trow() {
+    this.speedY = 30;
+    this.gravity();
+    setInterval(() => {
+      this.x_position += 10;
+    }, 60);
+  }
 }

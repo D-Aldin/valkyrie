@@ -8,6 +8,7 @@ class World {
   healthStatusBar = new HealthstatusBar();
   itemStatusBar = new ItemStatusBar();
   GoldStatusBar = new GoldStatusBar();
+  throwableObject = [new ThrowableObject()];
 
   constructor(canvas, key) {
     this.canvas = canvas;
@@ -17,6 +18,7 @@ class World {
     this.draw();
     this.checkCollisions();
     this.checkIfDead();
+    this.checkThrowing();
   }
 
   setworld() {
@@ -45,6 +47,18 @@ class World {
     }, 100);
   }
 
+  checkThrowing() {
+    setInterval(() => {
+      if (this.key.d && this.character && !this.character.isDead && this.character.collectItem > 0) {
+        console.log("throwing item");
+
+        let throwItem = new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20);
+        this.level.throwables.push(throwItem);
+        this.key.d = false;
+      }
+    }, 100);
+  }
+
   checkCollisions() {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
@@ -53,7 +67,6 @@ class World {
           this.healthStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
-          // Reset hurt state after short delay (e.g., 500ms)
           setTimeout(() => {
             this.character.isHurt = false;
           }, 500);
@@ -89,6 +102,7 @@ class World {
     this.addToMap(this.healthStatusBar);
     this.addToMap(this.itemStatusBar);
     this.addToMap(this.GoldStatusBar);
+    this.addObjectsToMap(this.level.throwables);
     this.checkItemAndGoldCollection();
     requestAnimationFrame(() => this.draw());
   }
