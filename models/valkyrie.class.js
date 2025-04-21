@@ -68,6 +68,21 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_014.png",
   ];
 
+  valkyrieThrowing = [
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_000.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_001.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_002.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_003.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_004.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_005.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_006.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_007.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_008.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_009.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_010.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_011.png",
+  ];
+
   // currentImage = 0;
   world;
   y_position = 360;
@@ -75,6 +90,7 @@ class Valkyrie extends MovableObject {
   speed = 12;
   isHurt = false;
   isDead = false;
+  isThrowing = false;
   live = 100;
   collectGold = 0;
   collectItem = 0;
@@ -84,6 +100,7 @@ class Valkyrie extends MovableObject {
     this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_001.png", true);
     this.loadImagesInCache(this.valkyrieWalking);
     this.loadImagesInCache(this.valkyrieJumping);
+    this.loadImagesInCache(this.valkyrieThrowing);
     this.loadImagesInCache(this.valkyrieHurt);
     this.loadImagesInCache(this.valkyrieDead);
     this.gravity();

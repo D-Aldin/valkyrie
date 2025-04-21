@@ -1,9 +1,26 @@
+@font-face {
+  font-family: myFont;
+  src: url("../assets/fonts/UnifrakturCook/UnifrakturCook-Bold.ttf");
+}
+
 body {
+  font-family: myFont, Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("../assets/image/background/ai-generated-8347847.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #canvasContainer {
   background-color: black;
+}
+
+h1 {
+  font-size: 4.5rem;
+  /* letter-spacing: 30px; */
+  margin-block-end: 0.1em;
+  color: white;
 }

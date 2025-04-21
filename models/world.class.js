@@ -48,13 +48,15 @@ class World {
   checkThrowing() {
     setInterval(() => {
       if (this.key.d && this.character && !this.character.isDead && this.character.collectItem > 0) {
+        this.character.isThrowing = true;
         let throwItem = new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20);
         this.level.throwables.push(throwItem);
         this.character.collectItem -= 1;
-        console.log(this.character.collectItem);
-
         this.itemStatusBar.setItemCount(this.character.collectItem);
-        console.log("update");
+        this.character.updateAnimationFrame(this.character.valkyrieThrowing);
+        setTimeout(() => {
+          this.character.isThrowing = false;
+        }, 60);
         this.key.d = false;
       }
     }, 100);
