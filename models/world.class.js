@@ -9,6 +9,7 @@ class World {
   itemStatusBar = new ItemStatusBar();
   GoldStatusBar = new GoldStatusBar();
   throwableObject = [new ThrowableObject()];
+  intro = new Intro();
 
   constructor(canvas, key) {
     this.canvas = canvas;
@@ -92,6 +93,11 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.intro.introActive) {
+      this.intro.update(this.ctx, this.key);
+      requestAnimationFrame(() => this.draw());
+      return;
+    }
     this.ctx.save();
     this.cameraPosition = this.character.x_position - 100;
     this.ctx.translate(-this.cameraPosition, 0);

@@ -1,11 +1,9 @@
 let canvas;
 key = new Keyboard();
-// let world = new World();
 
 function init() {
-  canvas = document.getElementById("canvasContainer");
+  canvas = document.getElementById("canvas");
   world = new World(canvas, key);
-  console.log(world);
 }
 
 const keydownHandler = (event) => {
@@ -27,6 +25,9 @@ const keydownHandler = (event) => {
   if (event.code == "KeyD") {
     key.d = true;
   }
+  if (event.code == "Enter") {
+    key.enter = true;
+  }
 };
 
 const keyUpHandler = (event) => {
@@ -47,6 +48,9 @@ const keyUpHandler = (event) => {
   }
   if (event.code == "KeyD") {
     key.d = false;
+  }
+  if (event.code == "Enter") {
+    key.enter = false;
   }
 };
 
