@@ -73,7 +73,7 @@ class World {
 
           if (this.character.live <= 0) {
             this.character.isDead = true;
-            this.character.currentImage = 0; // reset for clean death anim
+            this.character.currentImage = 0;
           }
         }
       });
@@ -91,6 +91,7 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
+    this.cameraPosition = this.character.x_position - 100;
     this.ctx.translate(-this.cameraPosition, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
@@ -123,7 +124,11 @@ class World {
       this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
       this.ctx.restore();
     } else {
-      element.draw(this.ctx);
+      if (element instanceof ThrowableObject) {
+        element.draw(this.ctx, this.cameraPosition);
+      } else {
+        element.draw(this.ctx);
+      }
       element.drawFrame(this.ctx);
     }
   }

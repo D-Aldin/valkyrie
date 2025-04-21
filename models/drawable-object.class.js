@@ -10,9 +10,9 @@ class DrawableObject {
     this.img.src = path;
   }
 
-  draw(ctx) {
+  draw(ctx, cameraPosition = 0) {
     if (this.img && this.img.complete && this.img.naturalWidth > 0) {
-      ctx.drawImage(this.img, this.x_position, this.y_position, this.width, this.height);
+      ctx.drawImage(this.img, this.x_position - cameraPosition, this.y_position, this.width, this.height);
     }
   }
 
