@@ -31,7 +31,6 @@ class World {
         if (this.character.isColliding(gold)) {
           this.level.gold.splice(index, 1);
           this.character.collectGold += 1;
-          console.log(this.character.collectGold);
           this.GoldStatusBar.setGoldCount(this.character.collectGold);
         }
       });
@@ -40,7 +39,6 @@ class World {
         if (this.character.isColliding(item)) {
           this.level.item.splice(index, 1);
           this.character.collectItem += 1;
-          console.log(this.character.collectItem);
           this.itemStatusBar.setItemCount(this.character.collectItem);
         }
       });
@@ -50,10 +48,13 @@ class World {
   checkThrowing() {
     setInterval(() => {
       if (this.key.d && this.character && !this.character.isDead && this.character.collectItem > 0) {
-        console.log("throwing item");
-
         let throwItem = new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20);
         this.level.throwables.push(throwItem);
+        this.character.collectItem -= 1;
+        console.log(this.character.collectItem);
+
+        this.itemStatusBar.setItemCount(this.character.collectItem);
+        console.log("update");
         this.key.d = false;
       }
     }, 100);
@@ -70,7 +71,6 @@ class World {
           setTimeout(() => {
             this.character.isHurt = false;
           }, 500);
-
           if (this.character.live <= 0) {
             this.character.isDead = true;
             this.character.currentImage = 0;

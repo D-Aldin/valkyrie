@@ -1,5 +1,5 @@
 class GoldStatusBar extends DrawableObject {
-  gold = ["./assets/image/items/gold/1.png", "./assets/image/items/gold/2.png", "./assets/image/items/gold/3.png", "./assets/image/items/gold/4.png", "./assets/image/items/gold/5.png"];
+  gold = ["./assets/image/items/gold/1.png", "./assets/image/items/gold/1.png", "./assets/image/items/gold/2.png", "./assets/image/items/gold/3.png", "./assets/image/items/gold/4.png", "./assets/image/items/gold/5.png"];
 
   constructor() {
     super();

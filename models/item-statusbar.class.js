@@ -1,5 +1,5 @@
 class ItemStatusBar extends DrawableObject {
-  items = ["./assets/image/items/item/status1.png", "./assets/image/items/item/status2.png", "./assets/image/items/item/status3.png", "./assets/image/items/item/status4.png", "./assets/image/items/item/status5.png"];
+  items = ["./assets/image/items/item/status0.png", "./assets/image/items/item/status1.png", "./assets/image/items/item/status2.png", "./assets/image/items/item/status3.png", "./assets/image/items/item/status4.png", "./assets/image/items/item/status5.png"];
 
   constructor() {
     super();
