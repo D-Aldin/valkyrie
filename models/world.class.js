@@ -20,6 +20,8 @@ class World {
     this.checkCollisions();
     this.checkIfDead();
     this.checkThrowing();
+    this.checkEnemyHit();
+    this.checkJumpOnEnemy();
   }
 
   setworld() {
@@ -81,6 +83,51 @@ class World {
         }
       });
     }, 1000 / 5);
+  }
+
+  checkEnemyHit() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy, enemyIndex) => {
+        this.level.throwables.forEach((item, itemIndex) => {
+          if (item.isColliding(enemy)) {
+            // Remove enemy and optionally the item
+            this.level.enemies.splice(enemyIndex, 1);
+            this.level.throwables.splice(itemIndex, 1);
+
+            // Optional: play death animation or sound
+            // enemy.playDeathAnimation();
+          }
+        });
+      });
+    }, 100);
+  }
+
+  fromAbove(character, enemy) {
+    const characterBottom = character.y_position + character.height;
+    const characterTop = character.y_position;
+    const enemyTop = enemy.y_position;
+    const enemyBottom = enemy.y_position + enemy.height;
+    const enemyLeft = enemy.x_position;
+    const enemyRight = enemy.x_position + enemy.width;
+
+    const isHorizontalOverlap = character.x_position + character.width > enemyLeft && character.x_position < enemyRight;
+
+    const isVerticalOverlap = characterBottom > enemyTop && characterTop < enemyBottom;
+
+    const isAboveEnemy = characterBottom - enemyTop < 15;
+
+    return isHorizontalOverlap && isVerticalOverlap && isAboveEnemy;
+  }
+
+  checkJumpOnEnemy() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy, index) => {
+        if (this.fromAbove(this.character, enemy)) {
+          this.level.enemies.splice(index, 1);
+          // this.character.velocityY = -15; // Optional bounce
+        }
+      });
+    }, 100);
   }
 
   checkIfDead() {
