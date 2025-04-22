@@ -90,12 +90,8 @@ class World {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         this.level.throwables.forEach((item, itemIndex) => {
           if (item.isColliding(enemy)) {
-            // Remove enemy and optionally the item
             this.level.enemies.splice(enemyIndex, 1);
             this.level.throwables.splice(itemIndex, 1);
-
-            // Optional: play death animation or sound
-            // enemy.playDeathAnimation();
           }
         });
       });
@@ -124,7 +120,6 @@ class World {
       this.level.enemies.forEach((enemy, index) => {
         if (this.fromAbove(this.character, enemy)) {
           this.level.enemies.splice(index, 1);
-          // this.character.velocityY = -15; // Optional bounce
         }
       });
     }, 100);

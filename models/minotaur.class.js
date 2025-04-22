@@ -1,7 +1,7 @@
 class Minotaur extends MovableObject {
   width = 280;
   height = 280;
-  y_position = 221;
+  y_position = 231;
   movingRight = true;
 
   MinotaurWalkingImages = [

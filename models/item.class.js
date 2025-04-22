@@ -7,7 +7,7 @@ class Item extends DrawableObject {
   constructor() {
     super();
     this.loadImage(this.item);
-    this.x_position = 200 + Math.random() * 500;
+    this.x_position = 200 + Math.random() * 1000;
     this.loadImagesInCache(this.item);
   }
 }
