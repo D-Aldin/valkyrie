@@ -8,8 +8,8 @@ class Gold extends DrawableObject {
     super();
     this.loadImage(this.gold);
     this.x_position = 100 + Math.random() * 500;
+    this.y_position = 200 + Math.random() * 100;
     this.loadImagesInCache(this.gold);
-    // this.animate();
   }
 
   animate() {

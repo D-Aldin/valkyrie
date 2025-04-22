@@ -4,7 +4,7 @@ class Level {
   backgroundObjects;
   gold;
   item;
-  levelEnd = 1440;
+  levelEnd = 2440;
 
   constructor(enemies, bats, backgroundObjects, gold, item) {
     (this.enemies = enemies), (this.bats = bats), (this.backgroundObjects = backgroundObjects);

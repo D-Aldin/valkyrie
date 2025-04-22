@@ -31,7 +31,7 @@ class Skeleton extends MovableObject {
   constructor() {
     super();
     this.loadImage("./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_000.png", true);
-    this.x_position = 300 + Math.random() * 500;
+    this.x_position = 300 + Math.random() * 1400;
     this.loadImagesInCache(this.skeletonWalkingImages);
     this.animate();
   }

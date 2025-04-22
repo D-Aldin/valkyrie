@@ -83,14 +83,13 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_011.png",
   ];
 
-  // currentImage = 0;
   world;
   y_position = 360;
-  // x_position = 200;
   speed = 12;
   isHurt = false;
   isDead = false;
   isThrowing = false;
+  isFalling = false;
   live = 100;
   collectGold = 0;
   collectItem = 0;

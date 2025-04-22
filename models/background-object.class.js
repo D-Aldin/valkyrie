@@ -7,6 +7,5 @@ class Background extends MovableObject {
     this.x_position = x;
     this.y = 480 - this.height;
     this.y_position = 0;
-
   }
 }
