@@ -13,10 +13,10 @@ class Intro extends DrawableObject {
   update(ctx, key) {
     this.draw(ctx);
     this.drawText(ctx);
-
     if (key.enter) {
       this.introActive = false;
       key.enter = false;
+      document.querySelector("#story").style.display = "none";
     }
   }
 

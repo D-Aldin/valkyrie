@@ -41,9 +41,8 @@ class MovableObject extends DrawableObject {
 
   isStomped(player) {
     const isColliding = this.isColliding(player);
-    const playerIsFalling = player.speedY < 0; // falling down
+    const playerIsFalling = player.speedY < 0;
     const playerAbove = player.y_position + player.height <= this.y_position + 10;
-
     return isColliding && playerIsFalling && playerAbove;
   }
 

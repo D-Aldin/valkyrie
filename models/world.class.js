@@ -5,7 +5,8 @@ class World {
   ctx;
   key;
   cameraPosition = 0;
-  healthStatusBar = new HealthstatusBar();
+  ValkyrieStatusBar = new ValkyrieStatusBar();
+  MinotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
   GoldStatusBar = new GoldStatusBar();
   throwableObject = [new ThrowableObject()];
@@ -22,11 +23,6 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
-    // canvas.addEventListener("click", (e) => {
-    //   const x = e.offsetX; // X position relative to canvas
-    //   const y = e.offsetY; // Y position relative to canvas
-    //   console.log(`Clicked at (${x}, ${y})`);
-    // });
   }
 
   setworld() {
@@ -75,7 +71,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && !this.character.isHurt && !this.character.isDead) {
           this.character.live -= 5;
-          this.healthStatusBar.setPercentage(this.character.live);
+          this.ValkyrieStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
           setTimeout(() => {
@@ -131,6 +127,7 @@ class World {
     if (this.intro.introActive) {
       this.intro.update(this.ctx, this.key);
       requestAnimationFrame(() => this.draw());
+
       return;
     }
     this.ctx.save();
@@ -143,7 +140,8 @@ class World {
     this.addObjectsToMap(this.level.gold);
     this.addObjectsToMap(this.level.item);
     this.ctx.restore();
-    this.addToMap(this.healthStatusBar);
+    this.addToMap(this.ValkyrieStatusBar);
+    this.addToMap(this.MinotaurStatusBar);
     this.addToMap(this.itemStatusBar);
     this.addToMap(this.GoldStatusBar);
     this.addObjectsToMap(this.level.throwables);
