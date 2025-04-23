@@ -31,7 +31,20 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(obj) {
-    return this.x_position + this.width > obj.x_position && this.y_position + this.height > obj.y_position && this.x_position < obj.x_position + obj.width && this.y_position < obj.y_position + obj.height;
+    return (
+      this.x_position + this.width > obj.x_position &&
+      this.y_position + this.height > obj.y_position &&
+      this.x_position < obj.x_position + obj.width &&
+      this.y_position < obj.y_position + obj.height
+    );
+  }
+
+  isStomped(player) {
+    const isColliding = this.isColliding(player);
+    const playerIsFalling = player.speedY < 0; // falling down
+    const playerAbove = player.y_position + player.height <= this.y_position + 10;
+
+    return isColliding && playerIsFalling && playerAbove;
   }
 
   moveRight(obj) {

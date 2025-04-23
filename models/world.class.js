@@ -22,6 +22,11 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
+    // canvas.addEventListener("click", (e) => {
+    //   const x = e.offsetX; // X position relative to canvas
+    //   const y = e.offsetY; // Y position relative to canvas
+    //   console.log(`Clicked at (${x}, ${y})`);
+    // });
   }
 
   setworld() {
@@ -98,31 +103,19 @@ class World {
     }, 100);
   }
 
-  fromAbove(character, enemy) {
-    const characterBottom = character.y_position + character.height;
-    const characterTop = character.y_position;
-    const enemyTop = enemy.y_position;
-    const enemyBottom = enemy.y_position + enemy.height;
-    const enemyLeft = enemy.x_position;
-    const enemyRight = enemy.x_position + enemy.width;
-
-    const isHorizontalOverlap = character.x_position + character.width > enemyLeft && character.x_position < enemyRight;
-
-    const isVerticalOverlap = characterBottom > enemyTop && characterTop < enemyBottom;
-
-    const isAboveEnemy = characterBottom - enemyTop < 15;
-
-    return isHorizontalOverlap && isVerticalOverlap && isAboveEnemy;
-  }
-
   checkJumpOnEnemy() {
     setInterval(() => {
       this.level.enemies.forEach((enemy, index) => {
-        if (this.fromAbove(this.character, enemy)) {
+        if (enemy.isStomped(this.character)) {
           this.level.enemies.splice(index, 1);
+          this.character.speedY = 20;
+        } else if (enemy.isColliding(this.character)) {
+          if (!this.character.isHurt && !this.character.isDead) {
+            this.character.updateAnimationFrame(this.character.valkyrieHurt);
+          }
         }
       });
-    }, 100);
+    }, 1000 / 25);
   }
 
   checkIfDead() {

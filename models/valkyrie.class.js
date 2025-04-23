@@ -48,7 +48,12 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Jump Start/0_Valkyrie_Jump Start_000.png",
   ];
 
-  valkyrieHurt = ["./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_000.png", "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_001.png", "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_002.png", "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_003.png"];
+  valkyrieHurt = [
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_000.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_001.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_002.png",
+    "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_003.png",
+  ];
 
   valkyrieDead = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_000.png",
