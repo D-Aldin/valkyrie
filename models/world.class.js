@@ -31,7 +31,7 @@ class World {
   checkItemAndGoldCollection() {
     setInterval(() => {
       this.level.gold.forEach((gold, index) => {
-        if (this.character.isColliding(gold)) {
+        if (this.character.isColliding(gold) && this.character.collectGold < 5) {
           this.level.gold.splice(index, 1);
           this.character.collectGold += 1;
           this.GoldStatusBar.setGoldCount(this.character.collectGold);
@@ -39,7 +39,7 @@ class World {
       });
 
       this.level.item.forEach((item, index) => {
-        if (this.character.isColliding(item)) {
+        if (this.character.isColliding(item) && this.character.collectItem < 5) {
           this.level.item.splice(index, 1);
           this.character.collectItem += 1;
           this.itemStatusBar.setItemCount(this.character.collectItem);
