@@ -3,6 +3,7 @@ class Minotaur extends MovableObject {
   height = 280;
   y_position = 231;
   movingRight = true;
+  live = 100;
 
   MinotaurWalkingImages = [
     "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_000.png",

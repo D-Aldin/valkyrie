@@ -1,14 +1,15 @@
 class World {
   character = new Valkyrie();
+  minotaur = new Minotaur();
   level = level_1;
   canvas;
   ctx;
   key;
   cameraPosition = 0;
-  ValkyrieStatusBar = new ValkyrieStatusBar();
-  MinotaurStatusBar = new MinotaurStatusBar();
+  valkyrieStatusBar = new ValkyrieStatusBar();
+  minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
-  GoldStatusBar = new GoldStatusBar();
+  goldStatusBar = new GoldStatusBar();
   throwableObject = [new ThrowableObject()];
   intro = new Intro();
 
@@ -23,6 +24,7 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
+    // console.log(this.level);
   }
 
   setworld() {
@@ -35,7 +37,7 @@ class World {
         if (this.character.isColliding(gold) && this.character.collectGold < 5) {
           this.level.gold.splice(index, 1);
           this.character.collectGold += 1;
-          this.GoldStatusBar.setGoldCount(this.character.collectGold);
+          this.goldStatusBar.setGoldCount(this.character.collectGold);
         }
       });
 
@@ -71,7 +73,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && !this.character.isHurt && !this.character.isDead) {
           this.character.live -= 5;
-          this.ValkyrieStatusBar.setPercentage(this.character.live);
+          this.valkyrieStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
           setTimeout(() => {
@@ -91,8 +93,15 @@ class World {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         this.level.throwables.forEach((item, itemIndex) => {
           if (item.isColliding(enemy)) {
-            this.level.enemies.splice(enemyIndex, 1);
-            this.level.throwables.splice(itemIndex, 1);
+            if (enemy instanceof Minotaur) {
+              this.minotaur.live -= 15;
+              this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
+              this.level.throwables.splice(itemIndex, 1);
+              console.log(this.minotaur.live);
+            } else {
+              this.level.enemies.splice(enemyIndex, 1);
+              this.level.throwables.splice(itemIndex, 1);
+            }
           }
         });
       });
@@ -140,10 +149,10 @@ class World {
     this.addObjectsToMap(this.level.gold);
     this.addObjectsToMap(this.level.item);
     this.ctx.restore();
-    this.addToMap(this.ValkyrieStatusBar);
-    this.addToMap(this.MinotaurStatusBar);
+    this.addToMap(this.valkyrieStatusBar);
+    this.addToMap(this.minotaurStatusBar);
     this.addToMap(this.itemStatusBar);
-    this.addToMap(this.GoldStatusBar);
+    this.addToMap(this.goldStatusBar);
     this.addObjectsToMap(this.level.throwables);
     this.checkItemAndGoldCollection();
     requestAnimationFrame(() => this.draw());
