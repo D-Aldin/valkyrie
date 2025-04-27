@@ -36,10 +36,31 @@ h2,
 h3 {
   color: white;
   /* font-family: Arial, Helvetica, sans-serif; */
+  text-align: center;
 }
 
 canvas {
   display: block;
+}
+
+#mob-btn-container {
+  display: none;
+}
+
+.mobile-button {
+  /* position: absolute; */
+  bottom: 50px;
+  width: 80px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  z-index: 10;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 760px) {
@@ -51,5 +72,34 @@ canvas {
 @media only screen and (max-height: 480px) {
   canvas {
     height: 100vh;
+  }
+
+  #story {
+    display: none;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  h3 {
+    display: none;
+  }
+
+  #mob-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20%;
+  }
+
+  #left-thumb {
+    display: flex;
+    gap: 10px;
+  }
+
+  #right-thumb {
+    display: flex;
+    gap: 10px;
   }
 }

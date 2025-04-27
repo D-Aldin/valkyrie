@@ -101,6 +101,7 @@ class Minotaur extends MovableObject {
   }
 
   animateDead() {
+    let frame = 0;
     this.deadInterval = setInterval(() => {
       this.updateAnimationFrame(this.minotaurDead);
       if (this.currentImage >= this.minotaurDead.length - 1) {

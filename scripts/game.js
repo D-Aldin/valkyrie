@@ -6,6 +6,47 @@ function init() {
   world = new World(canvas, key);
 }
 
+document.getElementById("leftButton").addEventListener("touchstart", () => {
+  key.left = true;
+});
+document.getElementById("leftButton").addEventListener("touchend", () => {
+  key.left = false;
+});
+
+document.getElementById("rightButton").addEventListener("touchstart", () => {
+  key.right = true;
+});
+document.getElementById("rightButton").addEventListener("touchend", () => {
+  key.right = false;
+});
+
+document.getElementById("jumpButton").addEventListener("touchstart", () => {
+  key.space = true;
+});
+
+document.getElementById("jumpButton").addEventListener("touchend", () => {
+  key.space = false;
+});
+
+document.getElementById("throwButton").addEventListener("touchstart", () => {
+  key.d = true;
+});
+
+document.getElementById("throwButton").addEventListener("touchend", () => {
+  key.d = false;
+});
+
+document.getElementById("startButton").addEventListener("touchstart", () => {
+  key.enter = true;
+  if (key.enter) {
+    document.getElementById("startButton").style.display = "none";
+  }
+});
+
+document.getElementById("startButton").addEventListener("touchend", () => {
+  key.enter = false;
+});
+
 const keydownHandler = (event) => {
   if (event.key == "ArrowRight") {
     key.right = true;
