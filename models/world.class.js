@@ -20,7 +20,8 @@ class World {
     this.setworld();
     this.draw();
     this.checkCollisions();
-    this.checkIfDead();
+    this.checkIfDead(this.character, this.character.valkyrieDead);
+    this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
@@ -71,7 +72,10 @@ class World {
   checkCollisions() {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy) && !this.character.isHurt && !this.character.isDead) {
+        if (
+          this.character.isColliding(enemy) ||
+          (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
+        ) {
           this.character.live -= 5;
           this.valkyrieStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
@@ -93,14 +97,17 @@ class World {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         this.level.throwables.forEach((item, itemIndex) => {
           if (item.isColliding(enemy)) {
-            if (enemy instanceof Minotaur) {
-              this.minotaur.live -= 15;
-              this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
-              this.level.throwables.splice(itemIndex, 1);
-              console.log(this.minotaur.live);
-            } else {
-              this.level.enemies.splice(enemyIndex, 1);
-              this.level.throwables.splice(itemIndex, 1);
+            this.level.enemies.splice(enemyIndex, 1);
+            this.level.throwables.splice(itemIndex, 1);
+          } else if (item.isColliding(this.minotaur) && !this.minotaur.isDead) {
+            this.minotaur.live -= 50;
+            this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
+            this.level.throwables.splice(itemIndex, 1);
+
+            if (this.minotaur.live <= 0) {
+              this.minotaur.isDead = true;
+              this.minotaur.currentImage = 0;
+              this.minotaur.movingRight = false;
             }
           }
         });
@@ -123,10 +130,10 @@ class World {
     }, 1000 / 25);
   }
 
-  checkIfDead() {
+  checkIfDead(character, dyingAnimation) {
     setInterval(() => {
-      if (this.character.isDead) {
-        this.character.updateAnimationFrame(this.character.valkyrieDead);
+      if (character.isDead) {
+        character.updateAnimationFrame(dyingAnimation);
       }
     }, 1000 / 5);
   }
@@ -145,6 +152,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
+    this.addToMap(this.minotaur);
     this.addObjectsToMap(this.level.bats);
     this.addObjectsToMap(this.level.gold);
     this.addObjectsToMap(this.level.item);
