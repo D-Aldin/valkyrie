@@ -1,8 +1,9 @@
 let canvas;
 key = new Keyboard();
+canvas = document.getElementById("canvas");
+let fullscreenButton = document.querySelector("#fullscreenButton");
 
 function init() {
-  canvas = document.getElementById("canvas");
   world = new World(canvas, key);
 }
 
@@ -95,5 +96,14 @@ const keyUpHandler = (event) => {
   }
 };
 
+function fullscreen() {
+  if (canvas.webkitRequestFullScreen) {
+    canvas.webkitRequestFullScreen();
+  } else {
+    canvas.mozRequestFullScreen();
+  }
+}
+
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
+fullscreenButton.addEventListener("click", fullscreen);
