@@ -103,7 +103,12 @@ class World {
             this.minotaur.live -= 50;
             this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
             this.level.throwables.splice(itemIndex, 1);
-
+            if (!this.minotaur.isDead && this.minotaur.live > 0) {
+              this.minotaur.updateAnimationFrame(this.minotaur.minotaurHurt);
+              setTimeout(() => {
+                this.minotaur.updateAnimationFrame(this.minotaur.minotaurWalking);
+              }, 200);
+            }
             if (this.minotaur.live <= 0) {
               this.minotaur.isDead = true;
               this.minotaur.currentImage = 0;

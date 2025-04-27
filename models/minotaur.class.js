@@ -6,6 +6,7 @@ class Minotaur extends MovableObject {
   live = 100;
   isDead = false;
   walkingInterval = null; // To track animation interval
+  isHurt = false;
 
   minotaurWalking = [
     "./assets/image/Minotaur_2/PNG/PNG Sequences/Run Slashing/0_Minotaur_Run Slashing_000.png",
@@ -36,12 +37,30 @@ class Minotaur extends MovableObject {
     "./assets/image/Minotaur_2/PNG/PNG Sequences/Dying/0_Minotaur_Dying_010.png",
     "./assets/image/Minotaur_2/PNG/PNG Sequences/Dying/0_Minotaur_Dying_011.png",
     "./assets/image/Minotaur_2/PNG/PNG Sequences/Dying/0_Minotaur_Dying_012.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Dying/0_Minotaur_Dying_013.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Dying/0_Minotaur_Dying_014.png",
+  ];
+
+  minotaurHurt = [
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_000.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_001.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_002.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_003.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_004.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_005.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_006.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_007.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_008.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_009.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_010.png",
+    "./assets/image/Minotaur_2/PNG/PNG Sequences/Hurt/0_Minotaur_Hurt_011.png",
   ];
 
   constructor() {
     super();
     this.loadImage(this.minotaurWalking[0], true);
     this.loadImagesInCache(this.minotaurWalking);
+    this.loadImagesInCache(this.minotaurHurt);
     this.x_position = 1500;
     this.animate();
   }
@@ -49,7 +68,9 @@ class Minotaur extends MovableObject {
   animate() {
     this.walkingInterval = setInterval(() => {
       if (this.isDead) {
-        this.playDeadAnimation(); // <--- call new function
+        this.playDeadAnimation();
+      } else if (this.isHurt) {
+        this.playHurtAnimation();
       } else {
         this.updateAnimationFrame(this.minotaurWalking);
         if (this.movingRight) {
@@ -69,6 +90,14 @@ class Minotaur extends MovableObject {
     this.loadImagesInCache(this.minotaurDead);
     this.currentImage = 0;
     this.animateDead();
+  }
+
+  playHurtAnimation() {
+    clearInterval(this.walkingInterval);
+    this.imageCache = {};
+    this.loadImagesInCache(this.minotaurHurt);
+    this.currentImage = 0;
+    this.animateHurt();
   }
 
   animateDead() {
