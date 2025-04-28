@@ -43,7 +43,6 @@ class World {
           this.goldStatusBar.setGoldCount(this.character.collectGold);
         }
       });
-
       this.level.item.forEach((item, index) => {
         if (this.character.isColliding(item) && this.character.collectItem < 5) {
           this.level.item.splice(index, 1);
@@ -144,12 +143,19 @@ class World {
     }, 1000 / 5);
   }
 
+  drawUI() {
+    this.addToMap(this.valkyrieStatusBar);
+    this.addToMap(this.minotaurStatusBar);
+    this.addToMap(this.itemStatusBar);
+    this.addToMap(this.goldStatusBar);
+  }
+
+  // TODO
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     if (this.intro.introActive) {
       this.intro.update(this.ctx, this.key);
       requestAnimationFrame(() => this.draw());
-
       return;
     }
     this.ctx.save();
@@ -163,10 +169,7 @@ class World {
     this.addObjectsToMap(this.level.gold);
     this.addObjectsToMap(this.level.item);
     this.ctx.restore();
-    this.addToMap(this.valkyrieStatusBar);
-    this.addToMap(this.minotaurStatusBar);
-    this.addToMap(this.itemStatusBar);
-    this.addToMap(this.goldStatusBar);
+    this.drawUI();
     this.addObjectsToMap(this.level.throwables);
     this.checkItemAndGoldCollection();
     requestAnimationFrame(() => this.draw());
