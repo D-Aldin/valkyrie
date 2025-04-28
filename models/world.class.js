@@ -6,6 +6,8 @@ class World {
   ctx;
   key;
   cameraPosition = 0;
+  valkyrieDamageAmount = 15;
+  itemDamageAmount = 50;
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
@@ -76,48 +78,47 @@ class World {
           this.character.isColliding(enemy) ||
           (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
         ) {
-          this.character.live -= 5;
+          this.character.live -= DAMAGE_AMOUNT;
           this.valkyrieStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
-          setTimeout(() => {
-            this.character.isHurt = false;
-          }, 500);
-          if (this.character.live <= 0) {
-            this.character.isDead = true;
-            this.character.currentImage = 0;
-          }
+          setTimeout(() => (this.character.isHurt = false), 500);
+          if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
         }
       });
-    }, 1000 / 5);
+    }, 200);
   }
 
   checkEnemyHit() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy, enemyIndex) => {
-        this.level.throwables.forEach((item, itemIndex) => {
-          if (item.isColliding(enemy)) {
-            this.level.enemies.splice(enemyIndex, 1);
-            this.level.throwables.splice(itemIndex, 1);
-          } else if (item.isColliding(this.minotaur) && !this.minotaur.isDead) {
-            this.minotaur.live -= 50;
-            this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
-            this.level.throwables.splice(itemIndex, 1);
-            if (!this.minotaur.isDead && this.minotaur.live > 0) {
-              this.minotaur.updateAnimationFrame(this.minotaur.minotaurHurt);
-              setTimeout(() => {
-                this.minotaur.updateAnimationFrame(this.minotaur.minotaurWalking);
-              }, 200);
-            }
-            if (this.minotaur.live <= 0) {
-              this.minotaur.isDead = true;
-              this.minotaur.currentImage = 0;
-              this.minotaur.movingRight = false;
-            }
-          }
-        });
-      });
+      this.checkEnemyCollision();
+      this.checkMinotaurCollision();
     }, 100);
+  }
+
+  checkEnemyCollision() {
+    this.level.enemies.forEach((enemy, enemyIndex) => {
+      this.level.throwables.forEach((item, itemIndex) => {
+        if (item.isColliding(enemy)) {
+          this.level.enemies.splice(enemyIndex, 1);
+          this.level.throwables.splice(itemIndex, 1);
+        }
+      });
+    });
+  }
+
+  checkMinotaurCollision() {
+    this.level.throwables.forEach((item, itemIndex) => {
+      if (item.isColliding(this.minotaur) && !this.minotaur.isDead) {
+        this.minotaur.live -= this.itemDamageAmount;
+        this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
+        this.level.throwables.splice(itemIndex, 1);
+        if (this.minotaur.live > 0) {
+          this.minotaur.updateAnimationFrame(this.minotaur.minotaurHurt);
+          setTimeout(() => this.minotaur.updateAnimationFrame(this.minotaur.minotaurWalking), 200);
+        } else Object.assign(this.minotaur, { isDead: true, currentImage: 0, movingRight: false });
+      }
+    });
   }
 
   checkJumpOnEnemy() {
