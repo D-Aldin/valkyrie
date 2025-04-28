@@ -5,7 +5,7 @@ class Intro extends DrawableObject {
 
   constructor() {
     super();
-    this.loadImage("./assets/image/intro/ChatGPT Image Apr 21, 2025, 04_55_32 PM.png", true);
+    this.loadImage("./assets/image/intro/introImage.png", true);
     this.x_position = 0;
     this.y_position = 0;
   }
