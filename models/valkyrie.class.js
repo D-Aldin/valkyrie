@@ -113,32 +113,33 @@ class Valkyrie extends MovableObject {
 
   animate() {
     setInterval(() => {
-      let isMoving = false;
-
-      if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
-        this.moveRight(this.valkyrieWalking);
-        this.direction = false;
-        isMoving = true;
-      }
-
-      if (this.world.key.left && this.x_position > 0) {
-        this.moveLeft(this.valkyrieWalking);
-        this.direction = true;
-        isMoving = true;
-      }
-
-      if (this.world.key.space) {
-        this.jump();
-      }
-
-      if (this.isAboveGround()) {
-        this.updateAnimationFrame(this.valkyrieJumping);
-      } else if (isMoving) {
-        this.updateAnimationFrame(this.valkyrieWalking);
-      }
-
+      this.handleMovement();
+      this.handleAnimation();
       this.world.cameraPosition = this.x_position;
     }, 60);
+  }
+
+  handleMovement() {
+    this.isMoving = false;
+    if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
+      this.moveRight(this.valkyrieWalking);
+      this.direction = false;
+      this.isMoving = true;
+    }
+    if (this.world.key.left && this.x_position > 0) {
+      this.moveLeft(this.valkyrieWalking);
+      this.direction = true;
+      this.isMoving = true;
+    }
+    if (this.world.key.space) this.jump();
+  }
+
+  handleAnimation() {
+    if (this.isAboveGround()) {
+      this.updateAnimationFrame(this.valkyrieJumping);
+    } else if (this.isMoving) {
+      this.updateAnimationFrame(this.valkyrieWalking);
+    }
   }
 
   jump() {
