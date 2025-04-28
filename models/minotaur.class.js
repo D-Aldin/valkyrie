@@ -65,6 +65,16 @@ class Minotaur extends MovableObject {
     this.animate();
   }
 
+  movement() {
+    if (this.movingRight) {
+      this.x_position += 4;
+      if (this.x_position >= 1590) this.movingRight = false;
+    } else {
+      this.x_position -= 4;
+      if (this.x_position <= 1450) this.movingRight = true;
+    }
+  }
+
   animate() {
     this.walkingInterval = setInterval(() => {
       if (this.isDead) {
@@ -73,13 +83,7 @@ class Minotaur extends MovableObject {
         this.playHurtAnimation();
       } else {
         this.updateAnimationFrame(this.minotaurWalking);
-        if (this.movingRight) {
-          this.x_position += 4;
-          if (this.x_position >= 1590) this.movingRight = false;
-        } else {
-          this.x_position -= 4;
-          if (this.x_position <= 1450) this.movingRight = true;
-        }
+        this.movement();
       }
     }, 60);
   }
