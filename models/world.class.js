@@ -33,8 +33,9 @@ class World {
     this.sound.addSound("gold", "./assets/sounds/gold.mp3");
     this.sound.addSound("jump", "./assets/sounds/jump.mp3");
     this.sound.addSound("throw", "./assets/sounds/throw.mp3");
-    // this.sound.addSound("skeleton", )
-
+    this.sound.addSound("minotaurDying", "./assets/sounds/minotaurDying.mp3");
+    this.sound.addSound("item", "./assets/sounds/item.mp3");
+    this.sound.volume("background", 1);
     this.sound.playSound("background");
   }
 
@@ -56,7 +57,7 @@ class World {
         if (this.character.isColliding(item) && this.character.collectItem < 5) {
           this.level.item.splice(index, 1);
           this.character.collectItem += 1;
-
+          this.sound.playSound("item");
           this.itemStatusBar.setItemCount(this.character.collectItem);
         }
       });
@@ -70,6 +71,7 @@ class World {
         let throwItem = new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20);
         this.level.throwables.push(throwItem);
         this.character.collectItem -= 1;
+        this.sound.playSound("throw");
         this.itemStatusBar.setItemCount(this.character.collectItem);
         this.character.updateAnimationFrame(this.character.valkyrieThrowing);
         setTimeout(() => {
@@ -120,6 +122,7 @@ class World {
     this.level.throwables.forEach((item, itemIndex) => {
       if (item.isColliding(this.minotaur) && !this.minotaur.isDead) {
         this.minotaur.live -= this.itemDamageAmount;
+        this.sound.playSound("minotaurDying");
         this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
         this.level.throwables.splice(itemIndex, 1);
         if (this.minotaur.live > 0) {

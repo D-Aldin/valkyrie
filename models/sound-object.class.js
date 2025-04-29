@@ -15,19 +15,25 @@ class SoundManager {
       sound.currentTime = 0;
       sound.play();
     } else {
-      console.log(`Sound "${name}" not found.`);
+      console.log(`Sound not found.`);
     }
   }
 
-  muteAll() {
+  mute() {
     for (const name in this.sounds) {
       this.sounds[name].muted = true;
     }
   }
 
-  unmuteAll() {
+  unmute() {
     for (const name in this.sounds) {
       this.sounds[name].muted = false;
+    }
+  }
+
+  volume(name, volume) {
+    if (this.sounds[name]) {
+      this.sounds[name].volume = volume;
     }
   }
 }

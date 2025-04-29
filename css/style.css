@@ -63,12 +63,14 @@ canvas {
   cursor: pointer;
 }
 
-#fullscreenButton {
+#fullscreenButton,
+#muteSound {
   border: none;
   background-color: transparent;
 }
 
-#fullscreenButton img {
+#fullscreenButton img,
+#muteSound img {
   width: 30px;
   height: 30px;
   cursor: pointer;
