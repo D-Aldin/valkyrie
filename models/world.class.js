@@ -41,6 +41,7 @@ class World {
 
   setworld() {
     this.character.world = this;
+    this.sound.world = this;
   }
 
   checkItemAndGoldCollection() {
