@@ -14,6 +14,7 @@ class World {
   goldStatusBar = new GoldStatusBar();
   throwableObject = [new ThrowableObject()];
   intro = new Intro();
+  sound = new SoundManager();
 
   constructor(canvas, key) {
     this.canvas = canvas;
@@ -27,7 +28,14 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
-    // console.log(this.level);
+    this.sound.addSound("background", "./assets/sounds/background.mp3", true);
+    this.sound.addSound("skeleton", "./assets/sounds/skeleton.mp3");
+    this.sound.addSound("gold", "./assets/sounds/gold.mp3");
+    this.sound.addSound("jump", "./assets/sounds/jump.mp3");
+    this.sound.addSound("throw", "./assets/sounds/throw.mp3");
+    // this.sound.addSound("skeleton", )
+
+    this.sound.playSound("background");
   }
 
   setworld() {
@@ -40,6 +48,7 @@ class World {
         if (this.character.isColliding(gold) && this.character.collectGold < 5) {
           this.level.gold.splice(index, 1);
           this.character.collectGold += 1;
+          this.sound.playSound("gold");
           this.goldStatusBar.setGoldCount(this.character.collectGold);
         }
       });
@@ -47,6 +56,7 @@ class World {
         if (this.character.isColliding(item) && this.character.collectItem < 5) {
           this.level.item.splice(index, 1);
           this.character.collectItem += 1;
+
           this.itemStatusBar.setItemCount(this.character.collectItem);
         }
       });
@@ -126,6 +136,7 @@ class World {
         if (enemy.isStomped(this.character)) {
           this.level.enemies.splice(index, 1);
           this.character.speedY = 20;
+          this.sound.playSound("skeleton");
         } else if (enemy.isColliding(this.character)) {
           if (!this.character.isHurt && !this.character.isDead) {
             this.character.updateAnimationFrame(this.character.valkyrieHurt);
