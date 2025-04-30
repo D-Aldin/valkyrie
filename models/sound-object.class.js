@@ -15,8 +15,10 @@ class SoundManager {
   playSound(name) {
     const sound = this.sounds[name];
     if (sound) {
-      sound.currentTime = 0;
-      sound.play();
+      if (!this.isMuted) {
+        sound.currentTime = 0;
+        sound.play();
+      }
     } else {
       console.log(`Sound not found.`);
     }

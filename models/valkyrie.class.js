@@ -145,7 +145,9 @@ class Valkyrie extends MovableObject {
   jump() {
     if (!this.isAboveGround()) {
       this.speedY = 30;
-      this.world.sound.playSound("jump");
+      if (!this.world.sound.isMuted) {
+        this.world.sound.playSound("jump");
+      }
     }
   }
 }
