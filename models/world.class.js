@@ -28,6 +28,7 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
+    this.gameOver()
     this.sound.addSound("background", "./assets/sounds/background.mp3", true);
     this.sound.addSound("skeleton", "./assets/sounds/skeleton.mp3");
     this.sound.addSound("gold", "./assets/sounds/gold.mp3");
@@ -90,7 +91,8 @@ class World {
           this.character.isColliding(enemy) ||
           (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
         ) {
-          this.character.live -= DAMAGE_AMOUNT;
+          this.character.live -= this.valkyrieDamageAmount
+          this.gameOver()
           this.valkyrieStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
@@ -187,6 +189,7 @@ class World {
     this.drawUI();
     this.addObjectsToMap(this.level.throwables);
     this.checkItemAndGoldCollection();
+    this.gameOver()
     requestAnimationFrame(() => this.draw());
   }
 
@@ -219,5 +222,16 @@ class World {
     this.ctx.save();
     this.ctx.translate(element.x_position + element.width, 0);
     this.ctx.scale(-1, 1);
+  }
+
+  gameOver() {
+    if (this.character.live <= 0) {
+      
+      this.ctx.font = "60px myFont";
+      this.ctx.fillText("Your saga ends here.",380,200);
+      
+      
+    }
+   
   }
 }

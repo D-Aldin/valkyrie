@@ -47,6 +47,7 @@ class SoundManager {
   muteButton() {
     this.muteButton = document.getElementById("muteSound");
     this.muteButton.addEventListener("click", () => {
+      this.muteButton.blur()
       if (this.isMuted) {
         this.unmute();
         this.muteButton.lastElementChild.src = "./assets/icons/lautstarke.png";
@@ -54,6 +55,8 @@ class SoundManager {
         this.mute();
         this.muteButton.lastElementChild.src = "./assets/icons/stumm.png";
       }
+      
+      
     });
   }
 }
