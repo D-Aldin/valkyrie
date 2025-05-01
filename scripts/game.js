@@ -2,9 +2,11 @@ let canvas;
 key = new Keyboard();
 canvas = document.getElementById("canvas");
 let fullscreenButton = document.querySelector("#fullscreenButton");
+const restartButoon = document.querySelector("#restart");
 
 function init() {
   world = new World(canvas, key);
+  this.blur()
 }
 
 document.getElementById("leftButton").addEventListener("touchstart", () => {
@@ -104,6 +106,9 @@ function fullscreen() {
   }
 }
 
+
+
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
 fullscreenButton.addEventListener("click", fullscreen);
+restartButoon.addEventListener("click", init)

@@ -190,6 +190,7 @@ class World {
     this.addObjectsToMap(this.level.throwables);
     this.checkItemAndGoldCollection();
     this.gameOver()
+    this.winning()
     requestAnimationFrame(() => this.draw());
   }
 
@@ -232,6 +233,13 @@ class World {
       
       
     }
-   
+  }
+
+  winning() {
+    if (this.minotaur.live <= 0) {
+      this.ctx.font = "40px myFont";
+      this.ctx.fillText("You have earned your place in Valhalla!", 380, 200)
+
+    }
   }
 }

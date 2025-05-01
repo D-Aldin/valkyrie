@@ -64,13 +64,15 @@ canvas {
 }
 
 #fullscreenButton,
-#muteSound {
+#muteSound,
+#restart {
   border: none;
   background-color: transparent;
 }
 
 #fullscreenButton img,
-#muteSound img {
+#muteSound img,
+#restart img{
   width: 30px;
   height: 30px;
   cursor: pointer;

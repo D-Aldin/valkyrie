@@ -55,8 +55,6 @@ class SoundManager {
         this.mute();
         this.muteButton.lastElementChild.src = "./assets/icons/stumm.png";
       }
-      
-      
     });
   }
 }
