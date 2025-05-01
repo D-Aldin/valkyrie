@@ -15,6 +15,7 @@ class World {
   throwableObject = [new ThrowableObject()];
   intro = new Intro();
   sound = new SoundManager();
+  restartButton = document.querySelector("#restart");
 
   constructor(canvas, key) {
     this.canvas = canvas;
@@ -28,7 +29,7 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
-    this.gameOver()
+    this.gameOver();
     this.sound.addSound("background", "./assets/sounds/background.mp3", true);
     this.sound.addSound("skeleton", "./assets/sounds/skeleton.mp3");
     this.sound.addSound("gold", "./assets/sounds/gold.mp3");
@@ -38,6 +39,7 @@ class World {
     this.sound.addSound("item", "./assets/sounds/item.mp3");
     this.sound.volume("background", 1);
     this.sound.playSound("background");
+    this.restart();
   }
 
   setworld() {
@@ -91,8 +93,8 @@ class World {
           this.character.isColliding(enemy) ||
           (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
         ) {
-          this.character.live -= this.valkyrieDamageAmount
-          this.gameOver()
+          this.character.live -= this.valkyrieDamageAmount;
+          this.gameOver();
           this.valkyrieStatusBar.setPercentage(this.character.live);
           this.character.isHurt = true;
           this.character.updateAnimationFrame(this.character.valkyrieHurt);
@@ -189,8 +191,8 @@ class World {
     this.drawUI();
     this.addObjectsToMap(this.level.throwables);
     this.checkItemAndGoldCollection();
-    this.gameOver()
-    this.winning()
+    this.gameOver();
+    this.winning();
     requestAnimationFrame(() => this.draw());
   }
 
@@ -227,19 +229,38 @@ class World {
 
   gameOver() {
     if (this.character.live <= 0) {
-      
       this.ctx.font = "60px myFont";
-      this.ctx.fillText("Your saga ends here.",380,200);
-      
-      
+      this.ctx.fillText("Your saga ends here.", 380, 200);
     }
   }
 
   winning() {
     if (this.minotaur.live <= 0) {
       this.ctx.font = "40px myFont";
-      this.ctx.fillText("You have earned your place in Valhalla!", 380, 200)
-
+      this.ctx.fillText("You have earned your place in Valhalla!", 380, 200);
     }
+  }
+
+  restart() {
+    restartButton.addEventListener("click", () => {
+      this.character = new Valkyrie();
+      this.minotaur = new Minotaur();
+      this.level = level_1;
+      this.canvas;
+      this.ctx;
+      this.key;
+      this.cameraPosition = 0;
+      this.valkyrieDamageAmount = 15;
+      this.itemDamageAmount = 50;
+      this.valkyrieStatusBar = new ValkyrieStatusBar();
+      this.minotaurStatusBar = new MinotaurStatusBar();
+      this.itemStatusBar = new ItemStatusBar();
+      this.goldStatusBar = new GoldStatusBar();
+      this.throwableObject = [new ThrowableObject()];
+      this.intro = new Intro();
+      this.sound = new SoundManager();
+      this.setworld();
+      this.restartButton.blur();
+    });
   }
 }

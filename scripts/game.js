@@ -2,6 +2,7 @@ let canvas;
 key = new Keyboard();
 canvas = document.getElementById("canvas");
 let fullscreenButton = document.querySelector("#fullscreenButton");
+const restartButton = document.querySelector("#restart");
 
 function init() {
   world = new World(canvas, key);
@@ -97,17 +98,12 @@ const keyUpHandler = (event) => {
 };
 
 function fullscreen() {
- 
   if (canvas.webkitRequestFullScreen) {
     canvas.webkitRequestFullScreen();
   } else {
     canvas.mozRequestFullScreen();
   }
-}
-
-function restart() {
-  init()
-  this.blur()
+  this.blur();
 }
 
 function checkOrientation() {
@@ -123,13 +119,11 @@ function checkOrientation() {
   }
 }
 
-window.addEventListener('load', checkOrientation);
-window.addEventListener('resize', checkOrientation);
-
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
 
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
 fullscreenButton.addEventListener("click", () => {
-  fullscreen()
-  
+  fullscreen();
 });
