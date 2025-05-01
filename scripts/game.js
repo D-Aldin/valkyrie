@@ -2,11 +2,9 @@ let canvas;
 key = new Keyboard();
 canvas = document.getElementById("canvas");
 let fullscreenButton = document.querySelector("#fullscreenButton");
-const restartButoon = document.querySelector("#restart");
 
 function init() {
   world = new World(canvas, key);
-  this.blur()
 }
 
 document.getElementById("leftButton").addEventListener("touchstart", () => {
@@ -99,6 +97,7 @@ const keyUpHandler = (event) => {
 };
 
 function fullscreen() {
+ 
   if (canvas.webkitRequestFullScreen) {
     canvas.webkitRequestFullScreen();
   } else {
@@ -106,9 +105,31 @@ function fullscreen() {
   }
 }
 
+function restart() {
+  init()
+  this.blur()
+}
+
+function checkOrientation() {
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isPortrait = window.innerHeight > window.innerWidth;
+
+  const warning = document.getElementById("rotate");
+
+  if (isMobile && isPortrait) {
+    warning.style.display = "flex";
+  } else {
+    warning.style.display = "none";
+  }
+}
+
+window.addEventListener('load', checkOrientation);
+window.addEventListener('resize', checkOrientation);
 
 
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
-fullscreenButton.addEventListener("click", fullscreen);
-restartButoon.addEventListener("click", init)
+fullscreenButton.addEventListener("click", () => {
+  fullscreen()
+  
+});

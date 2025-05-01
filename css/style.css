@@ -12,6 +12,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  /* margin: 0;
+  padding: 0; */
+  /* overflow: hidden; */
 }
 
 #intro {
@@ -19,10 +22,13 @@ body {
 }
 
 #canvasContainer {
-  background-color: black;
+  /* background-color: black; */
+  /* display: block; */
+}
+
+canvas {
   display: block;
-  flex-direction: column;
-  /* display: none; */
+
 }
 
 h1 {
@@ -77,6 +83,31 @@ canvas {
   height: 30px;
   cursor: pointer;
 }
+
+#rotate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  color: #fff;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2.5rem;
+  z-index: 9999;
+  padding: 2rem;
+  
+}
+
+#rotate img {
+  width: 90px;
+  height: 90px;
+  margin: 0 20px 0 20px;
+}
+
 
 @media only screen and (max-width: 760px) {
   canvas {
