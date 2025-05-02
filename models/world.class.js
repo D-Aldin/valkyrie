@@ -87,22 +87,24 @@ class World {
   }
 
   checkCollisions() {
-    setInterval(() => {
-      this.level.enemies.forEach((enemy) => {
-        if (
-          this.character.isColliding(enemy) ||
-          (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
-        ) {
-          this.character.live -= this.valkyrieDamageAmount;
-          this.gameOver();
-          this.valkyrieStatusBar.setPercentage(this.character.live);
-          this.character.isHurt = true;
-          this.character.updateAnimationFrame(this.character.valkyrieHurt);
-          setTimeout(() => (this.character.isHurt = false), 500);
-          if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
-        }
-      });
-    }, 200);
+    this.character.intervals.push(
+      setInterval(() => {
+        this.level.enemies.forEach((enemy) => {
+          if (
+            this.character.isColliding(enemy) ||
+            (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
+          ) {
+            this.character.live -= this.valkyrieDamageAmount;
+            this.gameOver();
+            this.valkyrieStatusBar.setPercentage(this.character.live);
+            this.character.isHurt = true;
+            this.character.updateAnimationFrame(this.character.valkyrieHurt);
+            setTimeout(() => (this.character.isHurt = false), 500);
+            if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
+          }
+        });
+      }, 200)
+    );
   }
 
   checkEnemyHit() {
@@ -155,11 +157,14 @@ class World {
   }
 
   checkIfDead(character, dyingAnimation) {
-    setInterval(() => {
-      if (character.isDead) {
-        character.updateAnimationFrame(dyingAnimation);
-      }
-    }, 1000 / 5);
+    this.character.intervals.push(
+      setInterval(() => {
+        if (character.isDead) {
+          character.updateAnimationFrame(dyingAnimation);
+        }
+      }, 1000 / 5)
+    );
+    console.log(this.character.intervals);
   }
 
   drawUI() {
@@ -207,7 +212,6 @@ class World {
 
   addToMap(element) {
     if (element.direction) {
-      element.drawFrame(this.ctx);
       this.flipImage(element);
       this.ctx.drawImage(element.img, 0, element.y_position, element.width, element.height);
       this.ctx.restore();
@@ -217,7 +221,6 @@ class World {
       } else {
         element.draw(this.ctx);
       }
-      element.drawFrame(this.ctx);
     }
   }
 
@@ -231,6 +234,12 @@ class World {
     if (this.character.live <= 0) {
       this.ctx.font = "60px myFont";
       this.ctx.fillText("Your saga ends here.", 380, 200);
+      setTimeout(() => {
+        this.character.stopIntervals();
+      }, 3000);
+      this.level.enemies.forEach((enemy) => {
+        enemy.stopIntervals?.();
+      });
     }
   }
 
@@ -238,17 +247,22 @@ class World {
     if (this.minotaur.live <= 0) {
       this.ctx.font = "40px myFont";
       this.ctx.fillText("You have earned your place in Valhalla!", 380, 200);
+      // setTimeout(() => {
+      //   this.stopIntervals();
+      // }, 1000);
     }
   }
 
+  startDrawMethod() {}
+
+  startGameObjectsOver() {}
+
   restart() {
     restartButton.addEventListener("click", () => {
+      // this.stopIntervals();
       this.character = new Valkyrie();
       this.minotaur = new Minotaur();
       this.level = level_1;
-      this.canvas;
-      this.ctx;
-      this.key;
       this.cameraPosition = 0;
       this.valkyrieDamageAmount = 15;
       this.itemDamageAmount = 50;
@@ -259,7 +273,15 @@ class World {
       this.throwableObject = [new ThrowableObject()];
       this.intro = new Intro();
       this.sound = new SoundManager();
+      this.draw();
+      this.checkCollisions();
+      this.checkIfDead(this.character, this.character.valkyrieDead);
+      this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
+      this.checkThrowing();
+      this.checkEnemyHit();
+      this.checkJumpOnEnemy();
       this.setworld();
+
       this.restartButton.blur();
     });
   }

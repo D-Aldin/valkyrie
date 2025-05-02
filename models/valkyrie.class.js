@@ -145,7 +145,6 @@ class Valkyrie extends MovableObject {
   jump() {
     if (!this.isAboveGround()) {
       this.speedY = 30;
-  
     }
   }
 }

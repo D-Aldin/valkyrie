@@ -52,8 +52,13 @@ class MovableObject extends DrawableObject {
   }
 
   moveLeft(obj) {
-    this.x_position -= this.speed;
-    this.updateAnimationFrame(obj);
+    if (this.end) {
+      this.x_position += this.speed;
+      this.updateAnimationFrame(obj);
+    } else {
+      this.x_position -= this.speed;
+      this.updateAnimationFrame(obj);
+    }
   }
 
   jump() {

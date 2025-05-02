@@ -6,6 +6,7 @@ const restartButton = document.querySelector("#restart");
 
 function init() {
   world = new World(canvas, key);
+  console.log(world);
 }
 
 document.getElementById("leftButton").addEventListener("touchstart", () => {
@@ -109,9 +110,7 @@ function fullscreen() {
 function checkOrientation() {
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   const isPortrait = window.innerHeight > window.innerWidth;
-
   const warning = document.getElementById("rotate");
-
   if (isMobile && isPortrait) {
     warning.style.display = "flex";
   } else {
@@ -121,7 +120,6 @@ function checkOrientation() {
 
 window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
-
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
 fullscreenButton.addEventListener("click", () => {
