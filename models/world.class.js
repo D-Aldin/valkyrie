@@ -69,49 +69,55 @@ class World {
   }
 
   checkThrowing() {
-    setInterval(() => {
-      if (this.key.d && this.character && !this.character.isDead && this.character.collectItem > 0) {
-        this.character.isThrowing = true;
-        let throwItem = new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20);
-        this.level.throwables.push(throwItem);
-        this.character.collectItem -= 1;
-        this.sound.playSound("throw");
-        this.itemStatusBar.setItemCount(this.character.collectItem);
-        this.character.updateAnimationFrame(this.character.valkyrieThrowing);
-        setTimeout(() => {
-          this.character.isThrowing = false;
-        }, 60);
-        this.key.d = false;
-      }
-    }, 100);
+    this.character.intervals.push(
+      setInterval(() => {
+        if (this.key.d && this.character && !this.character.isDead && this.character.collectItem > 0) {
+          this.character.isThrowing = true;
+          let throwItem = new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20);
+          this.level.throwables.push(throwItem);
+          this.character.collectItem -= 1;
+          this.sound.playSound("throw");
+          this.itemStatusBar.setItemCount(this.character.collectItem);
+          this.character.updateAnimationFrame(this.character.valkyrieThrowing);
+          setTimeout(() => {
+            this.character.isThrowing = false;
+          }, 60);
+          this.key.d = false;
+        }
+      }, 100)
+    );
   }
 
   checkCollisions() {
     this.character.intervals.push(
-      setInterval(() => {
-        this.level.enemies.forEach((enemy) => {
-          if (
-            this.character.isColliding(enemy) ||
-            (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
-          ) {
-            this.character.live -= this.valkyrieDamageAmount;
-            this.gameOver();
-            this.valkyrieStatusBar.setPercentage(this.character.live);
-            this.character.isHurt = true;
-            this.character.updateAnimationFrame(this.character.valkyrieHurt);
-            setTimeout(() => (this.character.isHurt = false), 500);
-            if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
-          }
-        });
-      }, 200)
+      this.character.intervals.push(
+        setInterval(() => {
+          this.level.enemies.forEach((enemy) => {
+            if (
+              this.character.isColliding(enemy) ||
+              (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
+            ) {
+              this.character.live -= this.valkyrieDamageAmount;
+              this.gameOver();
+              this.valkyrieStatusBar.setPercentage(this.character.live);
+              this.character.isHurt = true;
+              this.character.updateAnimationFrame(this.character.valkyrieHurt);
+              setTimeout(() => (this.character.isHurt = false), 500);
+              if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
+            }
+          });
+        }, 200)
+      )
     );
   }
 
   checkEnemyHit() {
-    setInterval(() => {
-      this.checkEnemyCollision();
-      this.checkMinotaurCollision();
-    }, 100);
+    this.character.intervals.push(
+      setInterval(() => {
+        this.checkEnemyCollision();
+        this.checkMinotaurCollision();
+      }, 100)
+    );
   }
 
   checkEnemyCollision() {
@@ -164,7 +170,6 @@ class World {
         }
       }, 1000 / 5)
     );
-    console.log(this.character.intervals);
   }
 
   drawUI() {
@@ -247,9 +252,12 @@ class World {
     if (this.minotaur.live <= 0) {
       this.ctx.font = "40px myFont";
       this.ctx.fillText("You have earned your place in Valhalla!", 380, 200);
-      // setTimeout(() => {
-      //   this.stopIntervals();
-      // }, 1000);
+
+      this.character.stopIntervals();
+
+      this.level.enemies.forEach((enemy) => {
+        enemy.stopIntervals?.();
+      });
     }
   }
 
@@ -259,7 +267,6 @@ class World {
 
   restart() {
     restartButton.addEventListener("click", () => {
-      // this.stopIntervals();
       this.character = new Valkyrie();
       this.minotaur = new Minotaur();
       this.level = level_1;
@@ -281,7 +288,6 @@ class World {
       this.checkEnemyHit();
       this.checkJumpOnEnemy();
       this.setworld();
-
       this.restartButton.blur();
     });
   }

@@ -63,6 +63,7 @@ class Minotaur extends MovableObject {
     this.loadImagesInCache(this.minotaurHurt);
     this.x_position = 1500;
     this.animate();
+    console.log(this.intervals);
   }
 
   movement() {
@@ -105,7 +106,6 @@ class Minotaur extends MovableObject {
   }
 
   animateDead() {
-    let frame = 0;
     this.deadInterval = setInterval(() => {
       this.updateAnimationFrame(this.minotaurDead);
       if (this.currentImage >= this.minotaurDead.length - 1) {
