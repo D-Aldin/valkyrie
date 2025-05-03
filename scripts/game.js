@@ -1,7 +1,6 @@
 let canvas;
 key = new Keyboard();
 canvas = document.getElementById("canvas");
-let fullscreenButton = document.querySelector("#fullscreenButton");
 const restartButton = document.querySelector("#restart");
 
 function init() {
@@ -51,6 +50,7 @@ document.getElementById("startButton").addEventListener("touchend", () => {
 });
 
 const keydownHandler = (event) => {
+  if (world?.character?.isDead) return;
   if (event.key == "ArrowRight") {
     key.right = true;
   }
@@ -75,6 +75,7 @@ const keydownHandler = (event) => {
 };
 
 const keyUpHandler = (event) => {
+  if (world?.character?.isDead) return;
   if (event.key == "ArrowRight") {
     key.right = false;
   }
@@ -98,15 +99,6 @@ const keyUpHandler = (event) => {
   }
 };
 
-function fullscreen() {
-  if (canvas.webkitRequestFullScreen) {
-    canvas.webkitRequestFullScreen();
-  } else {
-    canvas.mozRequestFullScreen();
-  }
-  this.blur();
-}
-
 function checkOrientation() {
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   const isPortrait = window.innerHeight > window.innerWidth;
@@ -122,6 +114,3 @@ window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
-fullscreenButton.addEventListener("click", () => {
-  fullscreen();
-});

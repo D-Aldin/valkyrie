@@ -9,12 +9,9 @@ body {
   flex-direction: column;
   align-items: center;
   background-image: url("../assets/image/background/ai-generated-8347847.jpg");
-  background-position: center;
+
   background-repeat: no-repeat;
   background-size: cover;
-  /* margin: 0;
-  padding: 0; */
-  /* overflow: hidden; */
 }
 
 #intro {
@@ -22,18 +19,14 @@ body {
 }
 
 #canvasContainer {
-  /* background-color: black; */
-  /* display: block; */
 }
 
 canvas {
   display: block;
-
 }
 
 h1 {
   font-size: 4.5rem;
-  /* letter-spacing: 30px; */
   margin-block-end: 0.1em;
   color: white;
 }
@@ -41,7 +34,6 @@ h1 {
 h2,
 h3 {
   color: white;
-  /* font-family: Arial, Helvetica, sans-serif; */
   text-align: center;
 }
 
@@ -54,7 +46,6 @@ canvas {
 }
 
 .mobile-button {
-  /* position: absolute; */
   bottom: 50px;
   width: 80px;
   height: 80px;
@@ -78,7 +69,7 @@ canvas {
 
 #fullscreenButton img,
 #muteSound img,
-#restart img{
+#restart img {
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -87,7 +78,6 @@ canvas {
 #rotate {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100vw;
   height: 100vh;
   background: #000;
@@ -99,7 +89,6 @@ canvas {
   font-size: 2.5rem;
   z-index: 9999;
   padding: 2rem;
-  
 }
 
 #rotate img {
@@ -108,10 +97,17 @@ canvas {
   margin: 0 20px 0 20px;
 }
 
-
 @media only screen and (max-width: 760px) {
   canvas {
     width: 100%;
+  }
+}
+
+@media only screen and (min-width: 580px) {
+  .mobile-button {
+    width: 70px;
+    height: 70px;
+    font-size: 1.5em;
   }
 }
 
@@ -147,5 +143,30 @@ canvas {
   #right-thumb {
     display: flex;
     gap: 10px;
+  }
+
+  .mobile-button {
+    width: 55px;
+  }
+}
+
+@media only screen and (max-width: 416px) {
+  #rotate {
+    font-size: 1.8rem;
+  }
+
+  .mobile-button {
+    width: 45px;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) {
+  .mobile-button {
+    width: 25px !important;
+    height: 45px;
+  }
+
+  body {
+    background: red;
   }
 }

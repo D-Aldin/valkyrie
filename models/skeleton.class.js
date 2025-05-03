@@ -37,10 +37,8 @@ class Skeleton extends MovableObject {
   }
 
   animate() {
-    this.intervals.push(
-      setInterval(() => {
-        this.moveLeft(this.skeletonWalkingImages);
-      }, 60)
-    );
+    setInterval(() => {
+      this.moveLeft(this.skeletonWalkingImages);
+    }, 60);
   }
 }

@@ -24,6 +24,7 @@ class World {
     this.setworld();
     this.draw();
     this.checkCollisions();
+    this.checkMinotaurCollision();
     this.checkIfDead(this.character, this.character.valkyrieDead);
     this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
     this.checkThrowing();
@@ -48,24 +49,26 @@ class World {
   }
 
   checkItemAndGoldCollection() {
-    setInterval(() => {
-      this.level.gold.forEach((gold, index) => {
-        if (this.character.isColliding(gold) && this.character.collectGold < 5) {
-          this.level.gold.splice(index, 1);
-          this.character.collectGold += 1;
-          this.sound.playSound("gold");
-          this.goldStatusBar.setGoldCount(this.character.collectGold);
-        }
-      });
-      this.level.item.forEach((item, index) => {
-        if (this.character.isColliding(item) && this.character.collectItem < 5) {
-          this.level.item.splice(index, 1);
-          this.character.collectItem += 1;
-          this.sound.playSound("item");
-          this.itemStatusBar.setItemCount(this.character.collectItem);
-        }
-      });
-    }, 100);
+    this.character.intervals.push(
+      setInterval(() => {
+        this.level.gold.forEach((gold, index) => {
+          if (this.character.isColliding(gold) && this.character.collectGold < 5) {
+            this.level.gold.splice(index, 1);
+            this.character.collectGold += 1;
+            this.sound.playSound("gold");
+            this.goldStatusBar.setGoldCount(this.character.collectGold);
+          }
+        });
+        this.level.item.forEach((item, index) => {
+          if (this.character.isColliding(item) && this.character.collectItem < 5) {
+            this.level.item.splice(index, 1);
+            this.character.collectItem += 1;
+            this.sound.playSound("item");
+            this.itemStatusBar.setItemCount(this.character.collectItem);
+          }
+        });
+      }, 100)
+    );
   }
 
   checkThrowing() {
@@ -90,24 +93,21 @@ class World {
 
   checkCollisions() {
     this.character.intervals.push(
-      this.character.intervals.push(
-        setInterval(() => {
-          this.level.enemies.forEach((enemy) => {
-            if (
-              this.character.isColliding(enemy) ||
-              (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
-            ) {
-              this.character.live -= this.valkyrieDamageAmount;
-              this.gameOver();
-              this.valkyrieStatusBar.setPercentage(this.character.live);
-              this.character.isHurt = true;
-              this.character.updateAnimationFrame(this.character.valkyrieHurt);
-              setTimeout(() => (this.character.isHurt = false), 500);
-              if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
-            }
-          });
-        }, 200)
-      )
+      setInterval(() => {
+        this.level.enemies.forEach((enemy) => {
+          if (
+            this.character.isColliding(enemy) ||
+            (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
+          ) {
+            this.character.live -= this.valkyrieDamageAmount;
+            this.valkyrieStatusBar.setPercentage(this.character.live);
+            this.character.isHurt = true;
+            this.character.updateAnimationFrame(this.character.valkyrieHurt);
+            setTimeout(() => (this.character.isHurt = false), 500);
+            if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
+          }
+        });
+      }, 200)
     );
   }
 
@@ -121,14 +121,16 @@ class World {
   }
 
   checkEnemyCollision() {
-    this.level.enemies.forEach((enemy, enemyIndex) => {
-      this.level.throwables.forEach((item, itemIndex) => {
-        if (item.isColliding(enemy)) {
-          this.level.enemies.splice(enemyIndex, 1);
-          this.level.throwables.splice(itemIndex, 1);
-        }
+    if (!this.character.isDead) {
+      this.level.enemies.forEach((enemy, enemyIndex) => {
+        this.level.throwables.forEach((item, itemIndex) => {
+          if (item.isColliding(enemy)) {
+            this.level.enemies.splice(enemyIndex, 1);
+            this.level.throwables.splice(itemIndex, 1);
+          }
+        });
       });
-    });
+    }
   }
 
   checkMinotaurCollision() {
@@ -147,19 +149,21 @@ class World {
   }
 
   checkJumpOnEnemy() {
-    setInterval(() => {
-      this.level.enemies.forEach((enemy, index) => {
-        if (enemy.isStomped(this.character)) {
-          this.level.enemies.splice(index, 1);
-          this.character.speedY = 20;
-          this.sound.playSound("skeleton");
-        } else if (enemy.isColliding(this.character)) {
-          if (!this.character.isHurt && !this.character.isDead) {
-            this.character.updateAnimationFrame(this.character.valkyrieHurt);
+    this.character.intervals.push(
+      setInterval(() => {
+        this.level.enemies.forEach((enemy, index) => {
+          if (enemy.isStomped(this.character)) {
+            this.level.enemies.splice(index, 1);
+            this.character.speedY = 20;
+            this.sound.playSound("skeleton");
+          } else if (enemy.isColliding(this.character)) {
+            if (!this.character.isHurt && !this.character.isDead) {
+              this.character.updateAnimationFrame(this.character.valkyrieHurt);
+            }
           }
-        }
-      });
-    }, 1000 / 25);
+        });
+      }, 1000 / 25)
+    );
   }
 
   checkIfDead(character, dyingAnimation) {
@@ -207,7 +211,7 @@ class World {
   }
 
   addObjectsToMap(objects) {
-    objects.forEach((obj, index) => {
+    objects.forEach((obj) => {
       if (obj instanceof Background) {
         obj.y_position = 0;
       }
@@ -240,11 +244,9 @@ class World {
       this.ctx.font = "60px myFont";
       this.ctx.fillText("Your saga ends here.", 380, 200);
       setTimeout(() => {
+        clearInterval(this.character.valkyrieHurt);
         this.character.stopIntervals();
-      }, 3000);
-      this.level.enemies.forEach((enemy) => {
-        enemy.stopIntervals?.();
-      });
+      }, 4000);
     }
   }
 
@@ -252,18 +254,12 @@ class World {
     if (this.minotaur.live <= 0) {
       this.ctx.font = "40px myFont";
       this.ctx.fillText("You have earned your place in Valhalla!", 380, 200);
-
       this.character.stopIntervals();
-
       this.level.enemies.forEach((enemy) => {
         enemy.stopIntervals?.();
       });
     }
   }
-
-  startDrawMethod() {}
-
-  startGameObjectsOver() {}
 
   restart() {
     restartButton.addEventListener("click", () => {
