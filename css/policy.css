@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../assets/image/background/ai-generated-8347847.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  font-size: large;
+  padding: 0 80px 0 80px;
+}
+
+.back-to-game {
+  width: 220px;
+  height: 220px;
+}
+
+.back-to-game img {
+  width: 220px;
+  height: 220px;
+  cursor: pointer;
+}
+
+footer {
+  margin-top: 60px;
+  text-align: center;
+}

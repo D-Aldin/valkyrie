@@ -17,11 +17,10 @@ class SoundManager {
     if (sound) {
       if (!this.isMuted) {
         sound.currentTime = 0;
-
         sound.play();
       }
     } else {
-      // console.log(`Sound not found.`);
+      console.log(`Sound not found.`);
     }
   }
 
