@@ -26,6 +26,21 @@ class Skeleton extends MovableObject {
     "./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_023.png",
   ];
 
+  skeletonHurtImages = [
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_000.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_001.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_002.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_003.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_004.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_005.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_006.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_007.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_008.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_009.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_010.png",
+    "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_011.png",
+  ];
+
   y_position = 360;
 
   constructor() {
@@ -33,12 +48,16 @@ class Skeleton extends MovableObject {
     this.loadImage("./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_000.png", true);
     this.x_position = 300 + Math.random() * 1400;
     this.loadImagesInCache(this.skeletonWalkingImages);
-    this.animate();
+    this.loadImagesInCache(this.skeletonHurtImages);
   }
 
-  animate() {
+  animateMoving() {
     setInterval(() => {
       this.moveLeft(this.skeletonWalkingImages);
     }, 60);
+  }
+
+  startWalking() {
+    this.animateMoving();
   }
 }

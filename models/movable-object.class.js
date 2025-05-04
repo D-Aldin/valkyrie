@@ -1,7 +1,7 @@
 class MovableObject extends DrawableObject {
   x_position = 0;
   y_position = 180;
-  speed = Math.random() * 2.9 + 0.5;
+  speed = Math.random() * 2.9 + 0.4;
   direction = false;
   speedY = 0;
   acceleration = 2.5;

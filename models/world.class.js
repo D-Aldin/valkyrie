@@ -24,16 +24,18 @@ class World {
     this.key = key;
     this.setworld();
     this.draw();
+    this.startGameLogic();
+    this.activeSound();
+    this.restart();
+  }
+
+  startGameLogic() {
     this.checkCollisions();
     this.checkIfDead(this.character, this.character.valkyrieDead);
     this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
-    this.activeSound();
-    this.gameOver();
-
-    this.restart();
   }
 
   activeSound() {
@@ -104,17 +106,23 @@ class World {
   checkCollisions() {
     this.character.intervals.push(
       setInterval(() => {
+        if (this.character.isDead || this.character.live <= 0) return;
         this.level.enemies.forEach((enemy) => {
           if (
-            this.character.isColliding(enemy) ||
-            (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.character.isDead)
+            (this.character.isColliding(enemy) || this.character.isColliding(this.minotaur)) &&
+            !this.character.isHurt
           ) {
             this.character.live -= this.valkyrieDamageAmount;
+            if (this.character.live <= 0) {
+              this.character.live = 0;
+              this.character.isDead = true;
+              this.character.currentImage = 0;
+            }
             this.valkyrieStatusBar.setPercentage(this.character.live);
             this.character.isHurt = true;
             this.character.updateAnimationFrame(this.character.valkyrieHurt);
             setTimeout(() => (this.character.isHurt = false), 500);
-            if (this.character.live <= 0) Object.assign(this.character, { isDead: true, currentImage: 0 });
+            console.log(this.character.live);
           }
         });
       }, 200)
@@ -125,7 +133,7 @@ class World {
     this.character.intervals.push(
       setInterval(() => {
         this.checkEnemyCollisionWithItem();
-        this.checkMinotaurCollision();
+        this.checkMinotaurCollisionWithItem();
       }, 100)
     );
   }
@@ -143,7 +151,7 @@ class World {
     }
   }
 
-  checkMinotaurCollision() {
+  checkMinotaurCollisionWithItem() {
     this.level.throwables.forEach((item, itemIndex) => {
       if (item.isColliding(this.minotaur) && !this.minotaur.isDead) {
         this.minotaur.live -= this.itemDamageAmount;
@@ -191,6 +199,9 @@ class World {
       setInterval(() => {
         if (character.isDead) {
           character.updateAnimationFrame(dyingAnimation);
+          setTimeout(() => {
+            this.character.stopIntervals();
+          }, 5000);
         }
       }, 1000 / 5)
     );
@@ -203,7 +214,6 @@ class World {
     this.addToMap(this.goldStatusBar);
   }
 
-  // TODO
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     if (this.intro.introActive) {
@@ -229,6 +239,8 @@ class World {
     this.winning();
     requestAnimationFrame(() => this.draw());
   }
+
+  introScreen() {}
 
   addObjectsToMap(objects) {
     objects.forEach((obj) => {
@@ -263,10 +275,6 @@ class World {
     if (this.character.live <= 0) {
       this.ctx.font = "60px myFont";
       this.ctx.fillText("Your saga ends here.", 380, 200);
-      setTimeout(() => {
-        clearInterval(this.character.valkyrieHurt);
-        this.character.stopIntervals();
-      }, 4000);
     }
   }
 

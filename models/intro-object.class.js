@@ -17,6 +17,12 @@ class Intro extends DrawableObject {
       this.introActive = false;
       key.enter = false;
       document.querySelector("#story").style.display = "none";
+      world.level.enemies.forEach((enemy) => {
+        enemy.startWalking();
+      });
+      world.level.bats.forEach((bat) => {
+        bat.startmoving();
+      });
     }
   }
 

@@ -2,7 +2,7 @@ function createLevel1() {
   return new Level(
     [new Skeleton(), new Skeleton(), new Skeleton(), new Skeleton()],
     [new Minotaur()],
-    [(new Bats(), new Bats(), new Bats(), new Bats(), new Bats(), new Bats(), new Bats(), new Bats())],
+    [new Bats(), new Bats(), new Bats(), new Bats(), new Bats(), new Bats(), new Bats(), new Bats()],
     [
       new Background("./assets/image/background/PNG/2/mirror5.png", -720),
       new Background("./assets/image/background/PNG/2/5.png", 0),
