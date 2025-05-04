@@ -101,7 +101,7 @@ class Minotaur extends MovableObject {
     this.imageCache = {};
     this.loadImagesInCache(this.minotaurHurt);
     this.currentImage = 0;
-    this.animateHurt();
+    // this.animateHurt();
   }
 
   animateDead() {

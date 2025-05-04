@@ -25,7 +25,6 @@ class World {
     this.setworld();
     this.draw();
     this.checkCollisions();
-    this.checkMinotaurCollision();
     this.checkIfDead(this.character, this.character.valkyrieDead);
     this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
     this.checkThrowing();
@@ -48,7 +47,7 @@ class World {
         this.sound.addSound("throw", "./assets/sounds/throw.mp3");
         this.sound.addSound("minotaurDying", "./assets/sounds/minotaurDying.mp3");
         this.sound.addSound("item", "./assets/sounds/item.mp3");
-        this.sound.volume("background", 1);
+        this.sound.volume("background", 0.3);
         this.sound.playSound("background");
       }
     });
@@ -125,13 +124,13 @@ class World {
   checkEnemyHit() {
     this.character.intervals.push(
       setInterval(() => {
-        this.checkEnemyCollision();
+        this.checkEnemyCollisionWithItem();
         this.checkMinotaurCollision();
       }, 100)
     );
   }
 
-  checkEnemyCollision() {
+  checkEnemyCollisionWithItem() {
     if (!this.character.isDead) {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         this.level.throwables.forEach((item, itemIndex) => {
@@ -148,13 +147,23 @@ class World {
     this.level.throwables.forEach((item, itemIndex) => {
       if (item.isColliding(this.minotaur) && !this.minotaur.isDead) {
         this.minotaur.live -= this.itemDamageAmount;
-        this.sound.playSound("minotaurDying");
         this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
         this.level.throwables.splice(itemIndex, 1);
-        if (this.minotaur.live > 0) {
+        this.minotaur.isHurt = true;
+        this.sound.playSound("minotaurDying");
+        clearInterval(this.minotaur.walkingInterval);
+        if (this.minotaur.isHurt === true) {
           this.minotaur.updateAnimationFrame(this.minotaur.minotaurHurt);
-          setTimeout(() => this.minotaur.updateAnimationFrame(this.minotaur.minotaurWalking), 200);
-        } else Object.assign(this.minotaur, { isDead: true, currentImage: 0, movingRight: false });
+          setTimeout(() => {
+            if (this.minotaur.live > 0) {
+              this.minotaur.isHurt = false;
+              this.minotaur.animate();
+            } else {
+              this.minotaur.isDead = true;
+              this.minotaur.animate();
+            }
+          }, 400);
+        }
       }
     });
   }
