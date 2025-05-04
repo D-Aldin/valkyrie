@@ -1,3 +1,6 @@
+/**
+ * Represents the main game world including character, enemies, level logic, UI, and rendering.
+ */
 class World {
   character = new Valkyrie();
   minotaur = new Minotaur();
@@ -18,6 +21,11 @@ class World {
   restartButton = document.querySelector("#restart");
   unlock = false;
 
+  /**
+   * Creates a new game world.
+   * @param {HTMLCanvasElement} canvas - The canvas element to draw on.
+   * @param {Object} key - Object holding current key states.
+   */
   constructor(canvas, key) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
@@ -29,6 +37,7 @@ class World {
     this.restart();
   }
 
+  /** Initializes all recurring game logic functions. */
   startGameLogic() {
     this.checkCollisions();
     this.checkIfDead(this.character, this.character.valkyrieDead);
@@ -38,6 +47,7 @@ class World {
     this.checkJumpOnEnemy();
   }
 
+  /** Enables background sound on first key press. */
   activeSound() {
     document.addEventListener("keydown", () => {
       if (!this.unlock) {
@@ -48,11 +58,13 @@ class World {
     });
   }
 
+  /** Connects world reference to other objects. */
   setworld() {
     this.character.world = this;
     this.sound.world = this;
   }
 
+  /** Starts item and gold collection checks. */
   checkItemAndGoldCollection() {
     this.character.intervals.push(
       setInterval(() => {
@@ -62,6 +74,7 @@ class World {
     );
   }
 
+  /** Handles gold collection logic. */
   collectGold() {
     this.level.gold.forEach((gold, index) => {
       if (this.character.isColliding(gold) && this.character.collectGold < 5) {
@@ -73,6 +86,7 @@ class World {
     });
   }
 
+  /** Handles item collection logic. */
   collectItems() {
     this.level.item.forEach((item, index) => {
       if (this.character.isColliding(item) && this.character.collectItem < 5) {
@@ -84,6 +98,7 @@ class World {
     });
   }
 
+  /** Checks if character throws an item. */
   checkThrowing() {
     this.character.intervals.push(
       setInterval(() => {
@@ -104,11 +119,11 @@ class World {
     );
   }
 
+  /** Checks collision between character and enemies. */
   checkCollisions() {
     this.character.intervals.push(
       setInterval(() => {
         if (this.character.isDead || this.character.live <= 0) return;
-
         this.level.enemies.forEach((enemy) => {
           if (this.shouldTakeDamage(enemy)) {
             this.applyDamage();
@@ -118,10 +133,16 @@ class World {
     );
   }
 
+  /**
+   * Checks if the character should take damage.
+   * @param {Enemy} enemy - An enemy to check collision against.
+   * @returns {boolean}
+   */
   shouldTakeDamage(enemy) {
     return (this.character.isColliding(enemy) || this.character.isColliding(this.minotaur)) && !this.character.isHurt;
   }
 
+  /** Applies damage to the character. */
   applyDamage() {
     this.character.live -= this.valkyrieDamageAmount;
     if (this.character.live <= 0) {
@@ -136,6 +157,7 @@ class World {
     console.log(this.character.live);
   }
 
+  /** Checks if enemies or the minotaur are hit by thrown items. */
   checkEnemyHit() {
     this.character.intervals.push(
       setInterval(() => {
@@ -145,6 +167,7 @@ class World {
     );
   }
 
+  /** Checks if throwable hits a regular enemy. */
   checkEnemyCollisionWithItem() {
     if (!this.character.isDead) {
       this.level.enemies.forEach((enemy, enemyIndex) => {
@@ -158,6 +181,7 @@ class World {
     }
   }
 
+  /** Checks if throwable hits the minotaur. */
   checkMinotaurCollisionWithItem() {
     this.level.throwables.forEach((item, index) => {
       if (this.shouldDamageMinotaur(item)) {
@@ -166,10 +190,19 @@ class World {
     });
   }
 
+  /**
+   * Checks if minotaur should take damage.
+   * @param {ThrowableObject} item
+   * @returns {boolean}
+   */
   shouldDamageMinotaur(item) {
     return item.isColliding(this.minotaur) && !this.minotaur.isDead;
   }
 
+  /**
+   * Applies damage to the minotaur.
+   * @param {number} index - Index of the throwable.
+   */
   damageMinotaur(index) {
     this.minotaur.live -= this.itemDamageAmount;
     this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
@@ -189,6 +222,7 @@ class World {
     }, 400);
   }
 
+  /** Checks if the player jumps on an enemy. */
   checkJumpOnEnemy() {
     this.character.intervals.push(
       setInterval(() => {
@@ -207,6 +241,11 @@ class World {
     );
   }
 
+  /**
+   * Updates character animation when dead.
+   * @param {Valkyrie | Minotaur} character - The dead character.
+   * @param {string[]} dyingAnimation - Animation frames.
+   */
   checkIfDead(character, dyingAnimation) {
     this.character.intervals.push(
       setInterval(() => {
@@ -220,6 +259,7 @@ class World {
     );
   }
 
+  /** Draws all UI elements (status bars). */
   drawUI() {
     this.addToMap(this.valkyrieStatusBar);
     this.addToMap(this.minotaurStatusBar);
@@ -227,33 +267,34 @@ class World {
     this.addToMap(this.goldStatusBar);
   }
 
+  /** Main draw loop of the game. */
   draw() {
     this.clearCanvas();
-
     if (this.intro.introActive) {
       this.intro.update(this.ctx, this.key);
       requestAnimationFrame(() => this.draw());
       return;
     }
-
     this.ctx.save();
     this.updateCamera();
     this.renderGameWorld();
     this.ctx.restore();
-
     this.renderUIAndGameLogic();
     requestAnimationFrame(() => this.draw());
   }
 
+  /** Clears the canvas. */
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
+  /** Updates camera position. */
   updateCamera() {
     this.cameraPosition = this.character.x_position - 100;
     this.ctx.translate(-this.cameraPosition, 0);
   }
 
+  /** Draws all objects in the world. */
   renderGameWorld() {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
@@ -264,6 +305,7 @@ class World {
     this.addObjectsToMap(this.level.item);
   }
 
+  /** Renders UI and handles gameplay logic. */
   renderUIAndGameLogic() {
     this.drawUI();
     this.addObjectsToMap(this.level.throwables);
@@ -272,17 +314,15 @@ class World {
     this.winning();
   }
 
-  introScreen() {}
-
+  /** Adds array of game objects to the canvas. */
   addObjectsToMap(objects) {
     objects.forEach((obj) => {
-      if (obj instanceof Background) {
-        obj.y_position = 0;
-      }
+      if (obj instanceof Background) obj.y_position = 0;
       this.addToMap(obj);
     });
   }
 
+  /** Adds a single game object to the canvas. */
   addToMap(element) {
     if (element.direction) {
       this.flipImage(element);
@@ -297,12 +337,14 @@ class World {
     }
   }
 
+  /** Flips image horizontally for directional rendering. */
   flipImage(element) {
     this.ctx.save();
     this.ctx.translate(element.x_position + element.width, 0);
     this.ctx.scale(-1, 1);
   }
 
+  /** Shows game over message. */
   gameOver() {
     if (this.character.live <= 0) {
       this.ctx.font = "60px myFont";
@@ -310,17 +352,17 @@ class World {
     }
   }
 
+  /** Shows winning message and stops enemy behavior. */
   winning() {
     if (this.minotaur.live <= 0) {
       this.ctx.font = "40px myFont";
       this.ctx.fillText("You have earned your place in Valhalla!", 380, 200);
       this.character.stopIntervals();
-      this.level.enemies.forEach((enemy) => {
-        enemy.stopIntervals?.();
-      });
+      this.level.enemies.forEach((enemy) => enemy.stopIntervals?.());
     }
   }
 
+  /** (Re)initializes game elements (status bars, throwables, etc.). */
   gameElements() {
     this.valkyrieStatusBar = new ValkyrieStatusBar();
     this.minotaurStatusBar = new MinotaurStatusBar();
@@ -329,6 +371,7 @@ class World {
     this.throwableObject = [new ThrowableObject()];
   }
 
+  /** Initializes the game logic again, typically after restart. */
   initializeGameLogic() {
     this.draw();
     this.checkCollisions();
@@ -340,6 +383,7 @@ class World {
     this.setworld();
   }
 
+  /** Restarts the game when the restart button is clicked. */
   restart() {
     restartButton.addEventListener("click", () => {
       document.querySelector("#story").style.display = "flex";
