@@ -1,4 +1,14 @@
+/**
+ * Class representing a Valkyrie character.
+ * This class extends the `MovableObject` class and manages the Valkyrie's movement, animations, and interactions in the game world.
+ *
+ * @extends MovableObject
+ */
 class Valkyrie extends MovableObject {
+  /**
+   * Array of images for the walking animation.
+   * @type {string[]}
+   */
   valkyrieWalking = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_001.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_000.png",
@@ -26,6 +36,10 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_023.png",
   ];
 
+  /**
+   * Array of images for the jumping animation (start, loop, and falling).
+   * @type {string[]}
+   */
   valkyrieJumping = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Jump Start/0_Valkyrie_Jump Start_000.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Jump Start/0_Valkyrie_Jump Start_001.png",
@@ -48,6 +62,10 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Jump Start/0_Valkyrie_Jump Start_000.png",
   ];
 
+  /**
+   * Array of images for the hurt animation.
+   * @type {string[]}
+   */
   valkyrieHurt = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_000.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_001.png",
@@ -55,6 +73,10 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Hurt/0_Valkyrie_Hurt_003.png",
   ];
 
+  /**
+   * Array of images for the dying animation.
+   * @type {string[]}
+   */
   valkyrieDead = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_000.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_001.png",
@@ -73,6 +95,10 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Dying/0_Valkyrie_Dying_014.png",
   ];
 
+  /**
+   * Array of images for the throwing animation.
+   * @type {string[]}
+   */
   valkyrieThrowing = [
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_000.png",
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_001.png",
@@ -88,17 +114,70 @@ class Valkyrie extends MovableObject {
     "./assets/image/Valkyrie_3/PNG/PNG Sequences/Throwing/0_Valkyrie_Throwing_011.png",
   ];
 
+  /**
+   * The game world the Valkyrie is part of.
+   * @type {World}
+   */
   world;
+
+  /**
+   * The vertical position of the Valkyrie in the game world.
+   * @type {number}
+   */
   y_position = 360;
+
+  /**
+   * The speed of the Valkyrie.
+   * @type {number}
+   */
   speed = 12;
+
+  /**
+   * Indicates whether the Valkyrie is hurt.
+   * @type {boolean}
+   */
   isHurt = false;
+
+  /**
+   * Indicates whether the Valkyrie is dead.
+   * @type {boolean}
+   */
   isDead = false;
+
+  /**
+   * Indicates whether the Valkyrie is currently throwing an item.
+   * @type {boolean}
+   */
   isThrowing = false;
+
+  /**
+   * Indicates whether the Valkyrie is falling.
+   * @type {boolean}
+   */
   isFalling = false;
+
+  /**
+   * The Valkyrie's health.
+   * @type {number}
+   */
   live = 100;
+
+  /**
+   * The amount of gold collected by the Valkyrie.
+   * @type {number}
+   */
   collectGold = 0;
+
+  /**
+   * The amount of items collected by the Valkyrie.
+   * @type {number}
+   */
   collectItem = 0;
 
+  /**
+   * Creates an instance of the Valkyrie character.
+   * Initializes the character's animations and sets up the gravity and animation loop.
+   */
   constructor() {
     super();
     this.loadImage("./assets/image/Valkyrie_3/PNG/PNG Sequences/Walking/0_Valkyrie_Walking_001.png", true);
@@ -111,6 +190,10 @@ class Valkyrie extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Starts the animation loop and updates the Valkyrie's movement and animation.
+   * Runs every 60 milliseconds.
+   */
   animate() {
     setInterval(() => {
       this.handleMovement();
@@ -119,6 +202,10 @@ class Valkyrie extends MovableObject {
     }, 60);
   }
 
+  /**
+   * Handles the Valkyrie's movement based on user input.
+   * Moves the Valkyrie left or right and makes her jump when the respective keys are pressed.
+   */
   handleMovement() {
     this.isMoving = false;
     if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
@@ -134,6 +221,10 @@ class Valkyrie extends MovableObject {
     if (this.world.key.space) this.jump();
   }
 
+  /**
+   * Handles the Valkyrie's animation based on her movement state.
+   * Updates the animation frames based on whether she is jumping or walking.
+   */
   handleAnimation() {
     if (this.isAboveGround()) {
       this.updateAnimationFrame(this.valkyrieJumping);
@@ -142,6 +233,9 @@ class Valkyrie extends MovableObject {
     }
   }
 
+  /**
+   * Makes the Valkyrie jump by setting her vertical speed (Y-axis).
+   */
   jump() {
     if (!this.isAboveGround()) {
       this.speedY = 30;
