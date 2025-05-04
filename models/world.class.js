@@ -16,6 +16,7 @@ class World {
   intro = new Intro();
   sound = new SoundManager();
   restartButton = document.querySelector("#restart");
+  unlock = false;
 
   constructor(canvas, key) {
     this.canvas = canvas;
@@ -30,17 +31,27 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
+    this.activeSound();
     this.gameOver();
-    this.sound.addSound("background", "./assets/sounds/background.mp3", true);
-    this.sound.addSound("skeleton", "./assets/sounds/skeleton.mp3");
-    this.sound.addSound("gold", "./assets/sounds/gold.mp3");
-    this.sound.addSound("jump", "./assets/sounds/jump.mp3");
-    this.sound.addSound("throw", "./assets/sounds/throw.mp3");
-    this.sound.addSound("minotaurDying", "./assets/sounds/minotaurDying.mp3");
-    this.sound.addSound("item", "./assets/sounds/item.mp3");
-    this.sound.volume("background", 1);
-    this.sound.playSound("background");
+
     this.restart();
+  }
+
+  activeSound() {
+    document.addEventListener("keydown", () => {
+      this.unlock = true;
+      if (this.unlock == true) {
+        this.sound.addSound("background", "./assets/sounds/background.mp3", true);
+        this.sound.addSound("skeleton", "./assets/sounds/skeleton.mp3");
+        this.sound.addSound("gold", "./assets/sounds/gold.mp3");
+        this.sound.addSound("jump", "./assets/sounds/jump.mp3");
+        this.sound.addSound("throw", "./assets/sounds/throw.mp3");
+        this.sound.addSound("minotaurDying", "./assets/sounds/minotaurDying.mp3");
+        this.sound.addSound("item", "./assets/sounds/item.mp3");
+        this.sound.volume("background", 1);
+        this.sound.playSound("background");
+      }
+    });
   }
 
   setworld() {

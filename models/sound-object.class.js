@@ -17,6 +17,7 @@ class SoundManager {
     if (sound) {
       if (!this.isMuted) {
         sound.currentTime = 0;
+
         sound.play();
       }
     } else {

@@ -42,6 +42,8 @@ document.getElementById("startButton").addEventListener("touchstart", () => {
   key.enter = true;
   if (key.enter) {
     document.getElementById("startButton").style.display = "none";
+    this.sound.addSound("background", "./assets/sounds/background.mp3", true);
+    this.sound.playSound("background");
   }
 });
 
