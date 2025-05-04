@@ -310,6 +310,7 @@ class World {
 
   restart() {
     restartButton.addEventListener("click", () => {
+      document.querySelector("#story").style.display = "flex";
       this.character = new Valkyrie();
       this.minotaur = new Minotaur();
       this.level = createLevel1();

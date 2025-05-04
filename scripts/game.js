@@ -2,6 +2,8 @@ let canvas;
 key = new Keyboard();
 canvas = document.getElementById("canvas");
 const restartButton = document.querySelector("#restart");
+let soundIcon = document.getElementById("soundIcon");
+let restartIcon = document.getElementById("restartIcon");
 
 function init() {
   world = new World(canvas, key);
@@ -47,6 +49,30 @@ document.getElementById("startButton").addEventListener("touchstart", () => {
 
 document.getElementById("startButton").addEventListener("touchend", () => {
   key.enter = false;
+});
+
+soundIcon.addEventListener("mouseover", () => {
+  if (soundIcon.src.includes("stumm.png")) {
+    soundIcon.src = "./assets/icons/stumm_hover.png";
+  } else if (soundIcon.src.includes("lautstarke.png")) {
+    soundIcon.src = "./assets/icons/lautstarke_hover.png";
+  }
+});
+
+soundIcon.addEventListener("mouseout", () => {
+  if (soundIcon.src.includes("stumm_hover.png")) {
+    soundIcon.src = "./assets/icons/stumm.png";
+  } else if (soundIcon.src.includes("lautstarke_hover.png")) {
+    soundIcon.src = "./assets/icons/lautstarke.png";
+  }
+});
+
+restartIcon.addEventListener("mouseover", () => {
+  restartIcon.src = "./assets/icons/restart_hover.png";
+});
+
+restartIcon.addEventListener("mouseout", () => {
+  restartIcon.src = "./assets/icons/restart.png";
 });
 
 const keydownHandler = (event) => {
