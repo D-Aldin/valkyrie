@@ -1,4 +1,12 @@
+/**
+ * Class representing a skeleton enemy in the game. It includes animation for walking and being hurt.
+ * The skeleton moves across the screen and has different images for walking and hurt animations.
+ */
 class Skeleton extends MovableObject {
+  /**
+   * Array of image paths representing the walking animation of the skeleton.
+   * @type {string[]}
+   */
   skeletonWalkingImages = [
     "./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_000.png",
     "./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_001.png",
@@ -26,6 +34,10 @@ class Skeleton extends MovableObject {
     "./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_023.png",
   ];
 
+  /**
+   * Array of image paths representing the hurt animation of the skeleton.
+   * @type {string[]}
+   */
   skeletonHurtImages = [
     "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_000.png",
     "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_001.png",
@@ -41,22 +53,38 @@ class Skeleton extends MovableObject {
     "./assets/image/skeleton_hurt/0_Skeleton_Crusader_Hurt_011.png",
   ];
 
+  /**
+   * The vertical position of the skeleton on the screen.
+   * @type {number}
+   */
   y_position = 360;
 
+  /**
+   * Creates an instance of the Skeleton object.
+   * Initializes the skeleton with a random horizontal position, walking, and hurt images.
+   */
   constructor() {
     super();
     this.loadImage("./assets/image/skeleton_walking/0_Skeleton_Crusader_Walking_000.png", true);
-    this.x_position = 300 + Math.random() * 1400;
+    this.x_position = 300 + Math.random() * 1400; // Randomize starting position
     this.loadImagesInCache(this.skeletonWalkingImages);
     this.loadImagesInCache(this.skeletonHurtImages);
   }
 
+  /**
+   * Animates the skeleton's walking movement by periodically changing the walking images.
+   * Moves the skeleton left across the screen at regular intervals.
+   */
   animateMoving() {
     setInterval(() => {
       this.moveLeft(this.skeletonWalkingImages);
     }, 60);
   }
 
+  /**
+   * Starts the skeleton's walking animation.
+   * Calls `animateMoving` to initiate the walking animation.
+   */
   startWalking() {
     this.animateMoving();
   }
