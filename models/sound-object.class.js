@@ -20,7 +20,7 @@ class SoundManager {
         sound.play();
       }
     } else {
-      console.log(`Sound not found.`);
+      // console.log(`Sound not found.`);
     }
   }
 
@@ -47,7 +47,7 @@ class SoundManager {
   muteButton() {
     this.muteButton = document.getElementById("muteSound");
     this.muteButton.addEventListener("click", () => {
-      this.muteButton.blur()
+      this.muteButton.blur();
       if (this.isMuted) {
         this.unmute();
         this.muteButton.lastElementChild.src = "./assets/icons/lautstarke.png";

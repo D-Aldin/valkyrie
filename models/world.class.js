@@ -261,6 +261,25 @@ class World {
     }
   }
 
+  gameElements() {
+    this.valkyrieStatusBar = new ValkyrieStatusBar();
+    this.minotaurStatusBar = new MinotaurStatusBar();
+    this.itemStatusBar = new ItemStatusBar();
+    this.goldStatusBar = new GoldStatusBar();
+    this.throwableObject = [new ThrowableObject()];
+  }
+
+  initializeGameLogic() {
+    this.draw();
+    this.checkCollisions();
+    this.checkIfDead(this.character, this.character.valkyrieDead);
+    this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
+    this.checkThrowing();
+    this.checkEnemyHit();
+    this.checkJumpOnEnemy();
+    this.setworld();
+  }
+
   restart() {
     restartButton.addEventListener("click", () => {
       this.character = new Valkyrie();
@@ -269,21 +288,10 @@ class World {
       this.cameraPosition = 0;
       this.valkyrieDamageAmount = 15;
       this.itemDamageAmount = 50;
-      this.valkyrieStatusBar = new ValkyrieStatusBar();
-      this.minotaurStatusBar = new MinotaurStatusBar();
-      this.itemStatusBar = new ItemStatusBar();
-      this.goldStatusBar = new GoldStatusBar();
-      this.throwableObject = [new ThrowableObject()];
+      this.gameElements();
       this.intro = new Intro();
       this.sound = new SoundManager();
-      this.draw();
-      this.checkCollisions();
-      this.checkIfDead(this.character, this.character.valkyrieDead);
-      this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
-      this.checkThrowing();
-      this.checkEnemyHit();
-      this.checkJumpOnEnemy();
-      this.setworld();
+      this.initializeGameLogic();
       this.restartButton.blur();
     });
   }

@@ -63,7 +63,6 @@ class Minotaur extends MovableObject {
     this.loadImagesInCache(this.minotaurHurt);
     this.x_position = 1500;
     this.animate();
-    console.log(this.intervals);
   }
 
   movement() {
