@@ -100,7 +100,10 @@ const keyUpHandler = (event) => {
 };
 
 function checkOrientation() {
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const userAgent = navigator.userAgent;
+  const isTablet = /iPad|Tablet|PlayBook|Nexus 7|Nexus 10|Kindle/i.test(userAgent);
+  const isPhone = /iPhone|Android.*Mobile|Windows Phone|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  const isMobile = isTablet || isPhone;
   const isPortrait = window.innerHeight > window.innerWidth;
   const warning = document.getElementById("rotate");
   if (isMobile && isPortrait) {

@@ -159,14 +159,3 @@ canvas {
     width: 45px;
   }
 }
-
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) {
-  .mobile-button {
-    width: 25px !important;
-    height: 45px;
-  }
-
-  body {
-    background: red;
-  }
-}

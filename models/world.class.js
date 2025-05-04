@@ -1,7 +1,7 @@
 class World {
   character = new Valkyrie();
   minotaur = new Minotaur();
-  level = level_1;
+  level = createLevel1();
   canvas;
   ctx;
   key;
@@ -265,7 +265,7 @@ class World {
     restartButton.addEventListener("click", () => {
       this.character = new Valkyrie();
       this.minotaur = new Minotaur();
-      this.level = level_1;
+      this.level = createLevel1();
       this.cameraPosition = 0;
       this.valkyrieDamageAmount = 15;
       this.itemDamageAmount = 50;
