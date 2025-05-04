@@ -40,15 +40,8 @@ class World {
 
   activeSound() {
     document.addEventListener("keydown", () => {
-      this.unlock = true;
-      if (this.unlock == true) {
-        this.sound.addSound("background", "./assets/sounds/background.mp3", true);
-        this.sound.addSound("skeleton", "./assets/sounds/skeleton.mp3");
-        this.sound.addSound("gold", "./assets/sounds/gold.mp3");
-        this.sound.addSound("jump", "./assets/sounds/jump.mp3");
-        this.sound.addSound("throw", "./assets/sounds/throw.mp3");
-        this.sound.addSound("minotaurDying", "./assets/sounds/minotaurDying.mp3");
-        this.sound.addSound("item", "./assets/sounds/item.mp3");
+      if (!this.unlock) {
+        this.unlock = true;
         this.sound.volume("background", 0.3);
         this.sound.playSound("background");
       }
@@ -63,24 +56,32 @@ class World {
   checkItemAndGoldCollection() {
     this.character.intervals.push(
       setInterval(() => {
-        this.level.gold.forEach((gold, index) => {
-          if (this.character.isColliding(gold) && this.character.collectGold < 5) {
-            this.level.gold.splice(index, 1);
-            this.character.collectGold += 1;
-            this.sound.playSound("gold");
-            this.goldStatusBar.setGoldCount(this.character.collectGold);
-          }
-        });
-        this.level.item.forEach((item, index) => {
-          if (this.character.isColliding(item) && this.character.collectItem < 5) {
-            this.level.item.splice(index, 1);
-            this.character.collectItem += 1;
-            this.sound.playSound("item");
-            this.itemStatusBar.setItemCount(this.character.collectItem);
-          }
-        });
+        this.collectGold();
+        this.collectItems();
       }, 100)
     );
+  }
+
+  collectGold() {
+    this.level.gold.forEach((gold, index) => {
+      if (this.character.isColliding(gold) && this.character.collectGold < 5) {
+        this.level.gold.splice(index, 1);
+        this.character.collectGold++;
+        this.sound.playSound("gold");
+        this.goldStatusBar.setGoldCount(this.character.collectGold);
+      }
+    });
+  }
+
+  collectItems() {
+    this.level.item.forEach((item, index) => {
+      if (this.character.isColliding(item) && this.character.collectItem < 5) {
+        this.level.item.splice(index, 1);
+        this.character.collectItem++;
+        this.sound.playSound("item");
+        this.itemStatusBar.setItemCount(this.character.collectItem);
+      }
+    });
   }
 
   checkThrowing() {
@@ -107,26 +108,32 @@ class World {
     this.character.intervals.push(
       setInterval(() => {
         if (this.character.isDead || this.character.live <= 0) return;
+
         this.level.enemies.forEach((enemy) => {
-          if (
-            (this.character.isColliding(enemy) || this.character.isColliding(this.minotaur)) &&
-            !this.character.isHurt
-          ) {
-            this.character.live -= this.valkyrieDamageAmount;
-            if (this.character.live <= 0) {
-              this.character.live = 0;
-              this.character.isDead = true;
-              this.character.currentImage = 0;
-            }
-            this.valkyrieStatusBar.setPercentage(this.character.live);
-            this.character.isHurt = true;
-            this.character.updateAnimationFrame(this.character.valkyrieHurt);
-            setTimeout(() => (this.character.isHurt = false), 500);
-            console.log(this.character.live);
+          if (this.shouldTakeDamage(enemy)) {
+            this.applyDamage();
           }
         });
       }, 200)
     );
+  }
+
+  shouldTakeDamage(enemy) {
+    return (this.character.isColliding(enemy) || this.character.isColliding(this.minotaur)) && !this.character.isHurt;
+  }
+
+  applyDamage() {
+    this.character.live -= this.valkyrieDamageAmount;
+    if (this.character.live <= 0) {
+      this.character.live = 0;
+      this.character.isDead = true;
+      this.character.currentImage = 0;
+    }
+    this.valkyrieStatusBar.setPercentage(this.character.live);
+    this.character.isHurt = true;
+    this.character.updateAnimationFrame(this.character.valkyrieHurt);
+    setTimeout(() => (this.character.isHurt = false), 500);
+    console.log(this.character.live);
   }
 
   checkEnemyHit() {
@@ -152,28 +159,34 @@ class World {
   }
 
   checkMinotaurCollisionWithItem() {
-    this.level.throwables.forEach((item, itemIndex) => {
-      if (item.isColliding(this.minotaur) && !this.minotaur.isDead) {
-        this.minotaur.live -= this.itemDamageAmount;
-        this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
-        this.level.throwables.splice(itemIndex, 1);
-        this.minotaur.isHurt = true;
-        this.sound.playSound("minotaurDying");
-        clearInterval(this.minotaur.walkingInterval);
-        if (this.minotaur.isHurt === true) {
-          this.minotaur.updateAnimationFrame(this.minotaur.minotaurHurt);
-          setTimeout(() => {
-            if (this.minotaur.live > 0) {
-              this.minotaur.isHurt = false;
-              this.minotaur.animate();
-            } else {
-              this.minotaur.isDead = true;
-              this.minotaur.animate();
-            }
-          }, 400);
-        }
+    this.level.throwables.forEach((item, index) => {
+      if (this.shouldDamageMinotaur(item)) {
+        this.damageMinotaur(index);
       }
     });
+  }
+
+  shouldDamageMinotaur(item) {
+    return item.isColliding(this.minotaur) && !this.minotaur.isDead;
+  }
+
+  damageMinotaur(index) {
+    this.minotaur.live -= this.itemDamageAmount;
+    this.minotaurStatusBar.setPercentageMinotaur(this.minotaur.live);
+    this.level.throwables.splice(index, 1);
+    this.minotaur.isHurt = true;
+    this.sound.playSound("minotaurDying");
+    clearInterval(this.minotaur.walkingInterval);
+    this.minotaur.updateAnimationFrame(this.minotaur.minotaurHurt);
+    setTimeout(() => {
+      if (this.minotaur.live > 0) {
+        this.minotaur.isHurt = false;
+        this.minotaur.animate();
+      } else {
+        this.minotaur.isDead = true;
+        this.minotaur.animate();
+      }
+    }, 400);
   }
 
   checkJumpOnEnemy() {
@@ -215,15 +228,33 @@ class World {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.clearCanvas();
+
     if (this.intro.introActive) {
       this.intro.update(this.ctx, this.key);
       requestAnimationFrame(() => this.draw());
       return;
     }
+
     this.ctx.save();
+    this.updateCamera();
+    this.renderGameWorld();
+    this.ctx.restore();
+
+    this.renderUIAndGameLogic();
+    requestAnimationFrame(() => this.draw());
+  }
+
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  updateCamera() {
     this.cameraPosition = this.character.x_position - 100;
     this.ctx.translate(-this.cameraPosition, 0);
+  }
+
+  renderGameWorld() {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
@@ -231,13 +262,14 @@ class World {
     this.addObjectsToMap(this.level.bats);
     this.addObjectsToMap(this.level.gold);
     this.addObjectsToMap(this.level.item);
-    this.ctx.restore();
+  }
+
+  renderUIAndGameLogic() {
     this.drawUI();
     this.addObjectsToMap(this.level.throwables);
     this.checkItemAndGoldCollection();
     this.gameOver();
     this.winning();
-    requestAnimationFrame(() => this.draw());
   }
 
   introScreen() {}

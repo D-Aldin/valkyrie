@@ -3,7 +3,23 @@ class SoundManager {
 
   constructor() {
     this.sounds = {};
+    this.addAllSounds(); // ← Load sounds immediately
     this.muteButton();
+  }
+
+  addAllSounds() {
+    this.addSound("background", "./assets/sounds/background.mp3", true);
+    this.addSound("skeleton", "./assets/sounds/skeleton.mp3");
+    this.addSound("gold", "./assets/sounds/gold.mp3");
+    this.addSound("jump", "./assets/sounds/jump.mp3");
+    this.addSound("throw", "./assets/sounds/throw.mp3");
+    this.addSound("minotaurDying", "./assets/sounds/minotaurDying.mp3");
+    this.addSound("item", "./assets/sounds/item.mp3");
+
+    // Apply current mute state to all sounds
+    for (const name in this.sounds) {
+      this.sounds[name].muted = this.isMuted;
+    }
   }
 
   addSound(name, file, loop = false) {
@@ -14,13 +30,9 @@ class SoundManager {
 
   playSound(name) {
     const sound = this.sounds[name];
-    if (sound) {
-      if (!this.isMuted) {
-        sound.currentTime = 0;
-        sound.play();
-      }
-    } else {
-      console.log(`Sound not found.`);
+    if (sound && !this.isMuted) {
+      sound.currentTime = 0;
+      sound.play();
     }
   }
 
