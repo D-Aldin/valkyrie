@@ -6,8 +6,8 @@ let soundIcon = document.getElementById("soundIcon");
 let restartIcon = document.getElementById("restartIcon");
 
 function init() {
+  setIconForSound();
   world = new World(canvas, key);
-  console.log(world);
 }
 
 document.getElementById("leftButton").addEventListener("touchstart", () => {
@@ -136,6 +136,14 @@ function checkOrientation() {
     warning.style.display = "flex";
   } else {
     warning.style.display = "none";
+  }
+}
+
+function setIconForSound() {
+  if (localStorage.getItem("isMuted") == "true") {
+    soundIcon.src = "./assets/icons/stumm.png";
+  } else {
+    soundIcon.src = "./assets/icons/lautstarke.png";
   }
 }
 

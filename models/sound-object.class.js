@@ -15,6 +15,7 @@ class SoundManager {
    */
   constructor() {
     this.sounds = {};
+    this.isMuted = JSON.parse(localStorage.getItem("isMuted")) || false;
     this.addAllSounds(); // Load sounds immediately
     this.muteButton();
   }
@@ -59,7 +60,7 @@ class SoundManager {
   playSound(name) {
     const sound = this.sounds[name];
     if (sound && !this.isMuted) {
-      sound.currentTime = 0; // Reset sound to start
+      sound.currentTime = 0;
       sound.play();
     }
   }
@@ -72,6 +73,7 @@ class SoundManager {
       this.sounds[name].muted = true;
     }
     this.isMuted = true;
+    localStorage.setItem("isMuted", true);
   }
 
   /**
@@ -82,6 +84,7 @@ class SoundManager {
       this.sounds[name].muted = false;
     }
     this.isMuted = false;
+    localStorage.setItem("isMuted", false);
   }
 
   /**
@@ -103,14 +106,18 @@ class SoundManager {
   muteButton() {
     this.muteButton = document.getElementById("muteSound");
     this.muteButton.addEventListener("click", () => {
-      this.muteButton.blur(); // Remove focus from button
+      this.muteButton.blur();
       if (this.isMuted) {
         this.unmute();
         this.muteButton.lastElementChild.src = "./assets/icons/lautstarke.png";
+        this.playSound("background");
+        this.volume("background", 0.3);
       } else {
         this.mute();
         this.muteButton.lastElementChild.src = "./assets/icons/stumm.png";
       }
     });
   }
+
+  // soundIcon = document.getElementById("soundIcon");
 }

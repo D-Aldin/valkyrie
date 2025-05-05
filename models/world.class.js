@@ -19,7 +19,7 @@ class World {
   intro = new Intro();
   sound = new SoundManager();
   restartButton = document.querySelector("#restart");
-  unlock = false;
+  unlock = this.sound.isMuted;
 
   /**
    * Creates a new game world.
@@ -157,7 +157,6 @@ class World {
     this.character.isHurt = true;
     this.character.updateAnimationFrame(this.character.valkyrieHurt);
     setTimeout(() => (this.character.isHurt = false), 500);
-    console.log(this.character.live);
   }
 
   /** Checks if enemies or the minotaur are hit by thrown items. */
@@ -399,6 +398,7 @@ class World {
       this.gameElements();
       this.intro = new Intro();
       this.sound = new SoundManager();
+      this.activeSound();
       this.initializeGameLogic();
       this.restartButton.blur();
     });

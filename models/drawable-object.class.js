@@ -103,7 +103,6 @@ class DrawableObject {
   stopIntervals() {
     this.intervals.forEach((interval) => {
       clearInterval(interval);
-      // console.log(this.intervals); // Uncomment to log the stopped intervals.
     });
   }
 }
