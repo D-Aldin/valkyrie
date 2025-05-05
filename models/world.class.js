@@ -9,8 +9,8 @@ class World {
   ctx;
   key;
   cameraPosition = 0;
-  valkyrieDamageAmount = 15;
-  itemDamageAmount = 50;
+  valkyrieDamageAmount = 12;
+  itemDamageAmount = 10;
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
@@ -125,10 +125,13 @@ class World {
       setInterval(() => {
         if (this.character.isDead || this.character.live <= 0) return;
         this.level.enemies.forEach((enemy) => {
-          if (this.shouldTakeDamage(enemy)) {
+          if (this.character.isColliding(enemy) && !this.character.isHurt) {
             this.applyDamage();
           }
         });
+        if (this.character.isColliding(this.minotaur) && !this.character.isHurt && !this.minotaur.isDead) {
+          this.applyDamage();
+        }
       }, 200)
     );
   }

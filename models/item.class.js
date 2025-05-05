@@ -7,7 +7,7 @@ class Item extends DrawableObject {
    * Array of image paths representing the item.
    * @type {string[]}
    */
-  item = ["./assets/image/items/item/item.png"];
+  item = ["./assets/image/Valkyrie_3/PNG/Vector Parts/Sword.png"];
 
   /**
    * The vertical position of the item on the screen.

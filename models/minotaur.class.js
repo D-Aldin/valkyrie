@@ -130,11 +130,11 @@ class Minotaur extends MovableObject {
    */
   movement() {
     if (this.movingRight) {
-      this.x_position += 4;
+      this.x_position += 33;
       if (this.x_position >= 1590) this.movingRight = false;
     } else {
-      this.x_position -= 4;
-      if (this.x_position <= 1450) this.movingRight = true;
+      this.x_position -= 22;
+      if (this.x_position <= 1050) this.movingRight = true;
     }
   }
 
