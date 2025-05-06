@@ -183,7 +183,9 @@ button,
   }
 
   .wrapper-for-btn {
-    display: none;
+    display: flex;
+    position: fixed;
+    top: 20px;
   }
 
   .line {

@@ -390,6 +390,7 @@ class World {
       this.activeSound();
       this.initializeGameLogic();
       this.restartButton.blur();
+      document.querySelector("#startButton").style.display = "block";
     });
   }
 }
