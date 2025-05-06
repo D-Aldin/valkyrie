@@ -1,13 +1,4 @@
-/**
- * Class representing the status bar that displays the player's item count.
- * The bar updates to show the current number of items collected.
- */
 class ItemStatusBar extends DrawableObject {
-  /**
-   * Array of image paths representing the item count status.
-   * Each image corresponds to a specific number of items.
-   * @type {string[]}
-   */
   items = [
     "./assets/image/items/item/status0.png",
     "./assets/image/items/item/status1.png",
@@ -17,29 +8,45 @@ class ItemStatusBar extends DrawableObject {
     "./assets/image/items/item/status5.png",
   ];
 
-  /**
-   * Creates an instance of the ItemStatusBar class.
-   * Initializes the position and sets the image representing the initial item count.
-   */
+  gold = [
+    "./assets/image/items/gold/0.png",
+    "./assets/image/items/gold/1.png",
+    "./assets/image/items/gold/2.png",
+    "./assets/image/items/gold/3.png",
+    "./assets/image/items/gold/4.png",
+    "./assets/image/items/gold/5.png",
+  ];
+
+  itemCount = 0;
+  goldCount = 0;
+
   constructor() {
     super();
-    this.loadImage("./assets/image/items/item/status0.png"); // Default image for 0 items.
     this.loadImagesInCache(this.items);
-    this.x_position = 20; // Horizontal position of the status bar.
-    this.y_position = 30; // Vertical position of the status bar.
-    this.width = 120; // Width of the status bar.
-    this.height = 50; // Height of the status bar.
+    this.loadImagesInCache(this.gold);
+    this.setItemCount(0);
+    this.setGoldCount(0);
+    this.width = 120;
+    this.height = 50;
+  }
+
+  setItemCount(count) {
+    this.itemCount = Math.min(count, this.items.length - 1);
+  }
+
+  setGoldCount(count) {
+    this.goldCount = Math.min(count, this.gold.length - 1);
   }
 
   /**
-   * Sets the item count displayed on the status bar.
-   * Updates the image based on the current item count.
-   *
-   * @param {number} count - The current number of items collected.
+   * Draw both item and gold images in their positions.
    */
-  setItemCount(count) {
-    let index = Math.min(count, this.items.length - 1); // Ensure the count is within bounds.
-    let path = this.items[index]; // Select the appropriate image for the item count.
-    this.img = this.imageCache[path]; // Update the displayed image.
+  draw(ctx) {
+    const itemImage = this.imageCache[this.items[this.itemCount]];
+    const goldImage = this.imageCache[this.gold[this.goldCount]];
+
+    // Ensure both images are loaded
+    if (itemImage) ctx.drawImage(itemImage, 20, 30, this.width, this.height);
+    if (goldImage) ctx.drawImage(goldImage, 21, 80, this.width, this.height);
   }
 }

@@ -14,7 +14,7 @@ class World {
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
-  goldStatusBar = new GoldStatusBar();
+  // goldStatusBar = new GoldStatusBar();
   throwableObject = [new ThrowableObject()];
   intro = new Intro();
   sound = new SoundManager();
@@ -81,7 +81,7 @@ class World {
         this.level.gold.splice(index, 1);
         this.character.collectGold++;
         this.sound.playSound("gold");
-        this.goldStatusBar.setGoldCount(this.character.collectGold);
+        this.itemStatusBar.setGoldCount(this.character.collectGold);
       }
     });
   }
@@ -266,7 +266,7 @@ class World {
     this.addToMap(this.valkyrieStatusBar);
     this.addToMap(this.minotaurStatusBar);
     this.addToMap(this.itemStatusBar);
-    this.addToMap(this.goldStatusBar);
+    // this.addToMap(this.goldStatusBar);
   }
 
   /** Main draw loop of the game. */
