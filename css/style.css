@@ -56,18 +56,17 @@ canvas {
 }
 
 .mobile-button {
-  bottom: 50px;
-  width: 80px;
-  height: 80px;
-  background: rgba(0, 0, 0, 0.192);
-  color: white;
-  font-size: 2em;
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
-  z-index: 10;
+  color: white;
   cursor: pointer;
+  border: none;
 }
 
 #muteSound,
@@ -173,14 +172,14 @@ button,
   }
 
   #mob-btn-container {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: fixed;
+    bottom: 90px;
+    left: 0;
+    right: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    justify-content: space-around;
+    padding: 0 10px;
+    z-index: 1000;
   }
 
   .wrapper-for-btn {
@@ -195,18 +194,25 @@ button,
     display: none;
   }
 
-  #left-thumb {
-    display: flex;
-    gap: 10px;
-  }
-
+  #left-thumb,
+  #center-btn,
   #right-thumb {
     display: flex;
+    flex-direction: column;
     gap: 10px;
+    align-items: center;
   }
 
   .mobile-button {
     width: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
   }
 }
 
