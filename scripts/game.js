@@ -7,73 +7,87 @@ let restartIcon = document.getElementById("restartIcon");
 
 function init() {
   setIconForSound();
+  manageEventListenerForMobileBtn();
+  manageEventListenerForSound();
   world = new World(canvas, key);
 }
 
-document.getElementById("leftButton").addEventListener("touchstart", () => {
-  key.left = true;
-});
-document.getElementById("leftButton").addEventListener("touchend", () => {
-  key.left = false;
-});
+function manageEventListenerForMobileBtn() {
+  document.getElementById("leftButton").addEventListener("touchstart", () => {
+    key.left = true;
+  });
+  document.getElementById("leftButton").addEventListener("touchend", () => {
+    key.left = false;
+  });
 
-document.getElementById("rightButton").addEventListener("touchstart", () => {
-  key.right = true;
-});
-document.getElementById("rightButton").addEventListener("touchend", () => {
-  key.right = false;
-});
+  document.getElementById("rightButton").addEventListener("touchstart", () => {
+    key.right = true;
+  });
+  document.getElementById("rightButton").addEventListener("touchend", () => {
+    key.right = false;
+  });
 
-document.getElementById("jumpButton").addEventListener("touchstart", () => {
-  key.space = true;
-});
+  document.getElementById("jumpButton").addEventListener("touchstart", () => {
+    key.space = true;
+  });
 
-document.getElementById("jumpButton").addEventListener("touchend", () => {
-  key.space = false;
-});
+  document.getElementById("jumpButton").addEventListener("touchend", () => {
+    key.space = false;
+  });
 
-document.getElementById("throwButton").addEventListener("touchstart", () => {
-  key.d = true;
-});
+  document.getElementById("throwButton").addEventListener("touchstart", () => {
+    key.d = true;
+  });
 
-document.getElementById("throwButton").addEventListener("touchend", () => {
-  key.d = false;
-});
+  document.getElementById("throwButton").addEventListener("touchend", () => {
+    key.d = false;
+  });
 
-document.getElementById("startButton").addEventListener("touchstart", () => {
-  key.enter = true;
-  if (key.enter) {
-    document.getElementById("startButton").style.display = "none";
-  }
-});
+  document.getElementById("startButton").addEventListener("touchstart", () => {
+    key.enter = true;
+    if (key.enter) {
+      document.getElementById("startButton").style.display = "none";
+    }
+  });
 
-document.getElementById("startButton").addEventListener("touchend", () => {
-  key.enter = false;
-});
+  document.getElementById("startButton").addEventListener("touchend", () => {
+    key.enter = false;
+  });
+}
 
-soundIcon.addEventListener("mouseover", () => {
-  if (soundIcon.src.includes("stumm.png")) {
-    soundIcon.src = "./assets/icons/stumm_hover.png";
-  } else if (soundIcon.src.includes("lautstarke.png")) {
-    soundIcon.src = "./assets/icons/lautstarke_hover.png";
-  }
-});
+function manageEventListenerForSound(params) {
+  soundIcon.addEventListener("mouseover", () => {
+    if (soundIcon.src.includes("stumm.png")) {
+      soundIcon.src = "./assets/icons/stumm_hover.png";
+    } else if (soundIcon.src.includes("lautstarke.png")) {
+      soundIcon.src = "./assets/icons/lautstarke_hover.png";
+    }
+  });
 
-soundIcon.addEventListener("mouseout", () => {
-  if (soundIcon.src.includes("stumm_hover.png")) {
+  soundIcon.addEventListener("mouseout", () => {
+    if (soundIcon.src.includes("stumm_hover.png")) {
+      soundIcon.src = "./assets/icons/stumm.png";
+    } else if (soundIcon.src.includes("lautstarke_hover.png")) {
+      soundIcon.src = "./assets/icons/lautstarke.png";
+    }
+  });
+
+  restartIcon.addEventListener("mouseover", () => {
+    restartIcon.src = "./assets/icons/restart_hover.png";
+  });
+
+  restartIcon.addEventListener("mouseout", () => {
+    restartIcon.src = "./assets/icons/restart.png";
+  });
+}
+
+function setIconForSound() {
+  if (localStorage.getItem("isMuted") == "true") {
     soundIcon.src = "./assets/icons/stumm.png";
-  } else if (soundIcon.src.includes("lautstarke_hover.png")) {
+  } else {
     soundIcon.src = "./assets/icons/lautstarke.png";
   }
-});
-
-restartIcon.addEventListener("mouseover", () => {
-  restartIcon.src = "./assets/icons/restart_hover.png";
-});
-
-restartIcon.addEventListener("mouseout", () => {
-  restartIcon.src = "./assets/icons/restart.png";
-});
+}
 
 const keydownHandler = (event) => {
   if (world?.character?.isDead) return;
@@ -136,14 +150,6 @@ function checkOrientation() {
     warning.style.display = "flex";
   } else {
     warning.style.display = "none";
-  }
-}
-
-function setIconForSound() {
-  if (localStorage.getItem("isMuted") == "true") {
-    soundIcon.src = "./assets/icons/stumm.png";
-  } else {
-    soundIcon.src = "./assets/icons/lautstarke.png";
   }
 }
 

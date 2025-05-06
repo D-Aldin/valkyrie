@@ -369,7 +369,7 @@ class World {
     this.valkyrieStatusBar = new ValkyrieStatusBar();
     this.minotaurStatusBar = new MinotaurStatusBar();
     this.itemStatusBar = new ItemStatusBar();
-    this.goldStatusBar = new GoldStatusBar();
+    // this.goldStatusBar = new GoldStatusBar();
     this.throwableObject = [new ThrowableObject()];
   }
 
