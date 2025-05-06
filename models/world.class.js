@@ -10,7 +10,7 @@ class World {
   key;
   cameraPosition = 0;
   valkyrieDamageAmount = 12;
-  itemDamageAmount = 15;
+  itemDamageAmount = 13;
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();

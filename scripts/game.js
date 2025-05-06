@@ -1,10 +1,27 @@
+/** @type {HTMLCanvasElement} */
 let canvas;
+
+/** @type {Keyboard} Keyboard input handler instance */
 key = new Keyboard();
+
+/** @type {HTMLCanvasElement} */
 canvas = document.getElementById("canvas");
+
+/** @type {HTMLButtonElement} Restart button element */
 const restartButton = document.querySelector("#restart");
+
+/** @type {HTMLImageElement} Sound icon element */
 let soundIcon = document.getElementById("soundIcon");
+
+/** @type {HTMLImageElement} Restart icon element */
 let restartIcon = document.getElementById("restartIcon");
 
+/**
+ * Initializes the game environment:
+ * - Sets sound icon state
+ * - Adds event listeners for mobile controls and sound UI
+ * - Creates the game world
+ */
 function init() {
   setIconForSound();
   manageEventListenerForMobileBtn();
@@ -12,6 +29,10 @@ function init() {
   world = new World(canvas, key);
 }
 
+/**
+ * Adds touch event listeners for mobile control buttons.
+ * Maps button touches to corresponding key actions.
+ */
 function manageEventListenerForMobileBtn() {
   document.getElementById("leftButton").addEventListener("touchstart", () => {
     key.left = true;
@@ -30,7 +51,6 @@ function manageEventListenerForMobileBtn() {
   document.getElementById("jumpButton").addEventListener("touchstart", () => {
     key.space = true;
   });
-
   document.getElementById("jumpButton").addEventListener("touchend", () => {
     key.space = false;
   });
@@ -38,7 +58,6 @@ function manageEventListenerForMobileBtn() {
   document.getElementById("throwButton").addEventListener("touchstart", () => {
     key.d = true;
   });
-
   document.getElementById("throwButton").addEventListener("touchend", () => {
     key.d = false;
   });
@@ -49,13 +68,16 @@ function manageEventListenerForMobileBtn() {
       document.getElementById("startButton").style.display = "none";
     }
   });
-
   document.getElementById("startButton").addEventListener("touchend", () => {
     key.enter = false;
   });
 }
 
-function manageEventListenerForSound(params) {
+/**
+ * Adds hover effect listeners for sound and restart icons.
+ * Changes the icon images on mouseover and mouseout.
+ */
+function manageEventListenerForSound() {
   soundIcon.addEventListener("mouseover", () => {
     if (soundIcon.src.includes("stumm.png")) {
       soundIcon.src = "./assets/icons/stumm_hover.png";
@@ -81,6 +103,10 @@ function manageEventListenerForSound(params) {
   });
 }
 
+/**
+ * Sets the correct sound icon based on saved user preference.
+ * If muted, shows mute icon, otherwise shows volume icon.
+ */
 function setIconForSound() {
   if (localStorage.getItem("isMuted") == "true") {
     soundIcon.src = "./assets/icons/stumm.png";
@@ -89,56 +115,42 @@ function setIconForSound() {
   }
 }
 
+/**
+ * Handles keydown events for keyboard controls.
+ * Ignores input if character is dead.
+ * @param {KeyboardEvent} event - The keydown event
+ */
 const keydownHandler = (event) => {
   if (world?.character?.isDead) return;
-  if (event.key == "ArrowRight") {
-    key.right = true;
-  }
-  if (event.key == "ArrowLeft") {
-    key.left = true;
-  }
-  if (event.key == "ArrowUp") {
-    key.up = true;
-  }
-  if (event.key == "ArrowDown") {
-    key.down = true;
-  }
-  if (event.key == " ") {
-    key.space = true;
-  }
-  if (event.code == "KeyD") {
-    key.d = true;
-  }
-  if (event.code == "Enter") {
-    key.enter = true;
-  }
+  if (event.key == "ArrowRight") key.right = true;
+  if (event.key == "ArrowLeft") key.left = true;
+  if (event.key == "ArrowUp") key.up = true;
+  if (event.key == "ArrowDown") key.down = true;
+  if (event.key == " ") key.space = true;
+  if (event.code == "KeyD") key.d = true;
+  if (event.code == "Enter") key.enter = true;
 };
 
+/**
+ * Handles keyup events for keyboard controls.
+ * Ignores input if character is dead.
+ * @param {KeyboardEvent} event - The keyup event
+ */
 const keyUpHandler = (event) => {
   if (world?.character?.isDead) return;
-  if (event.key == "ArrowRight") {
-    key.right = false;
-  }
-  if (event.key == "ArrowLeft") {
-    key.left = false;
-  }
-  if (event.key == "ArrowUp") {
-    key.up = false;
-  }
-  if (event.key == "ArrowDown") {
-    key.down = false;
-  }
-  if (event.key == " ") {
-    key.space = false;
-  }
-  if (event.code == "KeyD") {
-    key.d = false;
-  }
-  if (event.code == "Enter") {
-    key.enter = false;
-  }
+  if (event.key == "ArrowRight") key.right = false;
+  if (event.key == "ArrowLeft") key.left = false;
+  if (event.key == "ArrowUp") key.up = false;
+  if (event.key == "ArrowDown") key.down = false;
+  if (event.key == " ") key.space = false;
+  if (event.code == "KeyD") key.d = false;
+  if (event.code == "Enter") key.enter = false;
 };
 
+/**
+ * Checks if the user is on a mobile device in portrait mode.
+ * Displays a warning to rotate the device if necessary.
+ */
 function checkOrientation() {
   const userAgent = navigator.userAgent;
   const isTablet = /iPad|Tablet|PlayBook|Nexus 7|Nexus 10|Kindle/i.test(userAgent);
@@ -153,6 +165,7 @@ function checkOrientation() {
   }
 }
 
+// Orientation and keyboard listeners
 window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("keydown", keydownHandler);
