@@ -10,11 +10,10 @@ class World {
   key;
   cameraPosition = 0;
   valkyrieDamageAmount = 12;
-  itemDamageAmount = 10;
+  itemDamageAmount = 15;
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
-  // goldStatusBar = new GoldStatusBar();
   throwableObject = [new ThrowableObject()];
   intro = new Intro();
   sound = new SoundManager();
@@ -258,7 +257,6 @@ class World {
     this.addToMap(this.valkyrieStatusBar);
     this.addToMap(this.minotaurStatusBar);
     this.addToMap(this.itemStatusBar);
-    // this.addToMap(this.goldStatusBar);
   }
 
   /** Main draw loop of the game. */
@@ -361,7 +359,6 @@ class World {
     this.valkyrieStatusBar = new ValkyrieStatusBar();
     this.minotaurStatusBar = new MinotaurStatusBar();
     this.itemStatusBar = new ItemStatusBar();
-    // this.goldStatusBar = new GoldStatusBar();
     this.throwableObject = [new ThrowableObject()];
   }
 

@@ -30,6 +30,7 @@ class Intro extends DrawableObject {
     this.loadImage("./assets/image/intro/introImage.png", true); // Load the intro image.
     this.x_position = 0; // Set the x-coordinate to position the image at the left.
     this.y_position = 0; // Set the y-coordinate to position the image at the top.
+    console.log(navigator.userAgent); // Log the user agent for debugging purposes.
   }
 
   /**
@@ -39,16 +40,15 @@ class Intro extends DrawableObject {
    *
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context used to draw the intro screen.
    * @param {Keyboard} key - The keyboard object containing the state of the keys.
+   *
    */
   update(ctx, key) {
     this.draw(ctx); // Draw the intro image.
     this.drawText(ctx); // Draw the intro text.
-
     if (key.enter) {
       this.introActive = false; // Deactivate the intro screen.
       key.enter = false; // Reset the Enter key state.
       document.querySelector("#story").style.display = "none"; // Hide the story section on the page.
-
       // Start the walking animations for the enemies and bats.
       world.level.enemies.forEach((enemy) => {
         enemy.startWalking();
@@ -60,6 +60,10 @@ class Intro extends DrawableObject {
     }
   }
 
+  hasTouchSupport() {
+    return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  }
+
   /**
    * Draws the introductory text on the canvas.
    * The text instructs the player to press "Enter" to start the game.
@@ -67,9 +71,13 @@ class Intro extends DrawableObject {
    * @param {CanvasRenderingContext2D} ctx - The canvas rendering context used to draw the text.
    */
   drawText(ctx) {
-    ctx.font = "30px Arial"; // Set the font size and type.
-    ctx.fillStyle = "white"; // Set the text color to white.
-    ctx.textAlign = "center"; // Align the text to the center.
-    ctx.fillText("Press Enter to Start", this.width / 2, this.height - 30); // Draw the text at the bottom center of the screen.
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    if (this.hasTouchSupport()) {
+      ctx.fillText("", this.width / 2, this.height - 30);
+    } else {
+      ctx.fillText("Press Enter to Start", this.width / 2, this.height - 30);
+    }
   }
 }
