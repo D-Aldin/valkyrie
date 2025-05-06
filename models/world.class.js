@@ -99,24 +99,21 @@ class World {
   }
 
   /** Checks if character throws an item. */
+  // prettier-ignore
   checkThrowing() {
-    this.character.intervals.push(
-      setInterval(() => {
-        if (this.key.d && this.character && !this.character.isDead && this.character.collectItem > 0) {
-          this.character.isThrowing = true;
-          let throwItem = new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20);
-          this.level.throwables.push(throwItem);
-          this.character.collectItem -= 1;
-          this.sound.playSound("throw");
-          this.itemStatusBar.setItemCount(this.character.collectItem);
-          this.character.updateAnimationFrame(this.character.valkyrieThrowing);
-          setTimeout(() => {
-            this.character.isThrowing = false;
-          }, 60);
-          this.key.d = false;
-        }
-      }, 100)
-    );
+    this.character.intervals.push(setInterval(() => {
+      if (this.key.d && this.character && !this.character.isDead && this.character.collectItem > 0) {
+        this.character.isThrowing = true;
+        this.level.throwables.push(new ThrowableObject(this.character.x_position + 30, this.character.y_position + 20));
+        this.character.collectItem--; 
+        this.sound.playSound("throw");
+        this.itemStatusBar.setItemCount(this.character.collectItem);
+        this.character.updateAnimationFrame(this.character.valkyrieThrowing);
+        setTimeout(() => 
+          this.character.isThrowing = false, 60);
+        this.key.d = false;
+      }
+    }, 100));
   }
 
   /** Checks collision between character and enemies. */
@@ -214,13 +211,8 @@ class World {
     clearInterval(this.minotaur.walkingInterval);
     this.minotaur.updateAnimationFrame(this.minotaur.minotaurHurt);
     setTimeout(() => {
-      if (this.minotaur.live > 0) {
-        this.minotaur.isHurt = false;
-        this.minotaur.animate();
-      } else {
-        this.minotaur.isDead = true;
-        this.minotaur.animate();
-      }
+      this.minotaur.isHurt = this.minotaur.live > 0 ? false : (this.minotaur.isDead = true);
+      this.minotaur.animate();
     }, 400);
   }
 
