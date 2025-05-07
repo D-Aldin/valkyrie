@@ -28,9 +28,6 @@ main {
   display: none;
 }
 
-#canvasContainer {
-}
-
 canvas {
   display: block;
 }
@@ -188,12 +185,23 @@ button,
     top: 20px;
   }
 
+  #restart img,
+  #muteSound img {
+    width: 20px;
+    height: 20px;
+  }
+
   .line {
     display: none;
   }
 
   footer {
-    display: none;
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    font-size: 0.75rem;
   }
 
   #left-thumb,

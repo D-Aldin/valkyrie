@@ -9,7 +9,7 @@ class World {
   ctx;
   key;
   cameraPosition = 0;
-  valkyrieDamageAmount = 12;
+  valkyrieDamageAmount = 30;
   itemDamageAmount = 13;
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
@@ -39,7 +39,7 @@ class World {
   /** Initializes all recurring game logic functions. */
   startGameLogic() {
     this.checkCollisions();
-    this.checkIfDead(this.character, this.character.valkyrieDead);
+    // this.checkIfDead(this.character, this.character.valkyrieDead);
     this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
     this.checkThrowing();
     this.checkEnemyHit();
@@ -246,7 +246,7 @@ class World {
           character.updateAnimationFrame(dyingAnimation);
           setTimeout(() => {
             this.character.stopIntervals();
-          }, 5000);
+          }, 2000);
         }
       }, 1000 / 5)
     );

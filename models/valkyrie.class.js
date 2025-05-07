@@ -131,7 +131,7 @@ class Valkyrie extends MovableObject {
    * @type {number}
    */
   speed = 12;
-
+  x;
   /**
    * Indicates whether the Valkyrie is hurt.
    * @type {boolean}
@@ -207,6 +207,7 @@ class Valkyrie extends MovableObject {
    * Moves the Valkyrie left or right and makes her jump when the respective keys are pressed.
    */
   handleMovement() {
+    if (this.isDead) return;
     this.isMoving = false;
     if (this.world.key.right && this.x_position + this.width < this.world.level.levelEnd) {
       this.moveRight(this.valkyrieWalking);
@@ -226,7 +227,15 @@ class Valkyrie extends MovableObject {
    * Updates the animation frames based on whether she is jumping or walking.
    */
   handleAnimation() {
-    if (this.isAboveGround()) {
+    if (this.isDead) {
+      if (!this.hasPlayedDeathAnimation) {
+        this.width = 90;
+        this.height = 90;
+        this.playAnimationOnce(this.valkyrieDead, () => {
+          this.hasPlayedDeathAnimation = true;
+        });
+      }
+    } else if (this.isAboveGround()) {
       this.updateAnimationFrame(this.valkyrieJumping);
     } else if (this.isMoving) {
       this.updateAnimationFrame(this.valkyrieWalking);
@@ -239,6 +248,16 @@ class Valkyrie extends MovableObject {
   jump() {
     if (!this.isAboveGround()) {
       this.speedY = 30;
+    }
+  }
+
+  playAnimationOnce(images, onFinish) {
+    if (!this.currentImageIndex) this.currentImageIndex = 0;
+    this.img = this.imageCache[images[this.currentImageIndex]];
+    this.currentImageIndex++;
+    if (this.currentImageIndex >= images.length) {
+      this.currentImageIndex = images.length - 1;
+      if (onFinish) onFinish();
     }
   }
 }
