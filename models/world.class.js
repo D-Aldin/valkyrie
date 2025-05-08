@@ -10,7 +10,7 @@ class World {
   key;
   cameraPosition = 0;
   valkyrieDamageAmount = 30;
-  itemDamageAmount = 13;
+  itemDamageAmount = 53;
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
@@ -19,6 +19,10 @@ class World {
   sound = new SoundManager();
   restartButton = document.querySelector("#restart");
   unlock = this.sound.isMuted;
+  victoryImage = new Image();
+  defeatImage = new Image();
+  victoryAchieved = false;
+  defeat = false;
 
   /**
    * Creates a new game world.
@@ -34,12 +38,13 @@ class World {
     this.startGameLogic();
     this.activeSound();
     this.restart();
+    this.victoryImage.src = "./assets/image/end/victory.png";
+    this.defeatImage.src = "./assets/image/end/defeat.png";
   }
 
   /** Initializes all recurring game logic functions. */
   startGameLogic() {
     this.checkCollisions();
-    // this.checkIfDead(this.character, this.character.valkyrieDead);
     this.checkIfDead(this.minotaur, this.minotaur.minotaurDead);
     this.checkThrowing();
     this.checkEnemyHit();
@@ -272,6 +277,7 @@ class World {
     this.renderGameWorld();
     this.ctx.restore();
     this.renderUIAndGameLogic();
+    this.drawEndScreen();
     requestAnimationFrame(() => this.draw());
   }
 
@@ -341,6 +347,9 @@ class World {
     if (this.character.live <= 0) {
       this.ctx.font = "60px myFont";
       this.ctx.fillText("Your saga ends here.", 380, 200);
+      setTimeout(() => {
+        this.defeat = true;
+      }, 2400);
     }
   }
 
@@ -351,6 +360,9 @@ class World {
       this.ctx.fillText("You have earned your place in Valhalla!", 380, 200);
       this.character.stopIntervals();
       this.level.enemies.forEach((enemy) => enemy.stopIntervals?.());
+      setTimeout(() => {
+        this.victoryAchieved = true;
+      }, 2400);
     }
   }
 
@@ -372,6 +384,14 @@ class World {
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
     this.setworld();
+  }
+
+  drawEndScreen() {
+    if (this.victoryAchieved && this.victoryImage?.complete) {
+      this.ctx.drawImage(this.victoryImage, 0, 0, 720, 480);
+    } else if (this.defeat && this.defeatImage?.complete) {
+      this.ctx.drawImage(this.defeatImage, 0, 0, 720, 480);
+    }
   }
 
   /** Restarts the game when the restart button is clicked. */
