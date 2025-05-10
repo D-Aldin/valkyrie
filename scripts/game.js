@@ -172,6 +172,7 @@ function checkOrientation() {
 
 // Orientation and keyboard listeners
 window.addEventListener("load", checkOrientation);
+window.addEventListener("load", setSizeOfEndScreen);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
@@ -184,7 +185,3 @@ function setSizeOfEndScreen() {
   victoryImage.style.width = width;
   victoryImage.style.height = height;
 }
-
-window.addEventListener("load", () => {
-  setSizeOfEndScreen();
-});
