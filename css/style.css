@@ -13,6 +13,7 @@ body {
   background-image: url("../assets/image/background/ai-generated-8347847.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 
 main {
@@ -30,6 +31,10 @@ main {
 
 canvas {
   display: block;
+}
+
+#canvasContainer {
+  display: flex;
 }
 
 h1 {
@@ -78,6 +83,10 @@ canvas {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+
+#secoundSoundBtn {
+  display: none;
 }
 
 #rotate {
@@ -133,6 +142,20 @@ button,
   -webkit-touch-callout: none;
 }
 
+.defeat {
+  display: none;
+}
+
+.victory {
+  display: none;
+}
+
+.defeat img,
+.victory img {
+  width: 720px;
+  height: 480px;
+}
+
 @media only screen and (max-width: 760px) {
   canvas {
     width: 100%;
@@ -153,7 +176,7 @@ button,
   }
 
   canvas {
-    height: 100vh;
+    height: 75vh;
   }
 
   #story {
@@ -180,8 +203,8 @@ button,
   }
 
   .wrapper-for-btn {
-    display: flex;
-    position: fixed;
+    /* display: none; */
+    /* position: fixed; */
     top: 20px;
   }
 
@@ -198,7 +221,7 @@ button,
   footer {
     display: flex;
     position: fixed;
-    bottom: 20px;
+    bottom: 5px;
     left: 0;
     right: 0;
     font-size: 0.75rem;
@@ -209,8 +232,9 @@ button,
   #right-thumb {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    align-items: center;
+    position: relative;
+    top: 20px;
+    gap: 20px;
   }
 
   .mobile-button {
@@ -219,11 +243,11 @@ button,
 }
 
 @media (max-width: 480px) {
-  .mobile-button {
+  /* .mobile-button {
     width: 50px;
     height: 50px;
     font-size: 1.2rem;
-  }
+  } */
 }
 
 @media only screen and (max-width: 416px) {
@@ -231,7 +255,7 @@ button,
     font-size: 1.8rem;
   }
 
-  .mobile-button {
+  /* .mobile-button {
     width: 45px;
-  }
+  } */
 }

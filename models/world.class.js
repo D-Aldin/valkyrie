@@ -18,11 +18,8 @@ class World {
   intro = new Intro();
   sound = new SoundManager();
   restartButton = document.querySelector("#restart");
+  secoundRestartButton = document.querySelector("#secoundRestartBtn");
   unlock = this.sound.isMuted;
-  victoryImage = new Image();
-  defeatImage = new Image();
-  victoryAchieved = false;
-  defeat = false;
 
   /**
    * Creates a new game world.
@@ -37,11 +34,8 @@ class World {
     this.draw();
     this.startGameLogic();
     this.activeSound();
-    this.restart();
-    this.victoryImage.src = "./assets/image/end/victory.png";
-    this.defeatImage.src = "./assets/image/end/defeat.png";
+    this.triggerRestartButton();
   }
-
   /** Initializes all recurring game logic functions. */
   startGameLogic() {
     this.checkCollisions();
@@ -277,7 +271,6 @@ class World {
     this.renderGameWorld();
     this.ctx.restore();
     this.renderUIAndGameLogic();
-    this.drawEndScreen();
     requestAnimationFrame(() => this.draw());
   }
 
@@ -345,24 +338,26 @@ class World {
   /** Shows game over message. */
   gameOver() {
     if (this.character.live <= 0) {
-      this.ctx.font = "60px myFont";
-      this.ctx.fillText("Your saga ends here.", 380, 200);
-      setTimeout(() => {
-        this.defeat = true;
-      }, 2400);
+      this.level.enemies.forEach((enemy) => enemy.stopIntervals?.());
+      this.character.intervals.push(
+        setTimeout(() => {
+          document.querySelector("#canvas").style.display = "none";
+          document.querySelector(".defeat").style.display = "flex";
+        }, 1420)
+      );
     }
   }
 
   /** Shows winning message and stops enemy behavior. */
   winning() {
     if (this.minotaur.live <= 0) {
-      this.ctx.font = "40px myFont";
-      this.ctx.fillText("You have earned your place in Valhalla!", 380, 200);
-      this.character.stopIntervals();
       this.level.enemies.forEach((enemy) => enemy.stopIntervals?.());
-      setTimeout(() => {
-        this.victoryAchieved = true;
-      }, 2400);
+      this.character.intervals.push(
+        setTimeout(() => {
+          document.querySelector("#canvas").style.display = "none";
+          document.querySelector(".victory").style.display = "flex";
+        }, 1420)
+      );
     }
   }
 
@@ -386,31 +381,37 @@ class World {
     this.setworld();
   }
 
-  drawEndScreen() {
-    if (this.victoryAchieved && this.victoryImage?.complete) {
-      this.ctx.drawImage(this.victoryImage, 0, 0, 720, 480);
-    } else if (this.defeat && this.defeatImage?.complete) {
-      this.ctx.drawImage(this.defeatImage, 0, 0, 720, 480);
-    }
+  restart() {
+    this.character.stopIntervals();
+    document.querySelector(".defeat").style.display = "none";
+    document.querySelector(".victory").style.display = "none";
+    document.querySelector("#canvas").style.display = "block";
+    this.intro.introActive = true;
+    document.querySelector("#story").style.display = "flex";
+    this.character = new Valkyrie();
+    this.minotaur = new Minotaur();
+    this.level = createLevel1();
+    this.cameraPosition = 0;
+    this.valkyrieDamageAmount = 15;
+    this.itemDamageAmount = 50;
+    this.gameElements();
+    this.intro = new Intro();
+    this.sound = new SoundManager();
+    this.activeSound();
+    this.initializeGameLogic();
+    this.restartButton.blur();
+    document.querySelector("#startButton").style.display = "block";
+    this.clearCanvas();
   }
 
   /** Restarts the game when the restart button is clicked. */
-  restart() {
-    restartButton.addEventListener("click", () => {
-      document.querySelector("#story").style.display = "flex";
-      this.character = new Valkyrie();
-      this.minotaur = new Minotaur();
-      this.level = createLevel1();
-      this.cameraPosition = 0;
-      this.valkyrieDamageAmount = 15;
-      this.itemDamageAmount = 50;
-      this.gameElements();
-      this.intro = new Intro();
-      this.sound = new SoundManager();
-      this.activeSound();
-      this.initializeGameLogic();
-      this.restartButton.blur();
-      document.querySelector("#startButton").style.display = "block";
+  triggerRestartButton() {
+    this.restartButton.addEventListener("click", () => {
+      this.restart();
+    });
+
+    this.secoundRestartButton.addEventListener("click", () => {
+      this.restart();
     });
   }
 }

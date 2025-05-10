@@ -33,9 +33,25 @@
     <main>
       <h1>Valkyrie</h1>
       <div id="canvasContainer">
+        <div id="left-thumb">
+          <div id="startButton" class="mobile-button">Start</div>
+          <div id="jumpButton" class="mobile-button">⤒</div>
+          <div id="leftButton" class="mobile-button">←</div>
+        </div>
         <canvas id="canvas" width="720" height="480"></canvas>
+        <div class="defeat">
+          <img id="defeatImage" src="./assets/image/end/defeat.png" alt="" />
+        </div>
+        <div class="victory">
+          <img id="victoryImage" src="./assets/image/end/victory.png" alt="" />
+        </div>
+        <div id="right-thumb">
+          <div id="secoundRestartBtn" class="mobile-button">R</div>
+          <div id="throwButton" class="mobile-button">🗲</div>
+          <div id="rightButton" class="mobile-button">→</div>
+        </div>
       </div>
-
+      
       <div class="wrapper-for-btn">
         <button id="muteSound">
           <img id="soundIcon" src="./assets/icons/lautstarke.png" alt="mute-sound" />
@@ -50,20 +66,7 @@
           <p>Turn your device to play</p>
         </div>
       </div>
-      <section id="controls">
-        <div id="mob-btn-container">
-          <div id="left-thumb">
-            <div id="leftButton" class="mobile-button">←</div>
-            <div id="jumpButton" class="mobile-button">⤒</div>
-          </div>
-          <div id="center-btn">
-            <div id="startButton" class="mobile-button">Start</div>
-          </div>
-          <div id="right-thumb">
-            <div id="throwButton" class="mobile-button">🗲</div>
-            <div id="rightButton" class="mobile-button">→</div>
-          </div>
-        </div>
+      
 
         <h2 id="story">
           The wind howled through the crumbling towers of Blackfang Keep, a fortress swallowed by time and darkness. The

@@ -42,17 +42,15 @@ class Intro extends DrawableObject {
    *
    */
   update(ctx, key) {
-    this.draw(ctx); // Draw the intro image.
-    this.drawText(ctx); // Draw the intro text.
+    this.draw(ctx);
+    this.drawText(ctx);
     if (key.enter) {
-      this.introActive = false; // Deactivate the intro screen.
-      key.enter = false; // Reset the Enter key state.
-      document.querySelector("#story").style.display = "none"; // Hide the story section on the page.
-      // Start the walking animations for the enemies and bats.
+      this.introActive = false;
+      key.enter = false;
+      document.querySelector("#story").style.display = "none";
       world.level.enemies.forEach((enemy) => {
         enemy.startWalking();
       });
-
       world.level.bats.forEach((bat) => {
         bat.startmoving();
       });

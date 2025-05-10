@@ -16,6 +16,11 @@ let soundIcon = document.getElementById("soundIcon");
 /** @type {HTMLImageElement} Restart icon element */
 let restartIcon = document.getElementById("restartIcon");
 
+const homeButton = document.querySelector("#backToIntro");
+
+let defeatImage = document.querySelector("#defeatImage");
+let victoryImage = document.querySelector("#victoryImage");
+
 /**
  * Initializes the game environment:
  * - Sets sound icon state
@@ -170,3 +175,14 @@ window.addEventListener("load", checkOrientation);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
+
+function setSizeOfEndScreen() {
+  const width = canvas.offsetWidth + "px";
+  const height = canvas.offsetHeight + "px";
+  defeatImage.style.width = width;
+  defeatImage.style.height = height;
+}
+
+window.addEventListener("load", () => {
+  setSizeOfEndScreen();
+});

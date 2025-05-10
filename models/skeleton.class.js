@@ -76,9 +76,11 @@ class Skeleton extends MovableObject {
    * Moves the skeleton left across the screen at regular intervals.
    */
   animateMoving() {
-    setInterval(() => {
-      this.moveLeft(this.skeletonWalkingImages);
-    }, 60);
+    this.intervals.push(
+      setInterval(() => {
+        this.moveLeft(this.skeletonWalkingImages);
+      }, 60)
+    );
   }
 
   /**
