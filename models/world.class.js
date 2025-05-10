@@ -260,7 +260,7 @@ class World {
 
   /** Main draw loop of the game. */
   draw() {
-    this.clearCanvas();
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     if (this.intro.introActive) {
       this.intro.update(this.ctx, this.key);
       requestAnimationFrame(() => this.draw());
@@ -272,11 +272,6 @@ class World {
     this.ctx.restore();
     this.renderUIAndGameLogic();
     requestAnimationFrame(() => this.draw());
-  }
-
-  /** Clears the canvas. */
-  clearCanvas() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   /** Updates camera position. */
@@ -401,16 +396,12 @@ class World {
     this.initializeGameLogic();
     this.restartButton.blur();
     document.querySelector("#startButton").style.display = "block";
-    this.clearCanvas();
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   /** Restarts the game when the restart button is clicked. */
   triggerRestartButton() {
     this.restartButton.addEventListener("click", () => {
-      this.restart();
-    });
-
-    this.secoundRestartButton.addEventListener("click", () => {
       this.restart();
     });
   }

@@ -71,6 +71,12 @@ canvas {
   border: none;
 }
 
+#left-thumb,
+#center-btn,
+#right-thumb {
+  display: none;
+}
+
 #muteSound,
 #restart {
   border: none;
@@ -85,8 +91,8 @@ canvas {
   cursor: pointer;
 }
 
-#secoundSoundBtn {
-  display: none;
+#startButton {
+  position: fixed;
 }
 
 #rotate {

@@ -118,6 +118,4 @@ class SoundManager {
       }
     });
   }
-
-  // soundIcon = document.getElementById("soundIcon");
 }
