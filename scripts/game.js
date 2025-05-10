@@ -177,6 +177,13 @@ window.addEventListener("resize", checkOrientation);
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
 
+/**
+ * Sets the width and height of the defeat and victory end screen images
+ * to match the current size of the canvas element.
+ *
+ * This ensures that the end screen images are properly scaled
+ * to fit the canvas, maintaining visual consistency.
+ */
 function setSizeOfEndScreen() {
   const width = canvas.offsetWidth + "px";
   const height = canvas.offsetHeight + "px";
