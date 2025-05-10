@@ -203,8 +203,6 @@ button,
   }
 
   .wrapper-for-btn {
-    /* display: none; */
-    /* position: fixed; */
     top: 20px;
   }
 
@@ -243,19 +241,10 @@ button,
 }
 
 @media (max-width: 480px) {
-  /* .mobile-button {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
-  } */
 }
 
 @media only screen and (max-width: 416px) {
   #rotate {
     font-size: 1.8rem;
   }
-
-  /* .mobile-button {
-    width: 45px;
-  } */
 }

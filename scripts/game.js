@@ -181,6 +181,8 @@ function setSizeOfEndScreen() {
   const height = canvas.offsetHeight + "px";
   defeatImage.style.width = width;
   defeatImage.style.height = height;
+  victoryImage.style.width = width;
+  victoryImage.style.height = height;
 }
 
 window.addEventListener("load", () => {
