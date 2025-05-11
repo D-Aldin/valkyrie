@@ -222,20 +222,20 @@ function domManipulations() {
   }
 }
 
-// function domManipulations2() {
-//   quickRestartButton.addEventListener("click", () => {
-//     document.querySelector(".defeat").style.display = "none";
-//     document.querySelector(".victory").style.display = "none";
-//     document.querySelector("#canvas").style.display = "block";
-//     document.querySelector("#story").style.display = "flex";
-//     if (window.innerWidth < 800) {
-//       document.querySelector("#startButton").style.display = "flex";
-//       document.querySelector("#storyMobile").style.display = "flex";
-//     }
-//   });
-// }
+function domManipulationsInMobileView() {
+  quickRestartButton.addEventListener("click", () => {
+    document.querySelector(".defeat").style.display = "none";
+    document.querySelector(".victory").style.display = "none";
+    document.querySelector("#canvas").style.display = "block";
+    document.querySelector("#story").style.display = "flex";
+    if (window.innerWidth < 800) {
+      // document.querySelector("#startButton").style.display = "flex";
+      // document.querySelector("#storyMobile").style.display = "flex";
+    }
+  });
+}
 
 function triggerDomManipulation() {
   restartButton.addEventListener("click", domManipulations);
-  quickRestartButton.addEventListener("click", domManipulations);
+  quickRestartButton.addEventListener("click", domManipulationsInMobileView);
 }
