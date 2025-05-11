@@ -35,12 +35,16 @@ canvas {
 
 #canvasContainer {
   display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
   font-size: 4.5rem;
   margin-block-end: 0.1em;
   color: white;
+  margin-top: 1px;
 }
 
 h2,
@@ -93,13 +97,16 @@ canvas {
 
 #startButton {
   position: fixed;
+  display: none;
+  top: 150px;
+  text-align: center;
 }
 
 #rotate {
   position: fixed;
   top: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: #000;
   color: #fff;
   display: none;
@@ -115,6 +122,13 @@ canvas {
   width: 90px;
   height: 90px;
   margin: 0 20px 0 20px;
+}
+
+.controls-description {
+}
+
+.controls-description h3 {
+  margin: 1px;
 }
 
 footer {
@@ -162,6 +176,18 @@ button,
   height: 480px;
 }
 
+@media only screen and (max-width: 1560px) {
+  #story {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 940px) {
+  #story {
+    font-size: 1rem;
+  }
+}
+
 @media only screen and (max-width: 760px) {
   canvas {
     width: 100%;
@@ -172,21 +198,22 @@ button,
   .mobile-button {
     width: 70px;
     height: 70px;
-    font-size: 1.5em;
+    font-size: 1.2em;
   }
 }
 
 @media only screen and (max-height: 480px) {
   body {
     overflow: hidden;
+    margin: 0px;
   }
 
   canvas {
-    height: 75vh;
+    height: 100vh;
   }
 
   #story {
-    display: none;
+    display: none !important;
   }
 
   h1 {
@@ -210,6 +237,7 @@ button,
 
   .wrapper-for-btn {
     top: 20px;
+    position: absolute;
   }
 
   #restart img,
@@ -236,21 +264,49 @@ button,
   #right-thumb {
     display: flex;
     flex-direction: column;
-    position: relative;
-    top: 20px;
+    position: fixed;
+    top: 90px;
     gap: 20px;
+  }
+
+  #left-thumb {
+    left: 10px !important;
+  }
+
+  #right-thumb {
+    right: 10px !important;
   }
 
   .mobile-button {
     width: 55px;
   }
+
+  #startButton {
+    display: inline;
+  }
+
+  footer {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
+  #left-thumb {
+    left: 10px; /* distance from left edge */
+  }
+
+  /* Right side */
+  #right-thumb {
+    right: 10px; /* distance from right edge */
+  }
 }
 
 @media only screen and (max-width: 416px) {
   #rotate {
     font-size: 1.8rem;
+  }
+
+  #right-thumb {
+    display: none;
   }
 }

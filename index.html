@@ -26,6 +26,7 @@
     <script src="./models/level.class.js" defer></script>
     <script src="./levels/level_1.js" defer></script>
     <script src="./models/sound-object.class.js" defer></script>
+    
     <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.png" />
     <title>Valkyrie</title>
   </head>
@@ -33,21 +34,23 @@
     <main>
       <h1>Valkyrie</h1>
       <div id="canvasContainer">
-        <div id="left-thumb">
-          <div id="jumpButton" class="mobile-button">⤒</div>
-          <div id="leftButton" class="mobile-button">←</div>
+        <div>
+          <div id="left-thumb">
+            <div id="jumpButton" class="mobile-button">⤒</div>
+            <div id="leftButton" class="mobile-button">←</div>
+          </div>
+          <div id="right-thumb">
+              <div id="throwButton" class="mobile-button">🗲</div>
+              <div id="rightButton" class="mobile-button">→</div>
+          </div>
         </div>
+      
         <canvas id="canvas" width="720" height="480"></canvas>
         <div class="defeat">
           <img id="defeatImage" src="./assets/image/end/defeat.png" alt="" />
         </div>
         <div class="victory">
           <img id="victoryImage" src="./assets/image/end/victory.png" alt="" />
-        </div>
-        <div id="right-thumb">
-          
-          <div id="throwButton" class="mobile-button">🗲</div>
-          <div id="rightButton" class="mobile-button">→</div>
         </div>
       </div>
       <div id="startButton" class="mobile-button">Start</div>
@@ -77,12 +80,12 @@
           stone. It breathed in the dark, chains clinking as it rose from its throne of bones. "You should not have
           come, little storm," it growled. Valkyrie tightened her grip. The final battle had begun.
         </h2>
-
-        <h3>
-          Controls: ⚔️ Arrows -- Move ⚔️ Space -- Jump / Attack ⚔️ D -- Throw Items (use it wisely!) ⚔️ Enter -- Begin
-          your quest
-        </h3>
-
+        <div class="controls-description">
+          <h3>
+            Controls: ⚔️ Arrows -- Move ⚔️ Space -- Jump / Attack ⚔️ D -- Throw Items (use it wisely!) ⚔️ Enter -- Begin
+            your quest
+          </h3>
+        </div>
         <div class="line"></div>
         <footer>
           <a href="./terms.html">Terms of Use</a>

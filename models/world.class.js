@@ -8,7 +8,6 @@ class World {
   canvas;
   ctx;
   key;
-  cameraPosition = 0;
   valkyrieDamageAmount = 30;
   itemDamageAmount = 53;
   valkyrieStatusBar = new ValkyrieStatusBar();
@@ -18,7 +17,6 @@ class World {
   intro = new Intro();
   sound = new SoundManager();
   restartButton = document.querySelector("#restart");
-  secoundRestartButton = document.querySelector("#secoundRestartBtn");
   unlock = this.sound.isMuted;
 
   /**
@@ -34,7 +32,7 @@ class World {
     this.draw();
     this.startGameLogic();
     this.activeSound();
-    this.triggerRestartButton();
+    this.restart();
   }
   /** Initializes all recurring game logic functions. */
   startGameLogic() {
@@ -112,6 +110,7 @@ class World {
         this.key.d = false;
       }
     }, 100));
+
   }
 
   /** Checks collision between character and enemies. */
@@ -366,6 +365,7 @@ class World {
 
   /** Initializes the game logic again, typically after restart. */
   initializeGameLogic() {
+    this.setworld();
     this.draw();
     this.checkCollisions();
     this.checkIfDead(this.character, this.character.valkyrieDead);
@@ -373,36 +373,26 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
-    this.setworld();
   }
 
+  /** Restart the game  */
   restart() {
-    this.character.stopIntervals();
-    document.querySelector(".defeat").style.display = "none";
-    document.querySelector(".victory").style.display = "none";
-    document.querySelector("#canvas").style.display = "block";
-    this.intro.introActive = true;
-    document.querySelector("#story").style.display = "flex";
-    this.character = new Valkyrie();
-    this.minotaur = new Minotaur();
-    this.level = createLevel1();
-    this.cameraPosition = 0;
-    this.valkyrieDamageAmount = 15;
-    this.itemDamageAmount = 50;
-    this.gameElements();
-    this.intro = new Intro();
-    this.sound = new SoundManager();
-    this.activeSound();
-    this.initializeGameLogic();
-    this.restartButton.blur();
-    document.querySelector("#startButton").style.display = "block";
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
-  /** Restarts the game when the restart button is clicked. */
-  triggerRestartButton() {
     this.restartButton.addEventListener("click", () => {
-      this.restart();
+      this.character.stopIntervals();
+      this.intro.introActive = true;
+      this.character = new Valkyrie();
+      this.minotaur = new Minotaur();
+      this.level = createLevel1();
+      this.cameraPosition = 0;
+      this.valkyrieDamageAmount = 15;
+      this.itemDamageAmount = 50;
+      this.gameElements();
+      this.intro = new Intro();
+      this.sound = new SoundManager();
+      this.activeSound();
+      this.initializeGameLogic();
+      this.restartButton.blur();
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     });
   }
 }

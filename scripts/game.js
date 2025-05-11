@@ -28,6 +28,7 @@ let victoryImage = document.querySelector("#victoryImage");
  * - Creates the game world
  */
 function init() {
+  domManipulations();
   setIconForSound();
   manageEventListenerForMobileBtn();
   manageEventListenerForSound();
@@ -191,4 +192,23 @@ function setSizeOfEndScreen() {
   defeatImage.style.height = height;
   victoryImage.style.width = width;
   victoryImage.style.height = height;
+}
+
+/**
+ * Attaches a click event listener to the restart button that resets
+ * the visibility of key UI elements such as the defeat screen, victory screen,
+ * canvas, and story section. Also ensures the start button is shown on smaller screens.
+ *
+ * This function is intended to manage UI changes related to restarting the game.
+ */
+function domManipulations() {
+  restartButton.addEventListener("click", () => {
+    document.querySelector(".defeat").style.display = "none";
+    document.querySelector(".victory").style.display = "none";
+    document.querySelector("#canvas").style.display = "block";
+    document.querySelector("#story").style.display = "flex";
+    if (window.innerWidth < 800) {
+      document.querySelector("#startButton").style.display = "flex";
+    }
+  });
 }
