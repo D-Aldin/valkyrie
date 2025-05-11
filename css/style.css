@@ -82,14 +82,16 @@ canvas {
 }
 
 #muteSound,
-#restart {
+#restart,
+#quick-restart {
   border: none;
   background-color: transparent;
   padding: 20px;
 }
 
 #muteSound img,
-#restart img {
+#restart img,
+#quick-restart img {
   width: 30px;
   height: 30px;
   cursor: pointer;

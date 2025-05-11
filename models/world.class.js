@@ -9,7 +9,7 @@ class World {
   ctx;
   key;
   valkyrieDamageAmount = 30;
-  itemDamageAmount = 53;
+  itemDamageAmount = 35;
   valkyrieStatusBar = new ValkyrieStatusBar();
   minotaurStatusBar = new MinotaurStatusBar();
   itemStatusBar = new ItemStatusBar();
@@ -32,7 +32,7 @@ class World {
     this.draw();
     this.startGameLogic();
     this.activeSound();
-    this.restart();
+    this.restarter = new GameRestarter(this);
   }
   /** Initializes all recurring game logic functions. */
   startGameLogic() {
@@ -333,7 +333,7 @@ class World {
   gameOver() {
     if (this.character.live <= 0) {
       this.level.enemies.forEach((enemy) => enemy.stopIntervals?.());
-      this.character.intervals.push(
+      this.character.timeouts.push(
         setTimeout(() => {
           document.querySelector("#canvas").style.display = "none";
           document.querySelector(".defeat").style.display = "flex";
@@ -346,7 +346,7 @@ class World {
   winning() {
     if (this.minotaur.live <= 0) {
       this.level.enemies.forEach((enemy) => enemy.stopIntervals?.());
-      this.character.intervals.push(
+      this.character.timeouts.push(
         setTimeout(() => {
           document.querySelector("#canvas").style.display = "none";
           document.querySelector(".victory").style.display = "flex";
@@ -373,26 +373,7 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
-  }
-
-  /** Restart the game  */
-  restart() {
-    this.restartButton.addEventListener("click", () => {
-      this.character.stopIntervals();
-      this.intro.introActive = true;
-      this.character = new Valkyrie();
-      this.minotaur = new Minotaur();
-      this.level = createLevel1();
-      this.cameraPosition = 0;
-      this.valkyrieDamageAmount = 15;
-      this.itemDamageAmount = 50;
-      this.gameElements();
-      this.intro = new Intro();
-      this.sound = new SoundManager();
-      this.activeSound();
-      this.initializeGameLogic();
-      this.restartButton.blur();
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    });
+    console.log("Enemies:", this.level.enemies);
+    this.level.enemies.forEach((enemy) => console.log(enemy.constructor.name));
   }
 }

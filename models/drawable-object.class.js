@@ -27,6 +27,8 @@ class DrawableObject {
    */
   intervals = [];
 
+  timeouts = [];
+
   /**
    * The height of the object.
    * @type {number}
@@ -103,6 +105,12 @@ class DrawableObject {
   stopIntervals() {
     this.intervals.forEach((interval) => {
       clearInterval(interval);
+    });
+  }
+
+  stopTimeouts() {
+    this.timeouts.forEach((timeout) => {
+      clearTimeout(timeout);
     });
   }
 }
