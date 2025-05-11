@@ -1,0 +1,278 @@
+@media only screen and (max-width: 1560px) {
+  #story {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 940px) {
+  #story {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  canvas {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 580px) {
+  .mobile-button {
+    width: 70px;
+    height: 70px;
+    font-size: 1.2em;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  body {
+    overflow: hidden;
+    margin: 0px;
+  }
+
+  canvas {
+    height: 100vh;
+  }
+
+  #story {
+    display: none !important;
+  }
+
+  #storyMobile {
+    display: flex;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 15px;
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  h3 {
+    display: none;
+  }
+
+  #mob-btn-container {
+    position: fixed;
+    bottom: 90px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    z-index: 1000;
+  }
+
+  .wrapper-for-btn {
+    top: 20px;
+    position: absolute;
+  }
+
+  #restart img,
+  #muteSound img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .line {
+    display: none;
+  }
+
+  footer {
+    display: flex;
+    position: fixed;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    font-size: 0.75rem;
+  }
+
+  #left-thumb,
+  #center-btn,
+  #right-thumb {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 90px;
+    gap: 20px;
+  }
+
+  #left-thumb {
+    left: 10px !important;
+  }
+
+  #right-thumb {
+    right: 10px !important;
+  }
+
+  .mobile-button {
+    width: 55px;
+  }
+
+  #startButton {
+    display: inline;
+  }
+
+  footer {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  #left-thumb {
+    left: 10px;
+  }
+
+  #right-thumb {
+    right: 10px;
+  }
+}
+
+@media only screen and (max-width: 416px) {
+  #rotate {
+    font-size: 1.8rem;
+  }
+
+  /* #right-thumb {
+    display: none;
+  } */
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  #left-thumb,
+  #center-btn,
+  #right-thumb {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 90px;
+    gap: 20px;
+  }
+
+  #left-thumb {
+    left: 10px !important;
+  }
+
+  #right-thumb {
+    right: 10px !important;
+  }
+
+  #startButton {
+    display: inline;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  #left-thumb,
+  #center-btn,
+  #right-thumb {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 90px;
+    gap: 20px;
+  }
+
+  #left-thumb {
+    left: 10px !important;
+  }
+
+  #right-thumb {
+    right: 10px !important;
+  }
+
+  #startButton {
+    display: inline;
+  }
+}
+
+@media only screen and (min-device-width: 1180px) and (max-device-height: 820px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  #story {
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    margin-block-start: 0em;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-height: 768px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  #story {
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    margin-block-start: 0em;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  #muteSound,
+  #restart,
+  #quick-restart {
+    padding: 10px;
+  }
+}
+
+@media only screen and (min-device-width: 912px) and (max-device-height: 1368px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  #left-thumb,
+  #center-btn,
+  #right-thumb {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 90px;
+    gap: 20px;
+  }
+
+  #left-thumb {
+    left: 10px !important;
+  }
+
+  #right-thumb {
+    right: 10px !important;
+  }
+
+  #startButton {
+    display: inline;
+  }
+}
+
+@media only screen and (min-device-width: 1368px) and (max-device-height: 912px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  #left-thumb,
+  #center-btn,
+  #right-thumb {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 90px;
+    gap: 20px;
+  }
+
+  #left-thumb {
+    left: 10px !important;
+  }
+
+  #right-thumb {
+    right: 10px !important;
+  }
+
+  #startButton {
+    display: inline;
+  }
+}
+
+@media only screen and (min-device-width: 820px) and (max-device-height: 1180px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  #rotate {
+    display: inline !important;
+  }
+}

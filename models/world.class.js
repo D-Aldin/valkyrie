@@ -373,7 +373,5 @@ class World {
     this.checkThrowing();
     this.checkEnemyHit();
     this.checkJumpOnEnemy();
-    console.log("Enemies:", this.level.enemies);
-    this.level.enemies.forEach((enemy) => console.log(enemy.constructor.name));
   }
 }

@@ -10,6 +10,8 @@ canvas = document.getElementById("canvas");
 /** @type {HTMLButtonElement} Restart button element */
 const restartButton = document.querySelector("#restart");
 
+const quickRestartButton = document.querySelector("#quick-restart");
+
 /** @type {HTMLImageElement} Sound icon element */
 let soundIcon = document.getElementById("soundIcon");
 
@@ -21,6 +23,9 @@ const homeButton = document.querySelector("#backToIntro");
 let defeatImage = document.querySelector("#defeatImage");
 let victoryImage = document.querySelector("#victoryImage");
 
+const leftThumb = document.querySelector("#left-thumb");
+const rightThumb = document.querySelector("#right-thumb");
+
 /**
  * Initializes the game environment:
  * - Sets sound icon state
@@ -28,7 +33,7 @@ let victoryImage = document.querySelector("#victoryImage");
  * - Creates the game world
  */
 function init() {
-  domManipulations();
+  triggerDomManipulation();
   setIconForSound();
   manageEventListenerForMobileBtn();
   manageEventListenerForSound();
@@ -158,12 +163,17 @@ const keyUpHandler = (event) => {
  * Displays a warning to rotate the device if necessary.
  */
 function checkOrientation() {
-  const userAgent = navigator.userAgent;
-  const isTablet = /iPad|Tablet|PlayBook|Nexus 7|Nexus 10|Kindle/i.test(userAgent);
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  const isIPad = /iPad/.test(userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); // iPad Pro iOS 13+
+
+  const isTablet = /Tablet|PlayBook|Nexus 7|Nexus 10|Kindle/i.test(userAgent) || isIPad;
   const isPhone = /iPhone|Android.*Mobile|Windows Phone|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
   const isMobile = isTablet || isPhone;
+
   const isPortrait = window.innerHeight > window.innerWidth;
   const warning = document.getElementById("rotate");
+
   if (isMobile && isPortrait) {
     warning.style.display = "flex";
   } else {
@@ -202,13 +212,30 @@ function setSizeOfEndScreen() {
  * This function is intended to manage UI changes related to restarting the game.
  */
 function domManipulations() {
-  restartButton.addEventListener("click", () => {
-    document.querySelector(".defeat").style.display = "none";
-    document.querySelector(".victory").style.display = "none";
-    document.querySelector("#canvas").style.display = "block";
-    document.querySelector("#story").style.display = "flex";
-    if (window.innerWidth < 800) {
-      document.querySelector("#startButton").style.display = "flex";
-    }
-  });
+  document.querySelector(".defeat").style.display = "none";
+  document.querySelector(".victory").style.display = "none";
+  document.querySelector("#canvas").style.display = "block";
+  document.querySelector("#story").style.display = "flex";
+  if (window.innerWidth < 800) {
+    document.querySelector("#startButton").style.display = "flex";
+    document.querySelector("#storyMobile").style.display = "flex";
+  }
+}
+
+// function domManipulations2() {
+//   quickRestartButton.addEventListener("click", () => {
+//     document.querySelector(".defeat").style.display = "none";
+//     document.querySelector(".victory").style.display = "none";
+//     document.querySelector("#canvas").style.display = "block";
+//     document.querySelector("#story").style.display = "flex";
+//     if (window.innerWidth < 800) {
+//       document.querySelector("#startButton").style.display = "flex";
+//       document.querySelector("#storyMobile").style.display = "flex";
+//     }
+//   });
+// }
+
+function triggerDomManipulation() {
+  restartButton.addEventListener("click", domManipulations);
+  quickRestartButton.addEventListener("click", domManipulations);
 }

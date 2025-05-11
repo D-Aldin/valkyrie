@@ -126,11 +126,14 @@ canvas {
   margin: 0 20px 0 20px;
 }
 
-.controls-description {
-}
-
 .controls-description h3 {
   margin: 1px;
+}
+
+#storyMobile {
+  display: none;
+  color: white;
+  text-align: center;
 }
 
 footer {
@@ -176,138 +179,4 @@ button,
 .victory img {
   width: 720px;
   height: 480px;
-}
-
-@media only screen and (max-width: 1560px) {
-  #story {
-    font-size: 1.2rem;
-  }
-}
-
-@media only screen and (max-width: 940px) {
-  #story {
-    font-size: 1rem;
-  }
-}
-
-@media only screen and (max-width: 760px) {
-  canvas {
-    width: 100%;
-  }
-}
-
-@media only screen and (min-width: 580px) {
-  .mobile-button {
-    width: 70px;
-    height: 70px;
-    font-size: 1.2em;
-  }
-}
-
-@media only screen and (max-height: 480px) {
-  body {
-    overflow: hidden;
-    margin: 0px;
-  }
-
-  canvas {
-    height: 100vh;
-  }
-
-  #story {
-    display: none !important;
-  }
-
-  h1 {
-    display: none;
-  }
-
-  h3 {
-    display: none;
-  }
-
-  #mob-btn-container {
-    position: fixed;
-    bottom: 90px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-around;
-    padding: 0 10px;
-    z-index: 1000;
-  }
-
-  .wrapper-for-btn {
-    top: 20px;
-    position: absolute;
-  }
-
-  #restart img,
-  #muteSound img {
-    width: 20px;
-    height: 20px;
-  }
-
-  .line {
-    display: none;
-  }
-
-  footer {
-    display: flex;
-    position: fixed;
-    bottom: 5px;
-    left: 0;
-    right: 0;
-    font-size: 0.75rem;
-  }
-
-  #left-thumb,
-  #center-btn,
-  #right-thumb {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 90px;
-    gap: 20px;
-  }
-
-  #left-thumb {
-    left: 10px !important;
-  }
-
-  #right-thumb {
-    right: 10px !important;
-  }
-
-  .mobile-button {
-    width: 55px;
-  }
-
-  #startButton {
-    display: inline;
-  }
-
-  footer {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  #left-thumb {
-    left: 10px;
-  }
-
-  #right-thumb {
-    right: 10px;
-  }
-}
-
-@media only screen and (max-width: 416px) {
-  #rotate {
-    font-size: 1.8rem;
-  }
-
-  #right-thumb {
-    display: none;
-  }
 }

@@ -8,7 +8,10 @@ class GameRestarter {
 
   attachHandlers() {
     this.standardRestartButton.addEventListener("click", () => this.restartGame(true));
-    this.quickRestartButton.addEventListener("click", () => this.restartGame(false));
+    this.quickRestartButton.addEventListener("click", () => {
+      this.restartGame(false);
+      console.log("Hello");
+    });
   }
 
   /**
