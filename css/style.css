@@ -292,12 +292,11 @@ button,
 
 @media (max-width: 480px) {
   #left-thumb {
-    left: 10px; /* distance from left edge */
+    left: 10px;
   }
 
-  /* Right side */
   #right-thumb {
-    right: 10px; /* distance from right edge */
+    right: 10px;
   }
 }
 

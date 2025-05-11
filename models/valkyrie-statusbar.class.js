@@ -36,7 +36,7 @@ class ValkyrieStatusBar extends DrawableObject {
    */
   constructor() {
     super();
-    this.loadImage(this.healthValkyrie);
+    this.loadImage("./assets/image/status/health6.png");
     this.loadImagesInCache(this.healthValkyrie);
     this.setPercentage(this.percentageValkyrie);
     this.x_position = 140;
