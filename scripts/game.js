@@ -214,6 +214,7 @@ function domManipulations() {
   if (window.innerWidth <= 1185) {
     document.querySelector("#startButton").style.display = "flex";
     document.querySelector("#storyMobile").style.display = "flex";
+    document.querySelector("footer").style.display = "flex";
   }
 }
 
@@ -236,14 +237,4 @@ function domManipulationsInMobileView() {
 function triggerDomManipulation() {
   restartButton.addEventListener("click", domManipulations);
   quickRestartButton.addEventListener("click", domManipulationsInMobileView);
-}
-
-/**
- * Checks if the start button is visible.
- * If it is, disables the quick restart button to prevent unwanted interaction.
- */
-function isStartButtonVisible() {
-  if (startButton.style == "flex" || startButton.style == "inline") {
-    quickRestartButton.disabled = true;
-  }
 }

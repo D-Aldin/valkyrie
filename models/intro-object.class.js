@@ -30,6 +30,8 @@ class Intro extends DrawableObject {
     this.loadImage("./assets/image/intro/introImage.png", true); // Load the intro image.
     this.x_position = 0; // Set the x-coordinate to position the image at the left.
     this.y_position = 0; // Set the y-coordinate to position the image at the top.
+    console.log(document.querySelector("#storyMobile"));
+    this.disableRestartButtonIfIntroActiv();
   }
 
   /**
@@ -78,6 +80,19 @@ class Intro extends DrawableObject {
       ctx.fillText("", this.width / 2, this.height - 30);
     } else {
       ctx.fillText("Press Enter to Start", this.width / 2, this.height - 30);
+    }
+  }
+
+  /**
+   * Disables the "quick restart" button if the story intro is currently visible on mobile.
+   *
+   * Checks if the element with the ID `storyMobile` is being displayed as `flex`.
+   * If so, the "quick restart" button (with ID `quick-restart`) will be disabled
+   * to prevent the user from restarting during the intro sequence.
+   */
+  disableRestartButtonIfIntroActiv() {
+    if (document.querySelector("#storyMobile").style.display == "flex") {
+      document.querySelector("#quick-restart").disabled = true;
     }
   }
 }
