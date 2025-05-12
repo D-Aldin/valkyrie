@@ -39,7 +39,6 @@ function init() {
   setIconForSound();
   manageEventListenerForMobileBtn();
   manageEventListenerForSound();
-  isStartButtonVisible();
   world = new World(canvas, key);
 }
 
