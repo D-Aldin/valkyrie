@@ -12,6 +12,8 @@ const restartButton = document.querySelector("#restart");
 
 const quickRestartButton = document.querySelector("#quick-restart");
 
+const startButton = document.querySelector("#startButton");
+
 /** @type {HTMLImageElement} Sound icon element */
 let soundIcon = document.getElementById("soundIcon");
 
@@ -37,6 +39,7 @@ function init() {
   setIconForSound();
   manageEventListenerForMobileBtn();
   manageEventListenerForSound();
+  isStartButtonVisible();
   world = new World(canvas, key);
 }
 
@@ -103,14 +106,6 @@ function manageEventListenerForSound() {
     } else if (soundIcon.src.includes("lautstarke_hover.png")) {
       soundIcon.src = "./assets/icons/lautstarke.png";
     }
-  });
-
-  restartIcon.addEventListener("mouseover", () => {
-    restartIcon.src = "./assets/icons/restart_hover.png";
-  });
-
-  restartIcon.addEventListener("mouseout", () => {
-    restartIcon.src = "./assets/icons/restart.png";
   });
 }
 
@@ -216,26 +211,39 @@ function domManipulations() {
   document.querySelector(".victory").style.display = "none";
   document.querySelector("#canvas").style.display = "block";
   document.querySelector("#story").style.display = "flex";
-  if (window.innerWidth < 800) {
+  if (window.innerWidth <= 1185) {
     document.querySelector("#startButton").style.display = "flex";
     document.querySelector("#storyMobile").style.display = "flex";
   }
 }
 
+/**
+ * Handles DOM changes for mobile view on quick restart.
+ * Hides defeat/victory screens and shows the game canvas again.
+ */
 function domManipulationsInMobileView() {
   quickRestartButton.addEventListener("click", () => {
     document.querySelector(".defeat").style.display = "none";
     document.querySelector(".victory").style.display = "none";
     document.querySelector("#canvas").style.display = "block";
-    document.querySelector("#story").style.display = "flex";
-    if (window.innerWidth < 800) {
-      // document.querySelector("#startButton").style.display = "flex";
-      // document.querySelector("#storyMobile").style.display = "flex";
-    }
   });
 }
 
+/**
+ * Attaches event listeners to restart buttons (desktop and mobile).
+ * Connects restart UI buttons to their respective DOM manipulation functions.
+ */
 function triggerDomManipulation() {
   restartButton.addEventListener("click", domManipulations);
   quickRestartButton.addEventListener("click", domManipulationsInMobileView);
+}
+
+/**
+ * Checks if the start button is visible.
+ * If it is, disables the quick restart button to prevent unwanted interaction.
+ */
+function isStartButtonVisible() {
+  if (startButton.style == "flex" || startButton.style == "inline") {
+    quickRestartButton.disabled = true;
+  }
 }

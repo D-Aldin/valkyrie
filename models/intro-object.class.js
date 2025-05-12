@@ -49,6 +49,8 @@ class Intro extends DrawableObject {
       key.enter = false;
       document.querySelector("#story").style.display = "none";
       document.querySelector("#storyMobile").style.display = "none";
+      document.querySelector("footer").style.display = "none";
+
       world.level.enemies.forEach((enemy) => {
         enemy.startWalking();
       });

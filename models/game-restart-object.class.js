@@ -1,3 +1,6 @@
+/**
+ * Handles restarting the game, either with or without the intro screen.
+ */
 class GameRestarter {
   constructor(world) {
     this.world = world;
@@ -6,17 +9,19 @@ class GameRestarter {
     this.attachHandlers();
   }
 
+  /**
+   * Attaches click event handlers to the restart buttons.
+   */
   attachHandlers() {
     this.standardRestartButton.addEventListener("click", () => this.restartGame(true));
     this.quickRestartButton.addEventListener("click", () => {
       this.restartGame(false);
-      console.log("Hello");
     });
   }
 
   /**
-   * Restarts the game.
-   * @param {boolean} withIntro - Whether to restart with the intro screen.
+   * Fully resets the game state, reinitializing characters, level, sounds, and logic.
+   * @param {boolean} withIntro - If true, restarts with the intro screen; otherwise skips intro.
    */
   restartGame(withIntro = true) {
     this.world.character.stopIntervals();
