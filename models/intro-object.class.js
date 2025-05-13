@@ -30,7 +30,6 @@ class Intro extends DrawableObject {
     this.loadImage("./assets/image/intro/introImage.png", true); // Load the intro image.
     this.x_position = 0; // Set the x-coordinate to position the image at the left.
     this.y_position = 0; // Set the y-coordinate to position the image at the top.
-    console.log(document.querySelector("#storyMobile"));
     this.disableRestartButtonIfIntroActiv();
   }
 

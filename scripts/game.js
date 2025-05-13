@@ -178,6 +178,7 @@ function checkOrientation() {
 // Orientation and keyboard listeners
 window.addEventListener("load", checkOrientation);
 window.addEventListener("load", setSizeOfEndScreen);
+// window.addEventListener("resize", setSizeOfEndScreen);
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("keydown", keydownHandler);
 window.addEventListener("keyup", keyUpHandler);
